@@ -12,8 +12,49 @@ package model;
 public class Pedido {
     private int idPedido;
     private String descricao;
-    private String status;
+    private PedidoState status;
     private Restaurante restaurante;
     private Usuario usuario;
+
+    public int getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(int idPedido) {
+        this.idPedido = idPedido;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public PedidoState getStatus() {
+        return status;
+    }
+
+    public void setStatus(PedidoState status) {
+        this.status = status;
+    }
+
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
     
 }

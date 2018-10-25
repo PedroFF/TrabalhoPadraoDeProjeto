@@ -6,6 +6,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -26,9 +27,11 @@ public class Pedido {
 
     public Double getValorTotal() {
         if(valorTotal==null){
-            valorTotal =0.00;
-            for (ItemPedido itemPedido : itensPedido) {
-                valorTotal+=itemPedido.getValorItem();
+            valorTotal =0.00;            
+            Iterator itemIterator = itensPedido.iterator();
+            
+            while(itemIterator.hasNext()) {
+                valorTotal+=((ItemPedido)itemIterator.next()).getValorItem();
             }
         }
         return valorTotal;

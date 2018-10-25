@@ -1,4 +1,3 @@
-
 package action;
 
 import controller.Action;
@@ -11,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Rian Alves
  */
-public class GravarProdutoAction implements Action  {
+public class StateSaindoEntregaAction implements Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
-        
+       
     }
     
 }

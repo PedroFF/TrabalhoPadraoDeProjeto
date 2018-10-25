@@ -5,6 +5,9 @@
  */
 package model;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 /**
  *
  * @author pedrofreitas
@@ -15,6 +18,61 @@ public class Pedido {
     private PedidoState status;
     private Restaurante restaurante;
     private Usuario usuario;
+    private PedidoMemento memento;
+    private List<ItemPedido> itensPedido;
+    private Double valorTotal;
+    private Double valorDesconto;
+    private Double valorLiquido;
+
+    public Double getValorTotal() {
+        if(valorTotal==null){
+            valorTotal =0.00;
+            for (ItemPedido itemPedido : itensPedido) {
+                valorTotal+=itemPedido.getValorItem();
+            }
+        }
+        return valorTotal;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public Double getValorDesconto() {
+        return valorDesconto;
+    }
+
+    public void setValorDesconto(Double valorDesconto) {
+        this.valorDesconto = valorDesconto;
+    }
+
+    public Double getValorLiquido() {
+        return valorLiquido;
+    }
+
+    public void setValorLiquido(Double valorLiquido) {
+        this.valorLiquido = valorLiquido;
+    }
+    
+     
+
+    public PedidoMemento getMemento() {
+        return memento;
+    }
+
+    public void setMemento(PedidoMemento memento) {
+        this.memento = memento;
+    }
+
+    public List<ItemPedido> getItensPedido() {
+        return itensPedido;
+    }
+
+    public void setItensPedido(List<ItemPedido> itensPedido) {
+        this.itensPedido = itensPedido;
+    }
+    
+    
 
     public int getIdPedido() {
         return idPedido;
@@ -56,5 +114,12 @@ public class Pedido {
         this.usuario = usuario;
     }
     
+    public void saveToMemento(){
+       this.memento = new PedidoMemento(this.status,LocalDateTime.now());
+    }
+    
+    public void restoreFromMemento(){
+        this.status = memento.getState();
+    }
     
 }

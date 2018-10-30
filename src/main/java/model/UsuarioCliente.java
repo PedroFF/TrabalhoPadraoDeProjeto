@@ -5,11 +5,14 @@
  */
 package model;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  *
  * @author pedrofreitas
  */
-public class UsuarioCliente extends Usuario {
+public class UsuarioCliente extends Usuario implements Observer {
     private String cpf;
     private String rua;
     private String bairro;
@@ -19,4 +22,11 @@ public class UsuarioCliente extends Usuario {
     private String complemento;
     private String numero;
     private int idUsuarioCliente;
+    private Observable pedido;  
+
+    @Override
+    public void update(Observable pedidoSubject, Object arg) {
+        Pedido pedido = (Pedido) pedidoSubject;
+        
+    }
 }

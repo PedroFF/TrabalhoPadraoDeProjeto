@@ -8,12 +8,13 @@ package model;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 
 /**
  *
  * @author pedrofreitas
  */
-public class Pedido {
+public class Pedido extends Observable{
     private int idPedido;
     private String descricao;
     private PedidoState status;

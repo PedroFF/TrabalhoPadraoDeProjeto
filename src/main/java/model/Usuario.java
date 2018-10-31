@@ -10,8 +10,8 @@ package model;
  * @author pedrofreitas
  */
 public class Usuario {
-    private int idUsuario;
-    private String email;
-    private String senha; 
-    private String nome;
+    protected int idUsuario;
+    protected String email;
+    protected String senha; 
+    protected String nome;
 }

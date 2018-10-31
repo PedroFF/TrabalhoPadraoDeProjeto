@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
+import Util.MailJava;
+import Util.MailJavaSender;
 import java.util.Observable;
 import java.util.Observer;
 
-/**
- *
- * @author pedrofreitas
- */
 public class UsuarioCliente extends Usuario implements Observer {
     private String cpf;
     private String rua;
@@ -27,6 +20,6 @@ public class UsuarioCliente extends Usuario implements Observer {
     @Override
     public void update(Observable pedidoSubject, Object arg) {
         Pedido pedido = (Pedido) pedidoSubject;
-        
+        new MailJavaSender().sendMail(new MailJava(super.nome,super.email,this.estado));
     }
 }

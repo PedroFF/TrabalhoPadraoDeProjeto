@@ -1,12 +1,9 @@
 package Util;
 
-import Modelos.Colaborador;
-
 public class MailJava {
 
     public String nome;
     public String email;
-    public String login;
     //indica se o formato de texto será texto ou html
     public static final String TYPE_TEXT_PLAIN = "text/plain";
     public static final String TYPE_TEXT_HTML = "text/html";
@@ -20,25 +17,24 @@ public class MailJava {
     //indica ao servidor que ele esta recebendo uma conexao segura
     private String smtpStarttls = "true";
     //nome do remetente do email
-    private String fromNameMail = "Validator Search System";
+    private String fromNameMail = "Uai Fat Delivery";
     //email do remetente
-    private final String userMail = "validatorsearch@gmail.com";
+    private final String userMail = "uaifat.delivery@gmail.com";
     //senha do email do remetente
-    private final String passMail = "cadilac123";
+    private final String passMail = "padrao2018";
     //assunto do email
-    private String subjectMail = "Atualização do estado do pedido UaiFat ";
+    private String subjectMail = "Atualização do estado do Pedido UaiFat - ";
     private String estado;
     //charset, no caso de html e necessario
     private final String charsetMail = "ISO-8859-1";
     //tipo do formato da mensagem, texto ou html
     private final String typeTextMail = MailJava.TYPE_TEXT_HTML;
 
-    public MailJava(String nome, String email, String estado, String login) {
+    public MailJava(String nome, String email, String estado) {
         this.nome = nome;
         this.email = email;
         this.subjectMail = subjectMail + estado.toUpperCase();
         this.estado = estado;
-        this.login = login;
     }
 
     public String getSmtpStarttls() {
@@ -310,7 +306,7 @@ public class MailJava {
                 + "\n"
                 + "\n"
                 + "                                        <div style=\"line-height: 24px\">\n"
-                + "                                           Seu pedido teve seu estado alterado para <span style=\"color: #5caad2;\">"+this.estado+"</span>. Caso deseje ajudar, clique no link abaixo e realize o login com os seguintes dados:\n"
+                + "                                           Seu pedido teve seu estado alterado para <span style=\"color: #5caad2;\">"+this.estado+"</span>. Para verificar o andamento do seu pedido, clique abaixo:\n"
                 + "                                        </div>\n"
                 + "                                    </td>\n"
                 + "                                </tr>\n"
@@ -335,7 +331,7 @@ public class MailJava {
                 + "\n"
                 + "\n"
                 + "                                        <div style=\"line-height: 26px;\">\n"
-                + "                                            <a href=\"http://localhost:8080/GithubMineration/\" style=\"color: #ffffff; text-decoration: none;\">Participar Agora</a>\n"
+                + "                                            <a href=\"http://localhost:8080/TrabalhoPadraoDeProjeto/\" style=\"color: #ffffff; text-decoration: none;\">Acesse Agora</a>\n"
                 + "                                        </div>\n"
                 + "                                    </td>\n"
                 + "                                </tr>\n"
@@ -380,10 +376,6 @@ public class MailJava {
                 + "                            <table border=\"0\" width=\"300\" align=\"left\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\" class=\"container590\">\n"
                 + "\n"
                 + "                                <tr>\n"
-                + "                                    <!-- logo -->\n"
-                + "                                    <td align=\"left\">\n"
-                + "                                        <a href=\"\" style=\"display: block; border-style: none !important; border: 0 !important;\"><img width=\"80\" border=\"0\" style=\"display: block; width: 150px;\" src=\"https://image.ibb.co/kfp0N8/Validar_Thumb.jpg\" alt=\"\" /></a>\n"
-                + "                                    </td>\n"
                 + "                                </tr>\n"
                 + "\n"
                 + "                                <tr>\n"
@@ -394,7 +386,7 @@ public class MailJava {
                 + "                                    <td align=\"left\" style=\"color: #888888; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 23px;\" class=\"text_color\">\n"
                 + "                                        <div style=\"color: #333333; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; font-weight: 600; mso-line-height-rule: exactly; line-height: 23px;\">\n"
                 + "\n"
-                + "                                            Envie email para nós: <br/> <a href=\"mailto:\" style=\"color: #888888; font-size: 14px; font-family: 'Hind Siliguri', Calibri, Sans-serif; font-weight: 400;\">validationsearch@gmail.com</a>\n"
+                + "                                            Envie um email para nós: <br/> <a href=\"mailto:\" style=\"color: #888888; font-size: 14px; font-family: 'Hind Siliguri', Calibri, Sans-serif; font-weight: 400;\">uaifat.delivery@gmail.com</a>\n"
                 + "\n"
                 + "                                        </div>\n"
                 + "                                    </td>\n"
@@ -425,11 +417,11 @@ public class MailJava {
                 + "                                        <table border=\"0\" align=\"right\" cellpadding=\"0\" cellspacing=\"0\">\n"
                 + "                                            <tr>\n"
                 + "                                                <td>\n"
-                + "                                                    <a href=\"https://www.facebook.com/\" style=\"display: block; border-style: none !important; border: 0 !important;\"><img width=\"24\" border=\"0\" style=\"display: block;\" src=\"http://i.imgur.com/Qc3zTxn.png\" alt=\"\"></a>\n"
+                + "                                                    <a href=\"https://twitter.com/\" style=\"display: block; border-style: none !important; border: 0 !important;\"><img width=\"24\" border=\"0\" style=\"display: block;\" src=\"http://i.imgur.com/Qc3zTxn.png\" alt=\"\"></a>\n"
                 + "                                                </td>\n"
                 + "                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>\n"
                 + "                                                <td>\n"
-                + "                                                    <a href=\"https://twitter.com/\" style=\"display: block; border-style: none !important; border: 0 !important;\"><img width=\"24\" border=\"0\" style=\"display: block;\" src=\"http://i.imgur.com/RBRORq1.png\" alt=\"\"></a>\n"
+                + "                                                    <a href=\"https://www.facebook.com/\" style=\"display: block; border-style: none !important; border: 0 !important;\"><img width=\"24\" border=\"0\" style=\"display: block;\" src=\"http://i.imgur.com/RBRORq1.png\" alt=\"\"></a>\n"
                 + "                                                </td>\n"
                 + "                                            </tr>\n"
                 + "                                        </table>\n"

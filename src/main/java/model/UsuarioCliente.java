@@ -20,6 +20,6 @@ public class UsuarioCliente extends Usuario implements Observer {
     @Override
     public void update(Observable pedidoSubject, Object arg) {
         Pedido pedido = (Pedido) pedidoSubject;
-        new MailJavaSender().sendMail(new MailJava(super.nome,super.email,this.estado));
+       // new MailJavaSender().sendMail(new MailJava(super.nome,super.email,this.estado));
     }
 }

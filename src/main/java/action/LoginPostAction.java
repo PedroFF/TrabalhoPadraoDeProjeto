@@ -35,8 +35,6 @@ public class LoginPostAction implements Action {
             }
         } catch (ServletException | IOException ex) {
             Logger.getLogger(LoginPostAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginPostAction.class.getName()).log(Level.SEVERE, null, ex);
         }}
 
 }

@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Endereco;
+import model.EnumTipoUsuario;
 import model.Usuario;
 import model.UsuarioCliente;
 import model.UsuarioRestaurante;
@@ -22,6 +24,9 @@ public class UsuarioDAO {
     private String SQL_GET_USUARIO_RESTAURANTE_BY_LOGIN = "SELECT * FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante WHERE email = ? AND senha = ?";
     private String SQL_GET_USUARIO_RESTAURANTE_BY_ID = "SELECT * FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante WHERE id_usuario = ?";
     private String SQL_GET_ALL_USUARIOS_RESTAURANTES = "SELECT id_usuario FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante ";
+    private String SQL_INSERT_USUARIO = "INSERT INTO usuario(nome,senha,email,tipo)VALUES (?,?,?,?);";
+    private String SQL_INSERT_USUARIO_CLIENTE = "INSERT INTO usuariocliente(  id_usuario_cliente,  cpf) VALUES (?,?);";
+    private String SQL_INSERT_USUARIO_RESTAURANTE = "INSERT INTO usuariorestaurante(id_usuario_restaurante, avaliacao) VALUES (?,?);";
 
     private UsuarioDAO() {
         this.conexao = DatabaseLocator.getInstance().getConnection();
@@ -172,19 +177,55 @@ public class UsuarioDAO {
         return restaurante;
     }
 
-    public List<UsuarioRestaurante> getAllUsuariosRestaurante() {
+    public List<UsuarioRestaurante> getAllUsuariosRestaurante() throws SQLException {
         List<UsuarioRestaurante> restaurantes = new ArrayList<>();
-        try {
-            PreparedStatement consulta = conexao.prepareStatement(SQL_GET_ALL_USUARIOS_RESTAURANTES);
-            ResultSet resultado = consulta.executeQuery();
-            if (resultado.next()) {
-                do {
-                    restaurantes.add(this.getUsuarioRestauranteByID(resultado.getInt("id_usuario")));
-                } while (resultado.next());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        PreparedStatement consulta = conexao.prepareStatement(SQL_GET_ALL_USUARIOS_RESTAURANTES);
+        ResultSet resultado = consulta.executeQuery();
+        if (resultado.next()) {
+            do {
+                restaurantes.add(this.getUsuarioRestauranteByID(resultado.getInt("id_usuario")));
+            } while (resultado.next());
         }
         return restaurantes;
     }
+
+    public void adicionarUsuario(Usuario usuario) throws SQLException {
+        try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_USUARIO, Statement.RETURN_GENERATED_KEYS)) {
+            comando.setString(1, usuario.getNome());
+            comando.setString(2, usuario.getSenha());
+            comando.setString(3, usuario.getEmail());
+            comando.setString(4, usuario.getTipo());
+            comando.execute();
+            ResultSet rs = comando.getGeneratedKeys();
+
+            if (rs.next()) {
+                Integer id = rs.getInt(1);
+                usuario.setIdUsuario(id);
+                if (usuario.getTipo().equals(EnumTipoUsuario.CLIENTE.getDescricao().toUpperCase())) {
+                    adicionarCliente((UsuarioCliente) usuario);
+                }else if(usuario.getTipo().equals(EnumTipoUsuario.RESTAURANTE.getDescricao().toUpperCase())){
+                    adicionarRestaurante((UsuarioRestaurante) usuario);
+                }
+            }
+        }
+    }
+
+    public void adicionarCliente(UsuarioCliente usuario) throws SQLException {
+        try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_USUARIO_CLIENTE)) {
+            comando.setInt(1, usuario.getIdUsuario());
+            comando.setString(2, usuario.getCpf());
+            comando.execute();
+        }
+        
+    }
+
+    ;
+    public void adicionarRestaurante(UsuarioRestaurante usuario) throws SQLException {
+        try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_USUARIO_RESTAURANTE)) {
+            comando.setInt(1, usuario.getIdUsuario());
+            comando.setDouble(2, 0.0);
+            comando.execute();
+        }
+    }
+;
 }

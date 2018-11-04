@@ -25,6 +25,15 @@ public class Produto {
         this.preco = preco;
     }
 
+    public Produto(UsuarioRestaurante Restaurante, List<Ingrediente> Ingredientes, String descricao, double preco) {
+        this.Restaurante = Restaurante;
+        this.Ingredientes = Ingredientes;
+        this.descricao = descricao;
+        this.preco = preco;
+    }
+    
+    
+
   
     public int getId() {
         return id;

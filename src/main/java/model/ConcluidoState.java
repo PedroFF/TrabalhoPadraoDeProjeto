@@ -39,4 +39,9 @@ public class ConcluidoState implements PedidoState {
     public String getDescricao() {
         return this.state.getDescricao();
     }
+    
+    public ConcluidoState setState(StrategyInterface state){
+        this.state = state;
+        return this;
+    }
 }

@@ -38,5 +38,10 @@ public class AguardandoPedidoState implements PedidoState{
         throw new EstadoNaoPermitidoException();
     }
 
+    public AguardandoPedidoState setState(StrategyInterface state) {
+        this.state = state;
+        return this;
+    }
 
+    
 }

@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 /**
  *
  * @author Rian Alves
  */
-public class FormaPagamentoCredito {
+public class FormaPagamentoCredito extends FormaPagamento {
+
+    public FormaPagamentoCredito(int id, String descricao) {
+        super(id, descricao);
+    }
+
+    @Override
+    public String getDescricaoCompleta() {
+        return " da máquina de Cartão. Compras acima de R$ 200,00 poderão ser parceladas";
+    }
     
 }

@@ -9,6 +9,15 @@ package model;
  *
  * @author Rian Alves
  */
-public class FormaPagamentoDebito {
+public class FormaPagamentoDebito extends FormaPagamento {
+
+    public FormaPagamentoDebito(int id, String descricao) {
+        super(id, descricao);
+    }
+
+    @Override
+    public String getDescricaoCompleta() {
+    return " da máquina de Cartão. Pagamento apenas a Vista ";  
+    }
     
 }

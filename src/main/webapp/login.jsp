@@ -32,7 +32,7 @@
                                     <label for="userLogin">E-mail</label>
                                     <input class="form-control ls-login-bg-user input-lg" id="userLogin" type="text" aria-label="Usuário" placeholder="Usuário" name="usuario">
                                 </div>
-
+                               
                                 <div class="form-group ls-login-password">
                                     <label for="userPassword">Senha</label>
                                     <input class="form-control ls-login-bg-password input-lg" id="userPassword" type="password" aria-label="Senha" placeholder="Senha" name="senha">
@@ -43,7 +43,7 @@
                                 <input type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block" name="acessar" >
 
                                 <center>Não possui cadastro? </center>
-                                <center> <a href="registro.html">Cadastre-se agora</a></center>
+                                <center> <a href="UaiFat?action=GravarUsuario">Cadastre-se agora</a></center>
 
                             </fieldset>
                         </form>

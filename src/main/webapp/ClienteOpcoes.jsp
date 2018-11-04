@@ -31,6 +31,7 @@
                         <c:forEach var="produto" items="${produtos}">
                             <tr>
                                 <td><center><a href="${produto.id}" target="_blank">${produto.descricao}</center></td> 
+                                <td><center>${produto.preco}</center></td> 
                                 <td><center><img src="${produto.imagem}" id="imagemborda" alt="imagem " width="42" height="42"></center></td> 
                         </tr>
                     </c:forEach>

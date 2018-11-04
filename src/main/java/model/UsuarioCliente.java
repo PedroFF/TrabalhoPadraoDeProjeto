@@ -37,10 +37,6 @@ public class UsuarioCliente extends Usuario implements Observer {
         return this;
     }
 
-    @Override
-    public String getTipo() {
-        return EnumTipoUsuario.CLIENTE.getDescricao().toUpperCase();
-    }
     
     
     

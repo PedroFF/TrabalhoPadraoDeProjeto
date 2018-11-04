@@ -9,7 +9,7 @@ package model;
  *
  * @author pedrofreitas
  */
-public abstract class Usuario {
+public class Usuario {
     protected int idUsuario;
     protected String email;
     protected String senha; 
@@ -72,8 +72,15 @@ public abstract class Usuario {
         return this;
     }
 
-    public abstract String getTipo();
+    public String getTipo() {
+        return tipo;
+    }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+    
+    
     public Usuario setTipo(String tipo) {
         this.tipo = tipo;
         return this;

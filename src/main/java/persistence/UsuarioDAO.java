@@ -35,7 +35,7 @@ public class UsuarioDAO {
     public static UsuarioDAO getInstance() {
         return usuarioDAO;
     }
-    
+
     public Usuario getUsuario(Usuario usuario) {
         if ("CLIENTE".equals(usuario.getTipo().toUpperCase())) {
             return getUsuarioClienteByEmailSenha(usuario);

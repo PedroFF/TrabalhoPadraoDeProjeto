@@ -36,13 +36,5 @@ public class UsuarioRestaurante extends Usuario {
     public UsuarioRestaurante setAvaliacao(double avaliacao) {
         this.avaliacao = avaliacao;
         return this;
-    }
-
-    @Override
-    public String getTipo() {
-        return EnumTipoUsuario.RESTAURANTE.getDescricao().toUpperCase();
-    }
-    
-    
-    
+    }    
 }

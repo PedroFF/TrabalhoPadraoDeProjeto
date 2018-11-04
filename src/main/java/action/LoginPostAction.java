@@ -20,19 +20,19 @@ public class LoginPostAction implements Action {
        try {
             String user = request.getParameter("usuario");
             String senha = request.getParameter("senha");
-            UsuarioDAO dao = UsuarioDAO.getINSTANCE();//trocar 
-            Usuario usuario = dao.getUsuario(user, senha);//trocar de acordo com o que implementar
-            if (usuario == null) {
+           /* UsuarioDAO dao = UsuarioDAO.getINSTANCE();//trocar 
+            Usuario usuario = dao.getUsuario(user, senha);//trocar de acordo com o que implementar*/
+            //if (usuario == null) {
                 request.setAttribute("erroLogin", true);
                 RequestDispatcher despachante = request.getRequestDispatcher("/login.jsp");
                 despachante.forward(request, response);
 
-            } else {
+           // } else {
                
-                request.getSession().setAttribute("usuario", usuario.getApelido());
-                IndexAction comando = new IndexAction();
-                comando.execute(request, response);
-            }
+                //request.getSession().setAttribute("usuario", usuario.getApelido());
+                //IndexAction comando = new IndexAction();
+                //comando.execute(request, response);
+            //}
         } catch (ServletException | IOException ex) {
             Logger.getLogger(LoginPostAction.class.getName()).log(Level.SEVERE, null, ex);
         }}

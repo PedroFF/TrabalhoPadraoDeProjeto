@@ -1,0 +1,20 @@
+<nav class="navbar navbar-dark" style="background-color:#8b0000 ;">
+    <a class="navbar-brand" href="UaiFat?action=Index">Início</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="UaiFat?action=GravarProduto">Adicionar Produto</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="UaiFat?action=Sobre">Sobre</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="UaiFat?action=Logout">Sair</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>

@@ -53,6 +53,11 @@
                             <center>Erro ao realizar Login! Verifique a senha!</center>
                         </div>
                     </c:if>
+                       <c:if test="${param.sucesso == true}">
+                        <div class="alert alert-success" role="alert">
+                            <center>Cadastro Realizado com sucesso!</center>
+                        </div>
+                    </c:if>
                 </div>
             </div>
             <div class="col"></div>

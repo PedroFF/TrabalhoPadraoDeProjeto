@@ -17,6 +17,17 @@ public class UsuarioRestaurante extends Usuario {
         this.avaliacao = avaliacao;
     }
 
+    public UsuarioRestaurante(double avaliacao, String email, String senha, String nome, String tipo, Endereco endereco) {
+        super(email, senha, nome, tipo, endereco);
+        this.avaliacao = avaliacao;
+    }
+
+    public UsuarioRestaurante(String email, String senha, String nome, String tipo, Endereco endereco) {
+        super(email, senha, nome, tipo, endereco);
+    }
+    
+    
+    
   
     public double getAvaliacao() {
         return avaliacao;

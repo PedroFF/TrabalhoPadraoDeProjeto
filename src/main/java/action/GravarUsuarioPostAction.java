@@ -55,14 +55,14 @@ public class GravarUsuarioPostAction implements Action {
                 }
             } else if (tipo.equals("RESTAURANTE")) {
                 try {
-                    UsuarioRestaurante usuario = new UsuarioRestaurante(0, email, senha, nome, EnumTipoUsuario.RESTAURANTE.getDescricao().toUpperCase(), endereco, 5.0);
+                    UsuarioRestaurante usuario = new UsuarioRestaurante(email, senha, nome, tipo, endereco);
                     UsuarioDAO.getInstance().adicionarUsuario(usuario);
                 } catch (SQLException ex) {
                     Logger.getLogger(GravarUsuarioPostAction.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
-            response.sendRedirect("contatoSucesso.jsp");
+            response.sendRedirect("UaiFat?action=Login&sucesso=true");
         }
     }
 

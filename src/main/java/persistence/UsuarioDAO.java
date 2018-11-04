@@ -26,7 +26,7 @@ public class UsuarioDAO {
     private String SQL_GET_ALL_USUARIOS_RESTAURANTES = "SELECT id_usuario FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante ";
     private String SQL_INSERT_USUARIO = "INSERT INTO usuario(nome,senha,email,tipo)VALUES (?,?,?,?);";
     private String SQL_INSERT_USUARIO_CLIENTE = "INSERT INTO usuariocliente(  id_usuario_cliente,  cpf) VALUES (?,?);";
-    private String SQL_INSERT_USUARIO_RESTAURANTE = "INSERT INTO usuariorestaurante(id_usuario_restaurante, avaliacao) VALUES (?,?);";
+    private String SQL_INSERT_USUARIO_RESTAURANTE = "INSERT INTO usuariorestaurante(id_usuario_restaurante, avaliacao) VALUES (?,null);";
 
     private UsuarioDAO() {
         this.conexao = DatabaseLocator.getInstance().getConnection();
@@ -35,7 +35,7 @@ public class UsuarioDAO {
     public static UsuarioDAO getInstance() {
         return usuarioDAO;
     }
-
+    
     public Usuario getUsuario(Usuario usuario) {
         if ("CLIENTE".equals(usuario.getTipo().toUpperCase())) {
             return getUsuarioClienteByEmailSenha(usuario);
@@ -223,7 +223,6 @@ public class UsuarioDAO {
     public void adicionarRestaurante(UsuarioRestaurante usuario) throws SQLException {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_USUARIO_RESTAURANTE)) {
             comando.setInt(1, usuario.getIdUsuario());
-            comando.setDouble(2, 0.0);
             comando.execute();
         }
     }

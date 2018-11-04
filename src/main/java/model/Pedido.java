@@ -18,7 +18,7 @@ public class Pedido extends Observable{
     private int idPedido;
     private String descricao;
     private PedidoState status;
-    private Restaurante restaurante;
+    private UsuarioRestaurante restaurante;
     private Usuario usuario;
     private PedidoMemento memento;
     private List<ItemPedido> itensPedido;
@@ -102,11 +102,11 @@ public class Pedido extends Observable{
         this.status = status;
     }
 
-    public Restaurante getRestaurante() {
+    public UsuarioRestaurante getRestaurante() {
         return restaurante;
     }
 
-    public void setRestaurante(Restaurante restaurante) {
+    public void setRestaurante(UsuarioRestaurante restaurante) {
         this.restaurante = restaurante;
     }
 

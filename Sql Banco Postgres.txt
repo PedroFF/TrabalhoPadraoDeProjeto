@@ -1,0 +1,228 @@
+
+-- -----------------------------------------------------
+-- Table usuario
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS usuario (
+  id_usuario SERIAL,
+  nome VARCHAR(100) NOT NULL,
+  senha VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  tipo VARCHAR(50) NULL,
+  PRIMARY KEY (id_usuario));
+
+
+-- -----------------------------------------------------
+-- Table forma_pagamento
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS forma_pagamento (
+  id_forma_pagamento SERIAL,
+  descricao VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id_forma_pagamento))
+;
+
+
+-- -----------------------------------------------------
+-- Table usuarioCliente
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS usuarioCliente (
+  id_usuario_cliente INT NOT NULL,
+  cpf VARCHAR(11) NOT NULL,
+  PRIMARY KEY (id_usuario_cliente),
+  CONSTRAINT fk_usuarioCliente_usuario1
+    FOREIGN KEY (id_usuario_cliente)
+    REFERENCES usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
+
+CREATE INDEX fk_usuarioCliente_usuario1_idx ON usuarioCliente (id_usuario_cliente ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table usuarioRestaurante
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS usuarioRestaurante (
+  id_usuario_restaurante INT NOT NULL,
+  avaliacao DECIMAL(5,2) NULL,
+  PRIMARY KEY (id_usuario_restaurante),
+  CONSTRAINT fk_usuarioFuncionario_usuario1
+    FOREIGN KEY (id_usuario_restaurante)
+    REFERENCES usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
+
+CREATE INDEX fk_usuarioFuncionario_usuario1_idx ON usuarioRestaurante (id_usuario_restaurante ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table pedido
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS pedido (
+  id_pedido SERIAL,
+  descricao VARCHAR(255) NOT NULL,
+  status VARCHAR(100) NOT NULL DEFAULT 'Esperando Confirmação',
+  valorPedido DECIMAL NOT NULL,
+  valorDesconto DECIMAL NOT NULL,
+  valorLiquido DECIMAL NOT NULL,
+  fk_forma_pagamento INT NOT NULL,
+  fk_usuario_cliente INT NOT NULL,
+  fk_usuario_restaurante INT NOT NULL,
+  PRIMARY KEY (id_pedido),
+  CONSTRAINT fk_pedido_forma_pagamento1
+    FOREIGN KEY (fk_forma_pagamento)
+    REFERENCES forma_pagamento (id_forma_pagamento)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_pedido_usuarioCliente1
+    FOREIGN KEY (fk_usuario_cliente)
+    REFERENCES usuarioCliente (id_usuario_cliente)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_pedido_usuarioRestaurante1
+    FOREIGN KEY (fk_usuario_restaurante)
+    REFERENCES usuarioRestaurante (id_usuario_restaurante)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
+
+CREATE INDEX fk_pedido_forma_pagamento1_idx ON pedido (fk_forma_pagamento ASC) ;
+
+CREATE INDEX fk_pedido_usuarioCliente1_idx ON pedido (fk_usuario_cliente ASC) ;
+
+CREATE INDEX fk_pedido_usuarioRestaurante1_idx ON pedido (fk_usuario_restaurante ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table item
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS item (
+  id_item SERIAL,
+  nome VARCHAR(100) NOT NULL,
+  preco FLOAT NULL,
+  fk_restaurante INT NOT NULL,
+  ingrediente BOOLEAN NOT NULL,
+  PRIMARY KEY (id_item),
+  CONSTRAINT fk_item_restaurante1
+  FOREIGN KEY (fk_restaurante)
+  REFERENCES usuarioRestaurante (id_usuario_restaurante)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION)
+;
+
+
+-- -----------------------------------------------------
+-- Table item_pedido
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS item_pedido (
+  id_item_pedido SERIAL,
+  fk_pedido INT NOT NULL,
+  fk_item INT NOT NULL,
+  quantidade INT NOT NULL,
+  valorTotal NUMERIC(7,2) NOT NULL,
+  PRIMARY KEY (id_item_pedido),
+  CONSTRAINT fk_pedido
+    FOREIGN KEY (fk_pedido)
+    REFERENCES pedido (id_pedido)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_item
+    FOREIGN KEY (fk_item)
+    REFERENCES item (id_item)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
+
+CREATE INDEX fk_pedido_idx ON item_pedido (fk_pedido ASC) ;
+
+CREATE INDEX fk_item_idx ON item_pedido (fk_item ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table ingrediente
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS ingrediente (
+  id_ingrediente SERIAL,
+  id_item_composto INT NOT NULL,
+  id_item_componente INT NOT NULL,
+  PRIMARY KEY (id_ingrediente),
+  CONSTRAINT fk_ingrediente_item1
+    FOREIGN KEY (id_item_composto)
+    REFERENCES item (id_item)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_ingrediente_item2
+    FOREIGN KEY (id_item_componente)
+    REFERENCES item (id_item)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
+
+CREATE INDEX fk_ingrediente_item1_idx ON ingrediente (id_item_composto ASC) ;
+
+CREATE INDEX fk_ingrediente_item2_idx ON ingrediente (id_item_componente ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table historico_pedido
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS historico_pedido (
+  id_historico_pedido SERIAL,
+  fk_pedido INT NOT NULL,
+  estado VARCHAR(45) NOT NULL,
+  data_alteracao TIMESTAMP NOT NULL,
+  atual BOOLEAN NOT NULL,
+  PRIMARY KEY (id_historico_pedido, fk_pedido),
+  CONSTRAINT fk_historico_pedido_pedido1
+    FOREIGN KEY (fk_pedido)
+    REFERENCES pedido (id_pedido)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
+
+CREATE INDEX fk_historico_pedido_pedido1_idx ON historico_pedido (fk_pedido ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table restaurante_desconto
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS restaurante_desconto (
+  id_usuario_restaurante INT NOT NULL,
+  desconto_nivel_um NUMERIC(7,2) NULL,
+  quantidade_nivel_um INT NULL,
+  desconto_nivel_dois NUMERIC(7,2) NULL,
+  quantidade_nivel_dois INT NULL,
+  desconto_nivel_tres NUMERIC(7,2) NULL,
+  quantidade_nivel_tres INT NULL,
+  CONSTRAINT fk_restaurante_desconto_usuarioRestaurante1
+    FOREIGN KEY (id_usuario_restaurante)
+    REFERENCES usuarioRestaurante (id_usuario_restaurante)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
+
+CREATE INDEX fk_restaurante_desconto_usuarioRestaurante1_idx ON restaurante_desconto (id_usuario_restaurante ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table endereco
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS endereco (
+  id_endereco SERIAL,
+  id_usuario INT NOT NULL,
+  rua VARCHAR(150) NOT NULL,
+  bairro VARCHAR(150) NULL,
+  cep VARCHAR(8) NULL,
+  cidade VARCHAR(150) NOT NULL,
+  estado VARCHAR(2) NOT NULL,
+  complemento VARCHAR(150) NULL,
+  numero VARCHAR(15) NOT NULL,
+  PRIMARY KEY (id_endereco),
+  CONSTRAINT fk_endereco_usuario1
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
+
+CREATE INDEX fk_endereco_usuario1_idx ON endereco (id_usuario ASC) ;

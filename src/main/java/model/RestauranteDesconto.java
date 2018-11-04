@@ -12,5 +12,5 @@ public class RestauranteDesconto {
     private double descontoNivelUm;
     private double descontoNivelDois;
     private double descontoNivelTres;
-    private Restaurante restaurante;
+    private UsuarioRestaurante restaurante;
 }

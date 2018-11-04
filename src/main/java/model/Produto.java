@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Produto {
     private int id;
-    private Restaurante Restaurante;
+    private UsuarioRestaurante Restaurante;
     private List<Ingrediente> Ingredientes;
     private String descricao;
     private double preco;
@@ -17,7 +17,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(int id, Restaurante Restaurante, List<Ingrediente> Ingredientes, String descricao, double preco) {
+    public Produto(int id, UsuarioRestaurante Restaurante, List<Ingrediente> Ingredientes, String descricao, double preco) {
         this.id = id;
         this.Restaurante = Restaurante;
         this.Ingredientes = Ingredientes;
@@ -34,12 +34,12 @@ public class Produto {
         this.id = id;
     }
 
-    public Restaurante getRestaurante() {
+    public UsuarioRestaurante getRestaurante() {
         return Restaurante;
     }
 
     
-    public void setRestaurante(Restaurante Restaurante) {
+    public void setRestaurante(UsuarioRestaurante Restaurante) {
         this.Restaurante = Restaurante;
     }
 

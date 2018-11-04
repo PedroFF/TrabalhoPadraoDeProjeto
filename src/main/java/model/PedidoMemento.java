@@ -25,24 +25,27 @@ public class PedidoMemento {
         return state;
     }
 
-    public void setState(PedidoState state) {
+    public PedidoMemento setState(PedidoState state) {
         this.state = state;
+        return this;
     }
 
     public LocalDateTime getData_alteracao() {
         return data_alteracao;
     }
 
-    public void setData_alteracao(LocalDateTime data_alteracao) {
+    public PedidoMemento setData_alteracao(LocalDateTime data_alteracao) {
         this.data_alteracao = data_alteracao;
+        return this;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public PedidoMemento setId(Integer id) {
         this.id = id;
+        return this;
     }
     
     

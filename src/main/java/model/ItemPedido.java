@@ -16,8 +16,9 @@ public class ItemPedido {
         return valorItem;
     }
 
-    public void setValorItem(Double valorItem) {
+    public ItemPedido setValorItem(Double valorItem) {
         this.valorItem = valorItem;
+        return this;
     }
     
 }

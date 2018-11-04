@@ -38,4 +38,10 @@ public class SaindoEntregaState implements PedidoState{
     public String getDescricao() {
         return this.state.getDescricao();
     }
+
+    public SaindoEntregaState setState(StrategyInterface state) {
+        this.state = state;
+        return this;
+    }
+    
 }

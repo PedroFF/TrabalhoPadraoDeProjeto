@@ -35,4 +35,11 @@ public class PreparandoState implements PedidoState {
     public String getDescricao() {
         return this.state.getDescricao();
     }
+
+    public PreparandoState setState(StrategyInterface state) {
+        this.state = state;
+        return this;
+    }
+    
+    
 }

@@ -38,24 +38,27 @@ public class Pedido extends Observable{
         return valorTotal;
     }
 
-    public void setValorTotal(Double valorTotal) {
+    public Pedido setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
+        return this;
     }
 
     public Double getValorDesconto() {
         return valorDesconto;
     }
 
-    public void setValorDesconto(Double valorDesconto) {
+    public Pedido setValorDesconto(Double valorDesconto) {
         this.valorDesconto = valorDesconto;
+        return this;
     }
 
     public Double getValorLiquido() {
         return valorLiquido;
     }
 
-    public void setValorLiquido(Double valorLiquido) {
+    public Pedido setValorLiquido(Double valorLiquido) {
         this.valorLiquido = valorLiquido;
+        return this;
     }
     
      
@@ -64,16 +67,18 @@ public class Pedido extends Observable{
         return memento;
     }
 
-    public void setMemento(PedidoMemento memento) {
+    public Pedido setMemento(PedidoMemento memento) {
         this.memento = memento;
+        return this;
     }
 
     public List<ItemPedido> getItensPedido() {
         return itensPedido;
     }
 
-    public void setItensPedido(List<ItemPedido> itensPedido) {
+    public Pedido setItensPedido(List<ItemPedido> itensPedido) {
         this.itensPedido = itensPedido;
+        return this;
     }
     
     
@@ -82,40 +87,45 @@ public class Pedido extends Observable{
         return idPedido;
     }
 
-    public void setIdPedido(int idPedido) {
+    public Pedido setIdPedido(int idPedido) {
         this.idPedido = idPedido;
+        return this;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public Pedido setDescricao(String descricao) {
         this.descricao = descricao;
+        return this;
     }
 
     public PedidoState getStatus() {
         return status;
     }
 
-    public void setStatus(PedidoState status) {
+    public Pedido setStatus(PedidoState status) {
         this.status = status;
+        return this;
     }
 
     public UsuarioRestaurante getRestaurante() {
         return restaurante;
     }
 
-    public void setRestaurante(UsuarioRestaurante restaurante) {
+    public Pedido setRestaurante(UsuarioRestaurante restaurante) {
         this.restaurante = restaurante;
+        return this;
     }
 
     public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public Pedido setUsuario(Usuario usuario) {
         this.usuario = usuario;
+        return this;
     }
     
     public void saveToMemento(){

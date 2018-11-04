@@ -32,8 +32,9 @@ public class UsuarioCliente extends Usuario implements Observer {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public UsuarioCliente setCpf(String cpf) {
         this.cpf = cpf;
+        return this;
     }
 
     @Override

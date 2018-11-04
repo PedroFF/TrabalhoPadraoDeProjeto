@@ -40,38 +40,43 @@ public abstract class Usuario {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public Usuario setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public Usuario setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) {
+    public Usuario setSenha(String senha) {
         this.senha = senha;
+        return this;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public Usuario setNome(String nome) {
         this.nome = nome;
+        return this;
     }
 
     public abstract String getTipo();
 
-    public void setTipo(String tipo) {
+    public Usuario setTipo(String tipo) {
         this.tipo = tipo;
+        return this;
     }
     
     

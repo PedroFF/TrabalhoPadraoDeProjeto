@@ -33,8 +33,9 @@ public class UsuarioRestaurante extends Usuario {
         return avaliacao;
     }
 
-    public void setAvaliacao(double avaliacao) {
+    public UsuarioRestaurante setAvaliacao(double avaliacao) {
         this.avaliacao = avaliacao;
+        return this;
     }
 
     @Override

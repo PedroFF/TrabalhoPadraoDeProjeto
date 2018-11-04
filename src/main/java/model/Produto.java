@@ -30,8 +30,9 @@ public class Produto {
         return id;
     }
 
-    public void setId(int id) {
+    public Produto setId(int id) {
         this.id = id;
+        return this;
     }
 
     public UsuarioRestaurante getRestaurante() {
@@ -39,32 +40,36 @@ public class Produto {
     }
 
     
-    public void setRestaurante(UsuarioRestaurante Restaurante) {
+    public Produto setRestaurante(UsuarioRestaurante Restaurante) {
         this.Restaurante = Restaurante;
+        return this;
     }
 
     public List<Ingrediente> getIngredientes() {
         return Ingredientes;
     }
 
-    public void setIngredientes(List<Ingrediente> Ingredientes) {
+    public Produto setIngredientes(List<Ingrediente> Ingredientes) {
         this.Ingredientes = Ingredientes;
+        return this;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public Produto setDescricao(String descricao) {
         this.descricao = descricao;
+        return this;
     }
 
     public double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public Produto setPreco(double preco) {
         this.preco = preco;
+        return this;
     }
     
 }

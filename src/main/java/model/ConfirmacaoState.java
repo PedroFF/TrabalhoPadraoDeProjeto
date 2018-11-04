@@ -39,4 +39,9 @@ public class ConfirmacaoState implements PedidoState{
     public String getDescricao() {
         return this.state.getDescricao();
     }
+    
+    public ConfirmacaoState setState(StrategyInterface state){
+        this.state = state;
+        return this;
+    }
 }

@@ -26,6 +26,16 @@ public abstract class Usuario {
         this.endereco = endereco;
     }
 
+    public Usuario(String email, String senha, String nome, String tipo, Endereco endereco) {
+        this.email = email;
+        this.senha = senha;
+        this.nome = nome;
+        this.tipo = tipo;
+        this.endereco = endereco;
+    }
+    
+    
+
     public int getIdUsuario() {
         return idUsuario;
     }

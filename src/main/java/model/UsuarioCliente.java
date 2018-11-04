@@ -14,6 +14,13 @@ public class UsuarioCliente extends Usuario implements Observer {
         this.cpf = cpf;
     }
 
+    public UsuarioCliente(String cpf, String email, String senha, String nome, String tipo, Endereco endereco) {
+        super(email, senha, nome, tipo, endereco);
+        this.cpf = cpf;
+    }
+    
+    
+
     
     @Override
     public void update(Observable pedidoSubject, Object arg) {

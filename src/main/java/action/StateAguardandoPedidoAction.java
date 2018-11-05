@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.EstadoNaoPermitidoException;
 import model.Pedido;
+import model.UsuarioRestaurante;
 import persistence.PedidoDAO;
+import persistence.RestauranteDAO;
+import persistence.UsuarioDAO;
 
 /**
  *
@@ -27,7 +30,9 @@ public class StateAguardandoPedidoAction implements Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            Pedido pedido = (Pedido) PedidoDAO.getInstance().getPedidoByIdByRestaurante(id);//Confirmar
+            Integer idRestaurante = Integer.parseInt((String)request.getSession().getAttribute("usuarioID"));
+            UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
+            Pedido pedido = PedidoDAO.getInstance().getPedidoByIdByRestaurante(id,restaurante.getIdUsuario());//Confirmar
             pedido.saveToMemento();
             PedidoDAO.getInstance().adicionarHistorico(pedido, pedido.getStatus().getDescricao(), false); //Confirmar
             PedidoDAO.getInstance().updateEstado(pedido);

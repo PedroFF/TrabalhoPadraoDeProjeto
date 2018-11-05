@@ -150,7 +150,31 @@ public class UsuarioDAO {
         }
         return cliente;
     }
+    public UsuarioCliente getUsuarioClienteByID(Integer id) {
+        UsuarioCliente cliente = null;
+        try {
+            try (PreparedStatement consulta = conexao.prepareStatement(SQL_GET_USUARIO_CLIENTE_BY_ID)) {
+                consulta.setInt(1, id);
+                consulta.setMaxRows(1);
+                consulta.execute();
+                ResultSet resultado = consulta.executeQuery();
+                while (resultado.next()) {
+                    Endereco endereco = EnderecoDAO.getInstance().getEnderecoByUsuario(resultado.getInt("id_usuario"));
+                    cliente = new UsuarioCliente(resultado.getInt("id_usuario"),
+                            resultado.getString("email"),
+                            resultado.getString("senha"),
+                            resultado.getString("nome"),
+                            resultado.getString("tipo"),
+                            endereco,
+                            resultado.getString("cpf"));
+                }
+            }
 
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cliente;
+    }
     public UsuarioRestaurante getUsuarioRestauranteByID(Integer id) {
         UsuarioRestaurante restaurante = null;
         try {

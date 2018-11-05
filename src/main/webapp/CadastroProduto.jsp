@@ -44,17 +44,14 @@
 
                     </div>
                 </div>
-                <br/>
-                <br/>
-                <br/>
-                <div class="row">
+                <br/><br/><br/>
+                <div class="row" id="combo">
 
                     <div class="col">  
                         <label for="origem" class="text-center font-weight-bold">Selecione um Ingrediente para composição do Produto</label>
                         <select class="custom-select" size="15" id="origem">
-                            <c:forEach var="ingrediente" items="${produtos}">
+                            <c:forEach var="ingrediente" items="${ingredientes}">
                                 <option value="${ingrediente.id}">${ingrediente.nome}</option>
-
                             </c:forEach>
                         </select>
 
@@ -67,21 +64,17 @@
                         <button type="button" id="removeAll" class="btn btn-danger" onclick="MoveListBoxItem('destino', 'origem', true)">Remover Todos</button>
                     </div>
                     <div class="col">  
-                        <form method="post">
-                            <label for="origem" class="text-center font-weight-bold">Ingredientes Selecionados: </label>
-                            <select multiple="multiple" class="custom-select" name="selecionados" size="15" id="destino">
-                            </select> 
-                            <input type="hidden" value="${idProduto}" name="produto">
-                            <input type="hidden" value="${ingrediente}" name="ingrediente">
-                            <br/>
-                            <br/>
-                            <br/>
-                            <div class="">
-                                <button type="submit" id="btnsalvar" name="btnsalvar" class="btn btn-success for" onclick="selectAll('destino')">Salvar</button>              
-                                <a href="UaiFat?action=Login" name="btncancelar" class="btn btn-danger">Cancelar</a>
-                            </div>
-                        </form>
+                        <label for="origem" class="text-center font-weight-bold">Ingredientes Selecionados: </label>
+                        <select multiple="multiple" class="custom-select" name="selecionados" size="15" id="destino">
+                        </select> 
+                        <br/>
+                        <br/>
+                        <br/>
                     </div>
+                </div>
+                <div class="">
+                    <button type="submit" id="btnsalvar" name="btnsalvar" class="btn btn-success for" onclick="selectAll('destino')">Salvar</button>              
+                    <a href="UaiFat?action=Login" name="btncancelar" class="btn btn-danger">Cancelar</a>
                 </div>
                 <br/>
             </fieldset>

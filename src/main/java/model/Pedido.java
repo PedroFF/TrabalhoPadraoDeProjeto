@@ -150,8 +150,9 @@ public class Pedido extends Observable {
         return formapgto;
     }
 
-    public void setFormapgto(FormaPagamento formapgto) {
+    public Pedido setFormapgto(FormaPagamento formapgto) {
         this.formapgto = formapgto;
+        return this;
     }
 
 

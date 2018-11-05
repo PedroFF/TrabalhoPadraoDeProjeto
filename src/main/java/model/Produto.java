@@ -13,7 +13,7 @@ public class Produto {
     private List<Ingrediente> Ingredientes;
     private String descricao;
     private double preco;
-
+    private boolean ingrediente;
     public Produto() {
     }
 
@@ -78,6 +78,15 @@ public class Produto {
 
     public Produto setPreco(double preco) {
         this.preco = preco;
+        return this;
+    }
+
+    public boolean isIngrediente() {
+        return ingrediente;
+    }
+
+    public Produto setIngrediente(boolean ingrediente) {
+        this.ingrediente = ingrediente;
         return this;
     }
     

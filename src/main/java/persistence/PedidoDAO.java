@@ -23,6 +23,7 @@ public class PedidoDAO {
     private String SQL_UPDATE_STATE_PEDIDO = "UPDATE PEDIDO SET STATUS = ? WHERE ID_PEDIDO = ? ";
     private String SQL_SELECT_ALL_PEDIDOS_POR_RESTAURANTE = "SELECT id_pedido FROM PEDIDO WHERE FK_RESTAURANTE = ?";
     private String SQL_SELECT_PEDIDO_POR_ID = "SELECT * FROM PEDIDO WHERE id_pedido = ? and fk_restaurante = ?";
+	private String SQL_SELECT_ITEMPEDIDO = "SELECT * FROM ITEM_PEDIDO WHERE FK_PEDIDO = ?";
     private String SQL_SELECT_ESTADO_POSTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_ALUNO = ? AND ID < (SELECT ID FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO= ?) ORDER BY ID DESC";
     private String SQL_SELECT_ESTADO_ANTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_ALUNO = ? AND ID > (SELECT ID FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?) ORDER BY ID ASC";
     private String SQL_UPDATE_ATUAL = "UPDATE HISTORICO_PEDIDO SET ATUAL = ? WHERE ID = ? AND FK_PEDIDO = ?";
@@ -105,13 +106,55 @@ public class PedidoDAO {
     }
 
     public List<Pedido> getAllPedidosByRestaurante(int idRestaurante) {
-        return null;
+	
     }
 
-    public Pedido getPedidoByIdByRestaurante(int idPedido) {
-        return null;
+    public Pedido getPedidoByIdByRestaurante(int idPedido, int idRestaurante) {
+			Pedido pedido = null;
+			try (PreparedStatement comando = conexao.prepareStatement(SQL_SELECT_PEDIDO_POR_ID)) {
+            comando.setInt(1, idPedido);
+            comando.setInt(2, idRestaurante);
+			comando.setMaxRows(1);
+			ResultSet rs = comando.executeQuery();
+			if (rs.next()) {
+				do{
+					List<ItemPedido> itens = this.getItensPedido(idPedido, idRestaurante);
+					PedidoState state = StateFactory.create(rs.getString("estado");
+					UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
+					UsuarioCliente cliente = UsuarioDAO.getInstance().getUsuarioRestauranteByID(rs.getInt("fk_usuario_cliente ");
+					FormaPagamento formapgto = FormaFactory.create(rs.getString(descricao));
+					pedido = new Pedido().setValorTotal(rs.getDouble("valorPedido"))
+					.setValorDesconto(rs.getDouble("valorDesconto"))
+					.setValorLiquido(rs.getDouble("valorLiquido"))
+					.setItensPedido(itens)
+					.setIdPedido(rs.getInt("id_pedido"))
+					.setDescricao(rs.getString("descricao"))
+					.setStatus(state)
+					.setRestaurante(restaurante)
+					.setUsuario(cliente)
+					.setFormapgto(formapgto)
+				}while(rs.next);
+				
+			}
+			}
     }
-
+	
+	public List<ItemPedido> getItensPedido(int idPedido, int idRestaurante){
+		try (PreparedStatement comando = conexao.prepareStatement(SQL_SELECT_ITEMPEDIDO)) {
+			List<ItemPedido> itensPedidos = new ArrayList<>();
+			comando.setInt(1,idPedido);
+			ResultSet rs = comando.executeQuery();
+			if(rs.next()){
+				do{
+					Produto produto = ProdutoDAO.getProdutoByID(rs.getInt(fk_pedido),idRestaurante);
+					ItemPedido itempedido = new ItemPedido().setProduto(produto).setQuantidade(rs.getInt("quantidade ")).setValorTotal(rs.getInt("valorTotal"));
+					itensPedidos.add(itempedido);
+				}while(rs.next);
+			}
+			return itensPedidos;
+		}
+		
+	}
     public void restaurarEstadoPedido(Pedido pedido) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

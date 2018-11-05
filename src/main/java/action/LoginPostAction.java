@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import model.Usuario;
 import persistence.UsuarioDAO;
 
-
 public class LoginPostAction implements Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
-       try {
+        try {
             String user = request.getParameter("usuario");
             String senha = request.getParameter("senha");
             String tipo = request.getParameter("tipo");
@@ -33,14 +32,20 @@ public class LoginPostAction implements Action {
                 despachante.forward(request, response);
 
             } else {
-               
-                request.getSession().setAttribute("usuario", usuarioTeste.getTipo());
+
+                request.getSession().setAttribute("usuarioTipo", usuarioTeste.getTipo());
                 request.getSession().setAttribute("usuarioID", usuarioTeste.getIdUsuario());
-                IndexAction comando = new IndexAction();
-                comando.execute(request, response);
+                if (usuarioTeste.getTipo().equals("EMPRESA")) {
+                    IndexRestauranteAction comando = new IndexRestauranteAction();
+                    comando.execute(request, response);
+                } else {
+                    IndexAction comando = new IndexAction();
+                    comando.execute(request, response);
+                }
             }
         } catch (ServletException | IOException ex) {
             Logger.getLogger(LoginPostAction.class.getName()).log(Level.SEVERE, null, ex);
-        }}
+        }
+    }
 
 }

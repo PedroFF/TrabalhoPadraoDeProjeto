@@ -105,9 +105,11 @@ public class PedidoDAO {
     }
 
     public List<Pedido> getAllPedidosByRestaurante(int idRestaurante) {
+        return null;
     }
 
     public Pedido getPedidoByIdByRestaurante(int idPedido) {
+        return null;
     }
 
     public void restaurarEstadoPedido(Pedido pedido) throws SQLException {

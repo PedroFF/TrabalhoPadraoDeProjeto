@@ -24,8 +24,8 @@ public class LoginPostAction implements Action {
             usuario.setEmail(user)
                     .setSenha(senha)
                     .setTipo(tipo);
-            UsuarioDAO dao = UsuarioDAO.getInstance();//trocar 
-            Usuario usuarioTeste = dao.getUsuario(usuario);//trocar de acordo com o que implementar*/
+            UsuarioDAO dao = UsuarioDAO.getInstance(); 
+            Usuario usuarioTeste = dao.getUsuario(usuario);
             if (usuarioTeste == null) {
                 response.sendRedirect("UaiFat?action=Login&erroLogin=true");
             } else {

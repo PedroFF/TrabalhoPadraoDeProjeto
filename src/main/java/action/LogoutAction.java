@@ -7,6 +7,8 @@ package action;
 
 import controller.Action;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,18 +17,15 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedrofreitas
  */
-public class HomeAction implements Action{
+public class LogoutAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
-        response.setContentType("text/html;charset=UTF-8");
-        String tipo = (String) request.getSession().getAttribute("usuarioTipo");
-        if(tipo == null){
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else if(tipo.equals("CLIENTE")){
-            request.getRequestDispatcher("ClienteInicio.jsp").forward(request, response);
-        } else{
-            request.getRequestDispatcher("indexEmpresa.jsp").forward(request, response);
+         try {
+            request.getSession().invalidate();
+            response.sendRedirect("index.html");
+        } catch (IOException ex) {
+            Logger.getLogger(LogoutAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

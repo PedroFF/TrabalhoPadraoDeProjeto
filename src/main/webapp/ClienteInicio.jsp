@@ -1,13 +1,6 @@
-<%-- 
-    Document   : ClienteInicio
-    Created on : 03/11/2018, 21:08:11
-    Author     : Rian Alves
---%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%@include file="jspf/header.jspf" %>
-        <title>InÃ­cio </title>
+        <title>Início </title>
     </head>
     <body>
         <%@include file="jspf/nav.jspf" %>
@@ -44,4 +37,4 @@
         </div>
 
         <br/>
-        <%@include file="jspf/footer.jspf" %>
+<%@include file="jspf/footer.jspf" %>

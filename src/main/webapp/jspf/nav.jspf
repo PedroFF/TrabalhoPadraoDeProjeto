@@ -8,11 +8,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="UaiFat?action=BuscarDominio">Perfil</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="UaiFat?action=GravarEmpresa">Sobre</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="UaiFat?action=Sobre">Sobre</a>
             </li>
-             <li class="nav-item">
-                <a class="nav-link" href="UaiFat?action=GravarEmpresa">Sair</a>
+             <li class="nav-item active">
+                <a class="nav-link" href="UaiFat?action=Logout">Sair</a>
             </li>
          
         </ul>

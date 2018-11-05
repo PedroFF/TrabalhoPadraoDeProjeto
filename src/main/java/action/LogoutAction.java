@@ -23,7 +23,7 @@ public class LogoutAction implements Action{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
          try {
             request.getSession().invalidate();
-            response.sendRedirect("index.html");
+            response.sendRedirect("login.jsp");
         } catch (IOException ex) {
             Logger.getLogger(LogoutAction.class.getName()).log(Level.SEVERE, null, ex);
         }

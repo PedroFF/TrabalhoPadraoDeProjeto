@@ -30,6 +30,6 @@ class IndexRestauranteAction implements Action{
         List<Pedido> pedidos = PedidoDAO.getInstance().getAllPedidosByRestaurante(restaurante.getIdUsuario());
         request.setAttribute("restaurante", restaurante);
         request.setAttribute("pedidos", pedidos);
-        request.getRequestDispatcher("indexEmpresa.jsp").forward(request, response);
+        request.getRequestDispatcher("indexRestaurante.jsp").forward(request, response);
     }  
 }

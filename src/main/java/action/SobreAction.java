@@ -20,6 +20,7 @@ public class SobreAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setAttribute("usuarioID", request.getSession().getAttribute("usuarioID"));
         response.sendRedirect("sobre.jsp");
 //request.getRequestDispatcher("sobre.jsp").forward(request, response);
     }

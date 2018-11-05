@@ -1,6 +1,10 @@
 package model;
 
-public abstract class DescontoChain {
+public class DescontoChain {
+    private static DescontoChain descontoChain;
+    public static DescontoChain getInstance() {
+        return descontoChain;
+    }
 
     protected DescontoChain next;
     protected int qtdItensDesconto;
@@ -15,8 +19,9 @@ public abstract class DescontoChain {
         return next;
     }
 
-    public void setNext(DescontoChain next) {
+    public DescontoChain setNext(DescontoChain next) {
         this.next = next;
+        return next;
     }
 
     public int getQtdItensDesconto() {

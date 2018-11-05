@@ -14,25 +14,28 @@ import java.util.Observable;
  *
  * @author pedrofreitas
  */
-public class Pedido extends Observable{
+public class Pedido extends Observable {
+
     private int idPedido;
     private String descricao;
     private PedidoState status;
     private UsuarioRestaurante restaurante;
-    private Usuario usuario;
+    private UsuarioCliente usuario;
     private PedidoMemento memento;
+    private FormaPagamento formapgto;
     private List<ItemPedido> itensPedido;
     private Double valorTotal;
     private Double valorDesconto;
     private Double valorLiquido;
+    
 
     public Double getValorTotal() {
-        if(valorTotal==null){
-            valorTotal =0.00;            
+        if (valorTotal == null) {
+            valorTotal = 0.00;
             Iterator itemIterator = itensPedido.iterator();
-            
-            while(itemIterator.hasNext()) {
-                valorTotal+=((ItemPedido)itemIterator.next()).getValorItem();
+
+            while (itemIterator.hasNext()) {
+                valorTotal += ((ItemPedido) itemIterator.next()).getValorTotal();
             }
         }
         return valorTotal;
@@ -44,6 +47,9 @@ public class Pedido extends Observable{
     }
 
     public Double getValorDesconto() {
+        if (valorDesconto == null) {
+            valorDesconto = DescontoChain.getInstance().calculaDesconto(this);
+        }
         return valorDesconto;
     }
 
@@ -53,6 +59,10 @@ public class Pedido extends Observable{
     }
 
     public Double getValorLiquido() {
+        if (valorLiquido == null) {
+            valorLiquido = calculaValorLiquido();
+        }
+
         return valorLiquido;
     }
 
@@ -60,8 +70,6 @@ public class Pedido extends Observable{
         this.valorLiquido = valorLiquido;
         return this;
     }
-    
-     
 
     public PedidoMemento getMemento() {
         return memento;
@@ -80,8 +88,6 @@ public class Pedido extends Observable{
         this.itensPedido = itensPedido;
         return this;
     }
-    
-    
 
     public int getIdPedido() {
         return idPedido;
@@ -119,21 +125,35 @@ public class Pedido extends Observable{
         return this;
     }
 
-    public Usuario getUsuario() {
+    public UsuarioCliente getUsuario() {
         return usuario;
     }
 
-    public Pedido setUsuario(Usuario usuario) {
+    public Pedido setUsuario(UsuarioCliente usuario) {
         this.usuario = usuario;
         return this;
     }
-    
-    public void saveToMemento(){
-       this.memento = new PedidoMemento(this.status,LocalDateTime.now());
+
+    public void saveToMemento() {
+        this.memento = new PedidoMemento(this.status, LocalDateTime.now());
     }
-    
-    public void restoreFromMemento(){
+
+    public void restoreFromMemento() {
         this.status = memento.getState();
     }
+
+    public Double calculaValorLiquido() {
+        return this.valorTotal - valorDesconto;
+    }
+
+    public FormaPagamento getFormapgto() {
+        return formapgto;
+    }
+
+    public void setFormapgto(FormaPagamento formapgto) {
+        this.formapgto = formapgto;
+    }
+
+
     
 }

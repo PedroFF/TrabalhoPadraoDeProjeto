@@ -10,14 +10,34 @@ package model;
  * @author jpdia
  */
 public class ItemPedido {
-    private Double valorItem;
+    private Produto produto;
+    private Integer quantidade;
+    private Double valorTotal;
 
-    public Double getValorItem() {
-        return valorItem;
+    public Double getValorTotal() {
+        return valorTotal;
     }
 
     public ItemPedido setValorItem(Double valorItem) {
-        this.valorItem = valorItem;
+        this.valorTotal = valorItem;
+        return this;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public ItemPedido setProduto(Produto produto) {
+        this.produto = produto;
+        return this;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public ItemPedido setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
         return this;
     }
     

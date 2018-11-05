@@ -1,6 +1,6 @@
 <%@include file="jspf/header.jspf" %>
 <nav class="navbar navbar-dark" style="background-color:#8b0000 ;">
-    <a class="navbar-brand" href="UaiFat?action=LoginPost">Início</a>
+    <a class="navbar-brand" href="UaiFat?action=Home">Início</a>
 </nav>
 <div class="center container-fluid">
     <img src="icone/UAIFOOd.png" class="rounded mx-auto d-block" width="319" height="239" alt="Imagem">

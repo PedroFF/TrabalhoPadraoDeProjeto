@@ -17,16 +17,16 @@ import model.UsuarioRestaurante;
 
 public class UsuarioDAO {
 
-    private Connection conexao;
-    private static UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private String SQL_GET_USUARIO_CLIENTE_BY_LOGIN = "SELECT * FROM usuario inner join usuariocliente on usuario.id_usuario = usuariocliente.id_usuario_cliente WHERE email = ? AND senha = ?";
-    private String SQL_GET_USUARIO_CLIENTE_BY_ID = "SELECT * FROM usuario inner join usuariocliente on usuario.id_usuario = usuariocliente.id_usuario_cliente WHERE id_usuario = ?";
-    private String SQL_GET_USUARIO_RESTAURANTE_BY_LOGIN = "SELECT * FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante WHERE email = ? AND senha = ?";
-    private String SQL_GET_USUARIO_RESTAURANTE_BY_ID = "SELECT * FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante WHERE id_usuario = ?";
-    private String SQL_GET_ALL_USUARIOS_RESTAURANTES = "SELECT id_usuario FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante ";
-    private String SQL_INSERT_USUARIO = "INSERT INTO usuario(nome,senha,email,tipo)VALUES (?,?,?,?);";
-    private String SQL_INSERT_USUARIO_CLIENTE = "INSERT INTO usuariocliente(  id_usuario_cliente,  cpf) VALUES (?,?);";
-    private String SQL_INSERT_USUARIO_RESTAURANTE = "INSERT INTO usuariorestaurante(id_usuario_restaurante, avaliacao) VALUES (?,null);";
+    private final Connection conexao;
+    private static final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final String SQL_GET_USUARIO_CLIENTE_BY_LOGIN = "SELECT * FROM usuario inner join usuariocliente on usuario.id_usuario = usuariocliente.id_usuario_cliente WHERE email = ? AND senha = ?";
+    private final String SQL_GET_USUARIO_CLIENTE_BY_ID = "SELECT * FROM usuario inner join usuariocliente on usuario.id_usuario = usuariocliente.id_usuario_cliente WHERE id_usuario = ?";
+    private final String SQL_GET_USUARIO_RESTAURANTE_BY_LOGIN = "SELECT * FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante WHERE email = ? AND senha = ?";
+    private final String SQL_GET_USUARIO_RESTAURANTE_BY_ID = "SELECT * FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante WHERE id_usuario = ?";
+    private final String SQL_GET_ALL_USUARIOS_RESTAURANTES = "SELECT id_usuario FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante ";
+    private final String SQL_INSERT_USUARIO = "INSERT INTO usuario(nome,senha,email,tipo)VALUES (?,?,?,?);";
+    private final String SQL_INSERT_USUARIO_CLIENTE = "INSERT INTO usuariocliente(  id_usuario_cliente,  cpf) VALUES (?,?);";
+    private final String SQL_INSERT_USUARIO_RESTAURANTE = "INSERT INTO usuariorestaurante(id_usuario_restaurante, avaliacao) VALUES (?,null);";
 
     private UsuarioDAO() {
         this.conexao = DatabaseLocator.getInstance().getConnection();
@@ -128,7 +128,7 @@ public class UsuarioDAO {
     public UsuarioCliente getUsuarioClienteByID(Usuario usuario) {
         UsuarioCliente cliente = null;
         try {
-            try (PreparedStatement consulta = conexao.prepareStatement(SQL_GET_USUARIO_RESTAURANTE_BY_ID)) {
+            try (PreparedStatement consulta = conexao.prepareStatement(SQL_GET_USUARIO_CLIENTE_BY_ID)) {
                 consulta.setInt(1, usuario.getIdUsuario());
                 consulta.setMaxRows(1);
                 consulta.execute();

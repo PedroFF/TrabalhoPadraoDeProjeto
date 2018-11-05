@@ -19,7 +19,8 @@ public class GravarProdutoAction implements Action  {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
-
+        response.setContentType("text/html;charset=UTF-8");
+        request.getRequestDispatcher("CadastroProduto.jsp").forward(request, response);
     }
     
 }

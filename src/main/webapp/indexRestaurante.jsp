@@ -14,9 +14,10 @@
         </thead>
         <c:forEach var="pedido" items="pedidos">
             <tr>
-                <td rowspan="4">
+                <td rowspan="5">
                     ${pedido.usuario}
                     ${pedido.descricao}
+                    ${pedido.status}
                     ${pedido.valorLiquido}
                     ${pedido.usuario.endereco}
                 </td>

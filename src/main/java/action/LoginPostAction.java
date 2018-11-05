@@ -38,7 +38,7 @@ public class LoginPostAction implements Action {
                 if (usuarioTeste.getTipo().equals("EMPRESA")) {
                     IndexRestauranteAction comando = new IndexRestauranteAction();
                     comando.execute(request, response);
-                } else {
+                } else if(usuarioTeste.getTipo().equals("CLIENTE")){
                     IndexAction comando = new IndexAction();
                     comando.execute(request, response);
                 }

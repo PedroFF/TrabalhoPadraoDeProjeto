@@ -207,6 +207,7 @@ public class UsuarioDAO {
                     adicionarRestaurante((UsuarioRestaurante) usuario);
                 }
             }
+            comando.close();
         }
     }
 
@@ -215,6 +216,7 @@ public class UsuarioDAO {
             comando.setInt(1, usuario.getIdUsuario());
             comando.setString(2, usuario.getCpf());
             comando.execute();
+            comando.close();
         }
         
     }
@@ -224,6 +226,7 @@ public class UsuarioDAO {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_USUARIO_RESTAURANTE)) {
             comando.setInt(1, usuario.getIdUsuario());
             comando.execute();
+            comando.close();
         }
     }
 ;

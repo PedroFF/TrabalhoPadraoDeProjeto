@@ -136,7 +136,6 @@ public class PedidoDAO {
 				}while(rs.next);
 				
 			}
-			}
     }
 	
 	public List<ItemPedido> getItensPedido(int idPedido, int idRestaurante){

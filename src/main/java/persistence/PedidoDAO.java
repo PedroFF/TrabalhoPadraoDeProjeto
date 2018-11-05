@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import model.ItemPedido;
 import model.Pedido;
+import model.StateFactory;
 
 public class PedidoDAO {
 
@@ -103,10 +104,10 @@ public class PedidoDAO {
 
     }
 
-    public List<Pedido> getAllPedidosByRestaurante() {
+    public List<Pedido> getAllPedidosByRestaurante(int idRestaurante) {
     }
 
-    public Pedido getPedidoByIdByRestaurante() {
+    public Pedido getPedidoByIdByRestaurante(int idPedido) {
     }
 
     public void restaurarEstadoPedido(Pedido pedido) throws SQLException {
@@ -137,7 +138,7 @@ public class PedidoDAO {
         stmt.setInt(2, pedido.getIdPedido());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            pedido.setEstado(StateFactory.create(rs.getString("estado")));
+            pedido.setStatus(StateFactory.create(rs.getString("estado")));
             Integer antigo = this.getAtual(pedido.getIdPedido());
             this.setAtual(rs.getInt("id"), true, pedido.getIdPedido());
             this.setAtual(antigo, false, pedido.getIdPedido());

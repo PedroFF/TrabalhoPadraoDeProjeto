@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Pedido;
 import model.UsuarioRestaurante;
+import persistence.PedidoDAO;
 import persistence.UsuarioDAO;
 
 /**
@@ -26,7 +27,7 @@ class IndexRestauranteAction implements Action{
         response.setContentType("text/html;charset=UTF-8");
         UsuarioDAO dao = UsuarioDAO.getInstance();
         UsuarioRestaurante restaurante = dao.getUsuarioRestauranteByID((int)request.getSession().getAttribute("usuarioID"));
-        List<Pedido> pedidos = restaurante.getPedidos();
+        List<Pedido> pedidos = PedidoDAO.getInstance().getAllPedidosByRestaurante(restaurante.getIdUsuario());
         request.setAttribute("restaurante", restaurante);
         request.setAttribute("pedidos", pedidos);
         request.getRequestDispatcher("indexEmpresa.jsp").forward(request, response);

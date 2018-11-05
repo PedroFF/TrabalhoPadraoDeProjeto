@@ -30,7 +30,7 @@ public class ProdutoDAO {
         return INSTANCE;
     }
 
-    public void adicionar(Produto produto, Integer id_restaurante) throws SQLException, ClassNotFoundException {
+    public Integer adicionar(Produto produto, Integer id_restaurante) throws SQLException, ClassNotFoundException {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_ITEM, Statement.RETURN_GENERATED_KEYS)) {
             comando.setString(1, produto.getDescricao());
             comando.setDouble(2, produto.getPreco());
@@ -42,14 +42,10 @@ public class ProdutoDAO {
             if (rs.next()) {
                 Integer id = rs.getInt(1);
                 produto.setId(id);
-                if (!produto.isIngrediente()) {
-                    for (Ingrediente ingrediente : produto.getIngredientes()) {
-                        adicionarIngrediente(id, ingrediente.getId());
-                    }
-                }
             }
             comando.close();
         }
+        return produto.getId();
     }
 
     public Produto getProdutoByID(Integer id_item, Integer id_restaurante) throws ClassNotFoundException, SQLException {
@@ -123,7 +119,7 @@ public class ProdutoDAO {
         return ingredientes;
     }
 
-    private void adicionarIngrediente(Integer id_item, Integer id_ingrediente) throws SQLException {
+    public void adicionarIngrediente(Integer id_item, Integer id_ingrediente) throws SQLException {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_ITEM_INGREDIENTE)) {
             comando.setInt(1, id_item);
             comando.setInt(2, id_ingrediente);

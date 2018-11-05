@@ -17,11 +17,11 @@
 <body>
     <div class="row">
         <div class = "col"></div>
-        <div class = "col"><center><h1>UAI Food</h1></center><br/>
+        <div class = "col"><br/>
             <center><img src="icone\UAIFOOd.png" id="imagemborda" alt="imagem" align=center height="150"/></center></div>
         <div class = "col"></div>
     </div>
-    <div>
+    <div class="container-fluid">
         <form class="form-horizontal" method="post" role="form" action="UaiFat?action=GravarProdutoPost">
             <fieldset>
 
@@ -58,51 +58,49 @@
                     </div>
                 </div>
 
+                <br/>
+                <br/>
+                <br/>
                 <div class="row">
 
-    <div class="col">  
-        <label for="origem" class="text-center font-weight-bold">Selecione um Ingrediente para composição do Produto</label>
-        <select class="custom-select" size="15" id="origem">
-            <c:forEach var="ingrediente" items="${produtos}">
-                <option value="${ingrediente.id}">${ingrediente.nome}</option>
+                    <div class="col">  
+                        <label for="origem" class="text-center font-weight-bold">Selecione um Ingrediente para composição do Produto</label>
+                        <select class="custom-select" size="15" id="origem">
+                            <c:forEach var="ingrediente" items="${produtos}">
+                                <option value="${ingrediente.id}">${ingrediente.nome}</option>
 
-            </c:forEach>
-        </select>
+                            </c:forEach>
+                        </select>
 
-    </div>
-    <div class="col btn-group-vertical">
-
-        <button type="button" id="add" class="btn btn-primary" onclick="MoveListBoxItem('origem', 'destino', false)">Adicionar</button>
-        <button type="button" id="addAll" class="btn btn-primary" onclick="MoveListBoxItem('origem', 'destino', true)">Adicionar Todos</button>
-        <button type="button" id="remove" class="btn btn-danger" onclick="MoveListBoxItem('destino', 'origem', false)">Remover</button>
-        <button type="button" id="removeAll" class="btn btn-danger" onclick="MoveListBoxItem('destino', 'origem', true)">Remover Todos</button>
-    </div>
-    <div class="col">  
-        <form method="post">
-            <label for="origem" class="text-center font-weight-bold">Ingredientes Selecionados: </label>
-            <select multiple="multiple" class="custom-select" name="selecionados" size="15" id="destino">
-            </select> 
-            <input type="hidden" value="${idProduto}" name="produto">
-            <input type="hidden" value="${ingrediente}" name="ingrediente">
-            <br/>
-            <br/>
-            <input type="submit" value="Salvar Selecionados" class="btn btn-success btn-lg" name="acessar" onclick="selectAll('destino')" >
-
-        </form>
-    </div>
-
-</div>
-
-<br/>
-                <!-- Button (Double) -->
-                <div class="form-group row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <button type="submit" id="btnsalvar" name="btnsalvar" class="btn btn-primary">Salvar</button>              
-                        <a href="UaiFat?action=Login" name="btncancelar" class="btn btn-danger">Cancelar</a>
                     </div>
-                    <div class="col-md-4"></div>
+                    <div class="col btn-group-vertical">
+                        <br/><br/><br/><br/>
+                        <button type="button" id="add" class="btn btn-primary" onclick="MoveListBoxItem('origem', 'destino', false)">Adicionar</button>
+                        <button type="button" id="addAll" class="btn btn-primary" onclick="MoveListBoxItem('origem', 'destino', true)">Adicionar Todos</button>
+                        <button type="button" id="remove" class="btn btn-danger" onclick="MoveListBoxItem('destino', 'origem', false)">Remover</button>
+                        <button type="button" id="removeAll" class="btn btn-danger" onclick="MoveListBoxItem('destino', 'origem', true)">Remover Todos</button>
+                    </div>
+                    <div class="col">  
+                        <form method="post">
+                            <label for="origem" class="text-center font-weight-bold">Ingredientes Selecionados: </label>
+                            <select multiple="multiple" class="custom-select" name="selecionados" size="15" id="destino">
+                            </select> 
+                            <input type="hidden" value="${idProduto}" name="produto">
+                            <input type="hidden" value="${ingrediente}" name="ingrediente">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="">
+                                <button type="submit" id="btnsalvar" name="btnsalvar" class="btn btn-success for" onclick="selectAll('destino')">Salvar</button>              
+                                <a href="UaiFat?action=Login" name="btncancelar" class="btn btn-danger">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
+
+                <br/>
+
             </fieldset>
         </form>
         <br/>    

@@ -1,12 +1,3 @@
-<%-- 
-    Document   : CadastroProduto
-    Created on : 04/11/2018, 12:59:39
-    Author     : Rian Alves
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
 <%@include file="jspf/header.jspf" %>
 <title>Cadastro de Produto</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -24,10 +15,8 @@
     <div class="container-fluid">
         <form class="form-horizontal" method="post" role="form" action="UaiFat?action=GravarProdutoPost">
             <fieldset>
-
                 <!-- Form Name -->
                 <legend>Cadastro de Produto</legend>
-
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nome">Nome : </label>  
@@ -36,7 +25,6 @@
 
                     </div>
                 </div>
-
                 <!-- Select Basic -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="tipo">Tipo de Produto : </label>
@@ -48,23 +36,20 @@
                         </select>
                     </div>
                 </div>
-
-
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="preco">PreÃ§o : </label>  
+                    <label class="col-md-4 control-label" for="preco">Preço : </label>  
                     <div class="col-md-2">
                         <input id="documento" name="preco" type="text" class="form-control input-md" required="">
 
                     </div>
                 </div>
-
                 <br/>
                 <br/>
                 <br/>
                 <div class="row">
 
                     <div class="col">  
-                        <label for="origem" class="text-center font-weight-bold">Selecione um Ingrediente para composiÃ§Ã£o do Produto</label>
+                        <label for="origem" class="text-center font-weight-bold">Selecione um Ingrediente para composição do Produto</label>
                         <select class="custom-select" size="15" id="origem">
                             <c:forEach var="ingrediente" items="${produtos}">
                                 <option value="${ingrediente.id}">${ingrediente.nome}</option>
@@ -96,11 +81,8 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
-
                 <br/>
-
             </fieldset>
         </form>
         <br/>    

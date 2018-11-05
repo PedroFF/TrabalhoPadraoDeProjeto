@@ -1,13 +1,5 @@
-<%-- 
-    Document   : CadastroUsuario
-    Created on : 04/11/2018, 10:31:16
-    Author     : Rian Alves
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%@include file="jspf/header.jspf" %>
-<title>Cadastro de Usu√°rio</title>
+<title>Cadastro de Usu·rio</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -24,7 +16,7 @@
             <fieldset>
 
                 <!-- Form Name -->
-                <legend>Cadastro de Usu√°rio</legend>
+                <legend>Cadastro de Usu·rio</legend>
 
                 <!-- Text input-->
                 <div class="form-group">
@@ -37,7 +29,7 @@
 
                 <!-- Select Basic -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="tipo">Tipo de Usu√°rio : </label>
+                    <label class="col-md-4 control-label" for="tipo">Tipo de Usu·rio : </label>
                     <div class="col-md-4">
                         <select id="tipo" name="tipo" class="form-control">
                             <option value="CLIENTE">CLIENTE</option>
@@ -64,7 +56,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="numero">N√∫mero : </label>  
+                    <label class="col-md-4 control-label" for="numero">N˙mero : </label>  
                     <div class="col-md-2">
                         <input id="numero" name="numero" type="text" class="form-control input-md" required="">
 

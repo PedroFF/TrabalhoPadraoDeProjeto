@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Endereco;
 import model.FormaPagamento;
+import model.FormaPagamentoFactory;
 
 /**
  *
@@ -29,12 +30,7 @@ public class FormaPagamentoDAO {
             consulta.setString(1,descricao);
             consulta.execute();
             ResultSet resultado = consulta.executeQuery();
-            formaPag = new FormaPagamento(resultado.getInt("id"), resultado.getString("descricao")) {
-                @Override
-                public String getDescricaoCompleta() {
-                    return  null;
-                }
-            };
+           formaPag = FormaPagamentoFactory.create(descricao);
         }
         return formaPag;
     }

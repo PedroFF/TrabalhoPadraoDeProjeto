@@ -19,13 +19,7 @@ public class GravarProdutoAction implements Action  {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
-         try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setAttribute("empresas", ProdutoDAO.getINSTANCE().getProdutos());
-            request.getRequestDispatcher("inserirContato.jsp").forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(GravarProdutoAction.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }
     
 }

@@ -27,10 +27,7 @@ public class LoginPostAction implements Action {
             UsuarioDAO dao = UsuarioDAO.getInstance();//trocar 
             Usuario usuarioTeste = dao.getUsuario(usuario);//trocar de acordo com o que implementar*/
             if (usuarioTeste == null) {
-                request.setAttribute("erroLogin", true);
-                RequestDispatcher despachante = request.getRequestDispatcher("/login.jsp");
-                despachante.forward(request, response);
-
+                response.sendRedirect("UaiFat?action=Login&erroLogin=true");
             } else {
 
                 request.getSession().setAttribute("usuarioTipo", usuarioTeste.getTipo());

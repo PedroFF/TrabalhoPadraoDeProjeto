@@ -56,7 +56,7 @@
                             </fieldset>
                         </form>
                     </div>
-                    <c:if test="${erroLogin == true}">
+                    <c:if test="${param.erroLogin == true}">
                         <div class="alert alert-danger" role="alert">
                             <center>Erro ao realizar Login! Verifique a senha!</center>
                         </div>

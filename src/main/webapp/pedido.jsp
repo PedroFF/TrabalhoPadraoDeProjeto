@@ -1,6 +1,8 @@
 <%@include file="jspf/header.jspf" %>
 <%@include file="jspf/nav.jspf" %>
-
+<div class="container-fluid">
+    <br/>
+    <br/>
 <form method="post" action="UaiFat?action=ItemPedidoPost">
     <div class="form-group">
         <label>Produto</label>
@@ -40,10 +42,14 @@
         </c:forEach>
         </tbody>
     </table>
+    <br/>
+    <br/>
     <div>
         <button type="submit" class="btn btn-success">Concluir Pedido</button>
         <button type="reset" class="btn btn-danger">Esquecer Pedido</button>
     </div>
 </form>
-
+</div>
+<br/>
+<br/>
 <%@include file="jspf/footer.jspf" %>

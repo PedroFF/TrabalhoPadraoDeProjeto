@@ -33,6 +33,7 @@ public class LoginPostAction implements Action {
                 request.getSession().setAttribute("usuarioTipo", usuarioTeste.getTipo());
                 request.getSession().setAttribute("usuarioID", usuarioTeste.getIdUsuario());
                 if (usuarioTeste.getTipo().equals("RESTAURANTE")) {
+                    response.setContentType("text/html;charset=UTF-8");
                     IndexRestauranteAction comando = new IndexRestauranteAction();
                     comando.execute(request, response);
                 } else if(usuarioTeste.getTipo().equals("CLIENTE")){

@@ -8,6 +8,7 @@ package action;
 import controller.Action;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -30,16 +31,23 @@ public class ItemPedidoPostAction implements Action{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
             Pedido pedido = (Pedido) request.getSession().getAttribute("pedido");
-            UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(Integer.parseInt(request.getParameter("restaurante")));
-            Produto produto = ProdutoDAO.getINSTANCE().getProdutoByID(Integer.parseInt(request.getParameter("produto")), restaurante.getIdUsuario());
+            int idProduto = Integer.parseInt(request.getParameter("item"));
+            int idRestaurante = Integer.parseInt(request.getParameter("restaurante"));
+            UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
+            List<Produto> produtos = ProdutoDAO.getINSTANCE().getAllProdutos(idRestaurante);
+            Produto produto = ProdutoDAO.getINSTANCE().getProdutoByID(idProduto,restaurante.getIdUsuario());
             Double preco = produto.getPreco();
             Integer quantidade = Integer.parseInt(request.getParameter("quantidade"));
             ItemPedido itemPedido = new ItemPedido();
             itemPedido.setProduto(produto).setValorItem(preco*quantidade).setQuantidade(quantidade);
             pedido.getItensPedido().add(itemPedido);
+            String ingredientes = pedido.getItensPedido().toString();
             request.getSession().setAttribute("pedido", pedido);
+            request.setAttribute("ingredientes", ingredientes);
+            request.setAttribute("produtos", produtos);
             request.setAttribute("pedido", pedido);
-            request.getRequestDispatcher("pedido.jsp");
+            request.setAttribute("restaurante", restaurante );
+            request.getRequestDispatcher("pedido.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ItemPedidoPostAction.class.getName()).log(Level.SEVERE, null, ex);
         }

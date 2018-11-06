@@ -8,11 +8,10 @@
             <label>Produto</label>
             <select id="item" name="item" class="form-control col-md-4">
                 <c:forEach var="produto" items="${produtos}">
-                    <option value="${produto.descricao}">Produto: ${produto.descricao}, Ingredientes: ${produto.ingredientes}, Valor: ${produto.preco}</option>
+                    <option value="${produto.id}">Produto: ${produto.descricao}, Ingredientes: ${produto.ingredientes}, Valor: ${produto.preco}</option>
                 </c:forEach>
-                    <input type="hidden" name="produto" value="${produto.id}">
-                    <input type="hidden" name="restaurante" value="${restaurante.idUsuario}">
-                   
+                <input type="hidden" name="restaurante" value="${restaurante.idUsuario}">
+
             </select>
         </div>
 
@@ -34,23 +33,34 @@
             <th>Preço</th>
             </thead>
             <tbody>
-            <c:forEach var="item" items="${pedido.itensPedido}">
-                <td>${item.produto.descricao}</td>
-                <td>${ingrediente.descricao}</td>
-                <td>${item.preco}</td>
-                <td>${item.quantidade}</td>
-                <td>${item.valorTotal}</td>
-            </c:forEach>
+            <div id="item">
+                <c:forEach var="item" items="${pedido.itensPedido}">
+
+                    <tr>
+                        <td>${item.produto.descricao}</td>
+                        <c:if test="${not empty ingredientes}">
+                            <td>${ingredientes}</td>
+                        </c:if>
+                        <c:if test="${empty ingredientes}">
+                            <td></td>
+                        </c:if>
+                        <td>${item.produto.preco}</td>
+                        <td>${item.quantidade}</td>
+                        <td>${item.valorTotal}</td>
+                    </tr>
+                </c:forEach>
+            </div>
             </tbody>
         </table>
         <br/>
         <br/>
         <div>
             <button type="submit" class="btn btn-success">Concluir Pedido</button>
-            <button type="reset" class="btn btn-danger">Esquecer Pedido</button>
+            <button type="reset" id="cancela-pedido" class="btn btn-danger">Esquecer Pedido</button>
         </div>
     </form>
 </div>
 <br/>
 <br/>
 <%@include file="jspf/footer.jspf" %>
+<script src="js/MoveCombobox.js" ></script>

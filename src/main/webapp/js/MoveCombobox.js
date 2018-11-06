@@ -36,3 +36,7 @@ $("#tipo").change(function(){
         btn.click();
     } 
 });
+
+$('#cancela-pedido').click(function (){
+     window.location.href = "UaiFat?action=Index";
+});

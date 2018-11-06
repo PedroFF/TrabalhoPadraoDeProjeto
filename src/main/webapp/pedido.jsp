@@ -6,7 +6,7 @@
     <form method="post" action="UaiFat?action=ItemPedidoPost">
         <div class="form-group">
             <label>Produto</label>
-            <select id="produto" name="produto" class="form-control col-md-4">
+            <select id="item" name="item" class="form-control col-md-4">
                 <c:forEach var="produto" items="${produtos}">
                     <option value="${produto.descricao}">Produto: ${produto.descricao}, Ingredientes: ${produto.ingredientes}, Valor: ${produto.preco}</option>
                 </c:forEach>

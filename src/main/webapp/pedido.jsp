@@ -31,7 +31,7 @@
         <th>Preço</th>
         </thead>
         <tbody>
-            <c:forEach var="item" items="${itens}">
+            <c:forEach var="item" items="${pedido.itensPedido}">
             <td>${item.produto.descricao}</td>
             <td>${item.produto.Ingredientes}</td>
             <td>${item.preco}</td>

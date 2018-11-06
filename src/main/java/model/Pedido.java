@@ -6,6 +6,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -23,7 +24,7 @@ public class Pedido extends Observable {
     private UsuarioCliente usuario;
     private PedidoMemento memento;
     private FormaPagamento formapgto;
-    private List<ItemPedido> itensPedido;
+    private List<ItemPedido> itensPedido = new ArrayList<>();
     private Double valorTotal;
     private Double valorDesconto;
     private Double valorLiquido;

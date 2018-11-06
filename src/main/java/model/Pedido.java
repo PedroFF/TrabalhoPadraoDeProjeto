@@ -47,9 +47,6 @@ public class Pedido extends Observable {
     }
              
     public Double getValorDesconto() {
-        if (valorDesconto == null) {
-            valorDesconto = DescontoChain.getInstance().calculaDesconto(this);
-        }
         return valorDesconto;
     }
 

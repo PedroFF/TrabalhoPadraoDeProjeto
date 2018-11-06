@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import model.DescontoChain;
 import model.FormaPagamento;
 import model.FormaPagamentoFactory;
 import model.ItemPedido;
@@ -46,6 +47,8 @@ public class PedidoDAO {
 
     public void adicionar(Pedido pedido) throws SQLException {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_PEDIDO, Statement.RETURN_GENERATED_KEYS)) {
+            DescontoChain chain = DescontoDAO.getInstance().getDescontoChain(pedido.getRestaurante().getIdUsuario());
+            pedido.setValorDesconto(chain.calculaDesconto(pedido));
             comando.setString(1, pedido.getDescricao());
             comando.setString(2, pedido.getStatus().getDescricao());
             comando.setDouble(3, pedido.getValorTotal());

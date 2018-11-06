@@ -10,7 +10,7 @@ import java.util.List;
 public class Produto {
     protected int id;
     protected UsuarioRestaurante Restaurante;
-    private List<Ingrediente> Ingredientes;
+    protected List<Ingrediente> Ingredientes;
     protected String descricao;
     protected double preco;
     protected boolean ingrediente;

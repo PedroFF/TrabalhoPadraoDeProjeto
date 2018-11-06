@@ -55,7 +55,7 @@
                         <label for="origem" class="text-center font-weight-bold">Selecione um Ingrediente para composição do Produto</label>
                         <select class="custom-select" size="15" id="origem">
                             <c:forEach var="ingrediente" items="${ingredientes}">
-                                <option value="${ingrediente.id}">${ingrediente.nome}</option>
+                                <option value="${ingrediente.id}">${ingrediente.descricao}</option>
                             </c:forEach>
                         </select>
 

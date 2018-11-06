@@ -30,7 +30,6 @@ public class Pedido extends Observable {
     private Double valorLiquido;
 
     public Pedido() {
-        this.status = new AguardandoState();
     }
 
     public Double getValorTotal() {

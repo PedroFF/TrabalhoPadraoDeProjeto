@@ -24,21 +24,19 @@
                         Endereço: ${pedido.usuario.endereco}
                     </td>
                     <td class="text-center">
-                        <a href="UaiFat?action=StateAguardandoPedido&id=${pedido.id}" class="btn btn-primary">Aguardando Confirmação</a>
-                        <a href="UaiFat?action=StateConfirmaPedido&id=${pedido.id}" class="btn btn-primary">Confirmar Pedido</a>
-                        <a href="UaiFat?action=StatePreparandoPedido&id=${pedido.id}" class="btn btn-primary">Preparar Pedido</a>
-                        <a href="UaiFat?action=StateSaindoEntrega&id=${pedido.id}" class="btn btn-primary">Entregar Peddo</a>
-                        <a href="UaiFat?action=StateConcluido&id=${pedido.id}" class="btn btn-primary">Pedido Concluído</a>
-                        <a href="UaiFat?action=RestaurarAnterior&id=${pedido.id}" class="btn btn-primary">Restaurar Status Anterior</a>
-                        <a href="UaiFat?action=RestaurarPosterior&id=${pedido.id}" class="btn btn-primary">Restaurar Status Posterior</a>
-                    </td>
+                        <a href="UaiFat?action=StateConfirmaPedido&id=${pedido.idPedido}" class="btn btn-primary">Confirmar Pedido</a>
+                        <a href="UaiFat?action=StatePreparandoPedido&id=${pedido.idPedido}" class="btn btn-primary">Preparar Pedido</a>
+                        <a href="UaiFat?action=StateSaindoEntrega&id=${pedido.idPedido}" class="btn btn-primary">Entregar Peddo</a>
+                        <a href="UaiFat?action=StateConcluido&id=${pedido.idPedido}" class="btn btn-primary">Pedido Concluído</a>
+                        <a href="UaiFat?action=RestaurarAnterior&id=${pedido.idPedido}" class="btn btn-primary">Restaurar Status Anterior</a>
+                   </td>
                 </tr>
             </c:forEach>  
         </table>
     </c:if>
     <c:if test="${empty pedidos}">
         <div class="text-center">
-        <h2 class="text-danger">Não existem pedidos!</h2>
+            <h2 class="text-danger">Não existem pedidos!</h2>
         </div>
     </c:if>
 </div>

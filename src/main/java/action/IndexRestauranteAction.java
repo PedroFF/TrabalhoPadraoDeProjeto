@@ -8,6 +8,7 @@ package action;
 import controller.Action;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +34,7 @@ class IndexRestauranteAction implements Action{
             UsuarioRestaurante restaurante = dao.getUsuarioRestauranteByID((int)request.getSession().getAttribute("usuarioID"));
             List<Pedido> pedidos = PedidoDAO.getInstance().getAllPedidosByRestaurante(restaurante.getIdUsuario());
             request.setAttribute("restaurante", restaurante);
+            Collections.reverse(pedidos);
             request.setAttribute("pedidos", pedidos);
             request.getRequestDispatcher("indexRestaurante.jsp").forward(request, response);
         } catch (SQLException ex) {

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.AguardandoState;
 import model.FormaPagamento;
 import model.Pedido;
 import persistence.FormaPagamentoDAO;
@@ -33,6 +34,7 @@ public class PedidoPostAction implements Action{
             Pedido pedido = (Pedido) request.getSession().getAttribute("pedido");
             pedido.setFormapgto(formapg);
             PedidoDAO dao = PedidoDAO.getInstance();
+            pedido.setStatus(new AguardandoState());
             dao.adicionar(pedido);
             request.setAttribute("pedido", request.getSession().getAttribute("pedido"));
             request.getRequestDispatcher("statusPedido.jsp").forward(request, response);

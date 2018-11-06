@@ -31,7 +31,7 @@ public class PedidoDAO {
     private String SQL_INSERT_ITEM_PEDIDO = "INSERT INTO item_pedido(  fk_pedido,fk_item,quantidade,valortotal) VALUES (?,?,?,?)";
     private String SQL_UPDATE_STATE_PEDIDO = "UPDATE PEDIDO SET STATUS = ? WHERE ID_PEDIDO = ? ";
     private String SQL_SELECT_ALL_PEDIDOS_POR_RESTAURANTE = "SELECT id_pedido FROM PEDIDO WHERE FK_USUARIO_RESTAURANTE = ?";
-    private String SQL_SELECT_PEDIDO_POR_ID = "SELECT p.*,fp.descricao as descricaopgto, fp.id_forma_pagamento as id_pgto FROM PEDIDO p inner join forma_pagamento fp on p.fk_forma_pagamento = fp.id_forma_pagamento WHERE id_pedido = ? and fk_usuario_restaurante = ?";
+    private String SQL_SELECT_PEDIDO_POR_ID = "SELECT p.*,fp.descricao as descricaopgto, fp.id_forma_pagamento as id_pgto FROM PEDIDO p inner join forma_pagamento fp on p.fk_forma_pagamento = fp.id_forma_pagamento WHERE id_pedido = ? and fk_usuario_restaurante = ? ORDER BY ID_PEDIDO";
     private String SQL_SELECT_ITEMPEDIDO = "SELECT * FROM ITEM_PEDIDO WHERE FK_PEDIDO = ?";
     private String SQL_SELECT_ESTADO_POSTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO < (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO= ?) ORDER BY ID_HISTORICO_PEDIDO DESC";
     private String SQL_SELECT_ESTADO_ANTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO > (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?) ORDER BY ID_HISTORICO_PEDIDO ASC";
@@ -50,7 +50,7 @@ public class PedidoDAO {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_PEDIDO, Statement.RETURN_GENERATED_KEYS)) {
             
             comando.setString(1, pedido.getDescricao());
-            comando.setString(2, pedido.getStatus().getDescricao());
+            comando.setString(2, pedido.getStatus().getStatus());
             comando.setDouble(3, pedido.getValorTotal());
             comando.setDouble(4, pedido.getValorDesconto());
             comando.setDouble(5, pedido.getValorLiquido());
@@ -109,7 +109,7 @@ public class PedidoDAO {
         PreparedStatement stmt = null;
         conn = DatabaseLocator.getInstance().getConnection();
         stmt = conn.prepareStatement(SQL_UPDATE_STATE_PEDIDO);
-        stmt.setString(1, pedido.getStatus().getDescricao());
+        stmt.setString(1, pedido.getStatus().getStatus());
         stmt.setInt(2, pedido.getIdPedido());
         stmt.execute();
 
@@ -219,8 +219,9 @@ public class PedidoDAO {
         PreparedStatement stmt = null;
         conn = DatabaseLocator.getInstance().getConnection();
         stmt = conn.prepareStatement(SQL_UPDATE_ATUAL);
-        stmt.setInt(1, id);
-        stmt.setInt(2, id_pedido);
+        stmt.setBoolean(1, atual);
+        stmt.setInt(2, id);
+        stmt.setInt(3, id_pedido);
         stmt.execute();
     }
 

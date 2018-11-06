@@ -24,16 +24,18 @@ public class StateSaindoEntregaAction implements Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            Integer idRestaurante = Integer.parseInt((String)request.getSession().getAttribute("usuarioID"));
+            Integer idRestaurante = (int) request.getSession().getAttribute("usuarioID");
             UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
-            Pedido pedido = PedidoDAO.getInstance().getPedidoByIdByRestaurante(id,restaurante.getIdUsuario());
+            Pedido pedido = PedidoDAO.getInstance().getPedidoByIdByRestaurante(id, restaurante.getIdUsuario());
             pedido.saveToMemento();
             pedido.sairParaEntrega();
-            PedidoDAO.getInstance().adicionarHistorico(pedido, pedido.getStatus().getDescricao(), true); //Confirmar
+            PedidoDAO.getInstance().adicionarHistorico(pedido, pedido.getStatus().getStatus(), true); //Confirmar
             PedidoDAO.getInstance().updateEstado(pedido);
+            IndexRestauranteAction comando = new IndexRestauranteAction();
+            comando.execute(request, response);
         } catch (SQLException | EstadoNaoPermitidoException ex) {
             Logger.getLogger(StateSaindoEntregaAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

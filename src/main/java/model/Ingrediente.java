@@ -1,12 +1,36 @@
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author pedrofreitas
  */
 public class Ingrediente extends Produto{
 
+    public int getId() {
+        return id;
+    }
 
+    public UsuarioRestaurante getRestaurante() {
+        return Restaurante;
+    }
+
+    public List<Ingrediente> getIngredientes() {
+        return Ingredientes;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public boolean isIngrediente() {
+        return ingrediente;
+    }
 
     @Override
     public Ingrediente setId(int id) {

@@ -24,7 +24,7 @@ import persistence.UsuarioDAO;
  *
  * @author pedrofreitas
  */
-public class ItemPedidoPost implements Action{
+public class ItemPedidoPostAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
@@ -41,7 +41,7 @@ public class ItemPedidoPost implements Action{
             request.setAttribute("pedido", pedido);
             request.getRequestDispatcher("pedido.jsp");
         } catch (SQLException ex) {
-            Logger.getLogger(ItemPedidoPost.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItemPedidoPostAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

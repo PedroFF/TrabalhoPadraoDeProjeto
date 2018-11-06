@@ -27,9 +27,12 @@ function selectAll(listBox) {
 $("#tipo").change(function(){          
     var value = $("#tipo option:selected").val();
     var theDiv = $("#combo");
+    var btn = $('#btnsalvar');
     if(value === "PFINAL"){
         theDiv.slideDown().addClass("hidden");
+        btn.click(selectAll($('#destino')));
     }else if(value === "INGREDIENTE"){
         theDiv.slideUp().removeClass("hidden");
+        btn.click();
     } 
 });

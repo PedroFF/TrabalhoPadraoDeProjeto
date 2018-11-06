@@ -21,7 +21,7 @@
 </form>
 <hr>
 
-<form method="post" action="UaiFat=action?PedidoPost">
+<form method="post" action="UaiFat?action=PedidoPost">
     <table class="table table-stripped">
         <thead>
         <th>Produto</th>

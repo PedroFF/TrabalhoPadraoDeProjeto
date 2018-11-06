@@ -127,7 +127,7 @@ public class PedidoDAO {
         return pedidos;
     }
 
-    public Pedido getPedidoByIdByRestaurante(int idPedido, int idRestaurante) throws SQLException {
+    public Pedido getPedidoByIdByRestaurante(int idPedido, int idRestaurante) throws SQLException, ClassNotFoundException {
         Pedido pedido = null;
         try (PreparedStatement comando = conexao.prepareStatement(SQL_SELECT_PEDIDO_POR_ID)) {
             comando.setInt(1, idPedido);

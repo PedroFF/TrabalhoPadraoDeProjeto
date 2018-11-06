@@ -8,7 +8,10 @@
         <label>Produto</label>
         <select id="produto" name="produto" class="form-control col-md-4">
             <c:forEach var="produto" items="${produtos}">
-                <option value="${produto.descricao}">Produto: ${produto.Ingredientes}, Valor: ${produto.valor}</option>
+                <option value="${produto.descricao}">
+                    <c:forEach var="ingrediente" items="${produto.Ingredientes}">Produto: ${ingrediente.descricao}</c:forEach>,
+                    Valor: ${produto.valor}
+                </option>
                 <input type="hidden" name="produto" value="${produto.id}">
                 <input type="hidden" name="restaurante" value="${restaurante.id}">
             </c:forEach>
@@ -35,7 +38,7 @@
         <tbody>
             <c:forEach var="item" items="${pedido.itensPedido}">
             <td>${item.produto.descricao}</td>
-            <td>${item.produto.Ingredientes}</td>
+            <td><c:forEach var="ingrediente" items="${produto.Ingredientes}">${ingrediente.descricao}</c:forEach></td>
             <td>${item.preco}</td>
             <td>${item.quantidade}</td>
             <td>${item.valorTotal}</td>

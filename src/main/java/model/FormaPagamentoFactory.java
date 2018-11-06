@@ -6,9 +6,9 @@ package model;
  * @author Rian Alves
  */
 public class FormaPagamentoFactory {
-    public static FormaPagamento create(String action) {
+    public static FormaPagamento create(String forma, Integer id) {
         FormaPagamento actionObject = null;
-        String nomeClasse = "FormaPagamento" + action;
+        String nomeClasse = "FormaPagamento" + forma;
         Class classe = null;
         Object objeto = null;
         try {
@@ -19,6 +19,8 @@ public class FormaPagamentoFactory {
         }
         if(!(objeto instanceof FormaPagamento)) return null;
         actionObject = (FormaPagamento) objeto;
+        actionObject.setId(id);
+        actionObject.setDescricao(forma);
         return actionObject;
     }
 }

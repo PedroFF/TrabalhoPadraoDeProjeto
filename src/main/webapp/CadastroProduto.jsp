@@ -81,8 +81,8 @@
                     <div class="col"></div>
                     <div class="col">
                         <div class="container-fluid">
-                        <button type="submit" id="btnsalvar" name="btnsalvar" class="btn btn-success for" onclick="">Salvar</button>              
-                        <a href="UaiFat?action=Login" name="btncancelar" class="btn btn-danger">Cancelar</a>
+                        <button type="submit" id="btnsalvar" name="btnsalvar" class="btn btn-success" onclick="">Salvar</button>              
+                        <button type="reset" name="btncancelar" class="btn btn-danger">Cancelar</button>
                         </div>
                     </div>
                     <div class="col"></div>

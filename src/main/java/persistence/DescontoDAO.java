@@ -4,7 +4,7 @@ import java.sql.Connection;
 
 public class DescontoDAO {
 
-
+/*
     private Connection conexao;
     private static final DescontoDAO INSTANCE = new DescontoDAO();
     private String 
@@ -20,4 +20,5 @@ public class DescontoDAO {
     public getAllDescontos(){
     }
 
+*/
 }

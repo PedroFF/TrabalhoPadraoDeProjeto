@@ -9,12 +9,10 @@
             <select id="produto" name="produto" class="form-control col-md-4">
                 <c:forEach var="produto" items="${produtos}">
                     <option value="${produto.descricao}">Produto: ${produto.descricao}, Ingredientes: ${produto.ingredientes}, Valor: ${produto.preco}</option>
-                    
-                    
+                </c:forEach>
                     <input type="hidden" name="produto" value="${produto.id}">
                     <input type="hidden" name="restaurante" value="${restaurante.idUsuario}">
                    
-                </c:forEach>
             </select>
         </div>
 

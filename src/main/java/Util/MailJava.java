@@ -17,13 +17,13 @@ public class MailJava {
     //indica ao servidor que ele esta recebendo uma conexao segura
     private String smtpStarttls = "true";
     //nome do remetente do email
-    private String fromNameMail = "Uai Fat Delivery";
+    private String fromNameMail = "Uai Food Delivery";
     //email do remetente
     private final String userMail = "uaifat.delivery@gmail.com";
     //senha do email do remetente
     private final String passMail = "padrao2018";
     //assunto do email
-    private String subjectMail = "Atualização do estado do Pedido UaiFat - ";
+    private String subjectMail = "Atualização do estado do Pedido UaiFood - ";
     private String estado;
     //charset, no caso de html e necessario
     private final String charsetMail = "ISO-8859-1";
@@ -258,7 +258,7 @@ public class MailJava {
                 + "                    <tr>\n"
                 + "\n"
                 + "                        <td align=\"center\" class=\"section-img\">\n"
-                + "                            <a href=\"\" style=\" border-style: none !important; display: block; border: 0 !important;\"><img src=\"https://image.ibb.co/gxpOaT/Validacao.jpg\" style=\"display: block; width: 590px;\" width=\"590\" border=\"0\" alt=\"\" /></a>\n"
+                + "                            <a href=\"\" style=\" border-style: none !important; display: block; border: 0 !important;\"><img src=\"https://preview.ibb.co/enJOdV/UAIFOOd.png\" style=\"display: block; width: 590px;\" width=\"590\" border=\"0\" alt=\"\" /></a>\n"
                 + "\n"
                 + "\n"
                 + "\n"

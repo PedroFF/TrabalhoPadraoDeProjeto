@@ -2,8 +2,12 @@ package model;
 
 import Util.MailJava;
 import Util.MailJavaSender;
+import java.io.UnsupportedEncodingException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 
 public class UsuarioCliente extends Usuario implements Observer {
     private Observable pedido;  
@@ -20,12 +24,19 @@ public class UsuarioCliente extends Usuario implements Observer {
     }
     
     
-
+    public void observarPedido(Pedido pedido){
+        this.pedido = pedido;
+        pedido.addObserver(this);
+    }
     
     @Override
     public void update(Observable pedidoSubject, Object arg) {
-        Pedido pedido = (Pedido) pedidoSubject;
-       // new MailJavaSender().sendMail(new MailJava(super.nome,super.email,this.estado));
+        try {
+            Pedido pedidoObject = (Pedido) pedidoSubject;
+            new MailJavaSender().senderMail(new MailJava(super.nome,super.email,pedidoObject.getStatus().getDescricao()));
+        } catch (UnsupportedEncodingException | MessagingException ex) {
+            Logger.getLogger(UsuarioCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getCpf() {

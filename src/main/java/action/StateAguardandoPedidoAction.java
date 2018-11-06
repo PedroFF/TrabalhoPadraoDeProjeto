@@ -33,8 +33,7 @@ public class StateAguardandoPedidoAction implements Action {
             Integer idRestaurante = Integer.parseInt((String)request.getSession().getAttribute("usuarioID"));
             UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
             Pedido pedido = PedidoDAO.getInstance().getPedidoByIdByRestaurante(id,restaurante.getIdUsuario());//Confirmar
-            pedido.saveToMemento();
-            PedidoDAO.getInstance().adicionarHistorico(pedido, pedido.getStatus().getDescricao(), false); //Confirmar
+            PedidoDAO.getInstance().adicionarHistorico(pedido, pedido.getStatus().getDescricao(), true); //Confirmar
             PedidoDAO.getInstance().updateEstado(pedido);
         } catch (SQLException ex) {
             Logger.getLogger(StateAguardandoPedidoAction.class.getName()).log(Level.SEVERE, null, ex);

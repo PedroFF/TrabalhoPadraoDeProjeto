@@ -6,6 +6,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -23,11 +24,14 @@ public class Pedido extends Observable {
     private UsuarioCliente usuario;
     private PedidoMemento memento;
     private FormaPagamento formapgto;
-    private List<ItemPedido> itensPedido;
+    private List<ItemPedido> itensPedido = new ArrayList<>();
     private Double valorTotal;
     private Double valorDesconto;
     private Double valorLiquido;
-    
+
+    public Pedido() {
+        this.status = new AguardandoPedidoState();
+    }
 
     public Double getValorTotal() {
         if (valorTotal == null) {
@@ -45,11 +49,8 @@ public class Pedido extends Observable {
         this.valorTotal = valorTotal;
         return this;
     }
-             
+
     public Double getValorDesconto() {
-        if (valorDesconto == null) {
-            valorDesconto = DescontoChain.getInstance().calculaDesconto(this);
-        }
         return valorDesconto;
     }
 
@@ -155,7 +156,28 @@ public class Pedido extends Observable {
         return this;
     }
 
+    public void confirmarPedido() throws EstadoNaoPermitidoException {
+        this.status.confirmarPedido(this);
+        this.setChanged();
+        this.notifyObservers();
+    }
 
+    public void prepararPedido() throws EstadoNaoPermitidoException {
+        this.status.prepararPedido(this);
+        this.setChanged();
+        this.notifyObservers();
+    }
 
-    
+    public void sairParaEntrega() throws EstadoNaoPermitidoException {
+        this.status.sairParaEntrega(this);
+        this.setChanged();
+        this.notifyObservers();
+    }
+
+    public void concluirPedido() throws EstadoNaoPermitidoException {
+        this.status.concluirPedido(this);
+        this.setChanged();
+        this.notifyObservers();
+    }
+
 }

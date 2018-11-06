@@ -1,11 +1,7 @@
 package model;
 
 public class DescontoChain {
-    private static DescontoChain descontoChain;
-    public static DescontoChain getInstance() {
-        return descontoChain;
-    }
-
+   
     protected DescontoChain next;
     protected int qtdItensDesconto;
     protected Double percDesconto;

@@ -28,7 +28,7 @@ public class PedidoDAO {
     private String SQL_INSERT_PEDIDO_HISTORICO = "INSERT INTO historico_pedido(fk_pedido,estado,data_alteracao,atual) VALUES (?,?,?,?)";
     private String SQL_INSERT_ITEM_PEDIDO = "INSERT INTO item_pedido(  fk_pedido,fk_item,quantidade,valortotal) VALUES (?,?,?,?)";
     private String SQL_UPDATE_STATE_PEDIDO = "UPDATE PEDIDO SET STATUS = ? WHERE ID_PEDIDO = ? ";
-    private String SQL_SELECT_ALL_PEDIDOS_POR_RESTAURANTE = "SELECT id_pedido FROM PEDIDO WHERE FK_RESTAURANTE = ?";
+    private String SQL_SELECT_ALL_PEDIDOS_POR_RESTAURANTE = "SELECT id_pedido FROM PEDIDO WHERE FK_USUARIO_RESTAURANTE = ?";
     private String SQL_SELECT_PEDIDO_POR_ID = "SELECT * FROM PEDIDO WHERE id_pedido = ? and fk_restaurante = ?";
     private String SQL_SELECT_ITEMPEDIDO = "SELECT * FROM ITEM_PEDIDO WHERE FK_PEDIDO = ?";
     private String SQL_SELECT_ESTADO_POSTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_ALUNO = ? AND ID < (SELECT ID FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO= ?) ORDER BY ID DESC";
@@ -112,7 +112,7 @@ public class PedidoDAO {
 
     }
 
-    public List<Pedido> getAllPedidosByRestaurante(int idRestaurante) throws SQLException {
+    public List<Pedido> getAllPedidosByRestaurante(int idRestaurante) throws SQLException, ClassNotFoundException {
         List<Pedido> pedidos = new ArrayList<>();
 
         try (PreparedStatement comando = conexao.prepareStatement(SQL_SELECT_ALL_PEDIDOS_POR_RESTAURANTE)) {
@@ -127,7 +127,7 @@ public class PedidoDAO {
         return pedidos;
     }
 
-    public Pedido getPedidoByIdByRestaurante(int idPedido, int idRestaurante) throws SQLException {
+    public Pedido getPedidoByIdByRestaurante(int idPedido, int idRestaurante) throws SQLException, ClassNotFoundException {
         Pedido pedido = null;
         try (PreparedStatement comando = conexao.prepareStatement(SQL_SELECT_PEDIDO_POR_ID)) {
             comando.setInt(1, idPedido);

@@ -27,9 +27,9 @@ function selectAll(listBox) {
 $("#tipo").change(function(){          
     var value = $("#tipo option:selected").val();
     var theDiv = $("#combo");
-    if(value == "PFINAL"){
+    if(value === "PFINAL"){
         theDiv.slideDown().addClass("hidden");
-    }else if(value == "INGREDIENTE"){
+    }else if(value === "INGREDIENTE"){
         theDiv.slideUp().removeClass("hidden");
     } 
 });

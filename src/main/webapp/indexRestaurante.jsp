@@ -8,7 +8,7 @@
     <hr>
 </div>
 <div class="container-fluid">
-    <c:if test="${pedidos!=null}">
+    <c:if test="${not empty pedidos}">
         <table class="table table-stripped">
             <thead>
             <th>Pedidos</th>
@@ -34,7 +34,7 @@
             </c:forEach>  
         </table>
     </c:if>
-    <c:if test="${pedidos==null}">
+    <c:if test="${empty pedidos}">
         <div class="text-center">
         <h2 class="text-danger">Não existem pedidos!</h2>
         </div>

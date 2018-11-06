@@ -29,6 +29,10 @@ public class ProdutoDAO {
     public static ProdutoDAO getINSTANCE() {
         return INSTANCE;
     }
+    
+      private ProdutoDAO() {
+        this.conexao = DatabaseLocator.getInstance().getConnection();
+    }
 
     public Integer adicionar(Produto produto, Integer id_restaurante) throws SQLException, ClassNotFoundException {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_ITEM, Statement.RETURN_GENERATED_KEYS)) {

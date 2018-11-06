@@ -29,7 +29,7 @@ public class PedidoDAO {
     private String SQL_INSERT_ITEM_PEDIDO = "INSERT INTO item_pedido(  fk_pedido,fk_item,quantidade,valortotal) VALUES (?,?,?,?)";
     private String SQL_UPDATE_STATE_PEDIDO = "UPDATE PEDIDO SET STATUS = ? WHERE ID_PEDIDO = ? ";
     private String SQL_SELECT_ALL_PEDIDOS_POR_RESTAURANTE = "SELECT id_pedido FROM PEDIDO WHERE FK_USUARIO_RESTAURANTE = ?";
-    private String SQL_SELECT_PEDIDO_POR_ID = "SELECT * FROM PEDIDO WHERE id_pedido = ? and fk_restaurante = ?";
+    private String SQL_SELECT_PEDIDO_POR_ID = "SELECT p.*,fp.descricao as descricaopgto, fp.id_forma_pagamento as id_pgto FROM PEDIDO p inner join forma_pagamento fp on p.fk_forma_pagamento = fp.id_forma_pagamento WHERE id_pedido = ? and fk_restaurante = ?";
     private String SQL_SELECT_ITEMPEDIDO = "SELECT * FROM ITEM_PEDIDO WHERE FK_PEDIDO = ?";
     private String SQL_SELECT_ESTADO_POSTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_ALUNO = ? AND ID < (SELECT ID FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO= ?) ORDER BY ID DESC";
     private String SQL_SELECT_ESTADO_ANTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_ALUNO = ? AND ID > (SELECT ID FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?) ORDER BY ID ASC";
@@ -140,7 +140,7 @@ public class PedidoDAO {
                     PedidoState state = StateFactory.create(rs.getString("estado"));
                     UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
                     UsuarioCliente cliente = UsuarioDAO.getInstance().getUsuarioClienteByID(rs.getInt("fk_usuario_cliente "));
-                    FormaPagamento formapgto = FormaPagamentoFactory.create(rs.getString("descricao"));
+                    FormaPagamento formapgto = FormaPagamentoFactory.create(rs.getString("descricaopgto"),rs.getInt("id_pgto"));
                     pedido = new Pedido().setValorTotal(rs.getDouble("valorPedido"))
                             .setValorDesconto(rs.getDouble("valorDesconto"))
                             .setValorLiquido(rs.getDouble("valorLiquido"))

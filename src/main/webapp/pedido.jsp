@@ -10,7 +10,7 @@
                 <c:forEach var="produto" items="${produtos}">
                     <option value="${produto.descricao}">
                         Produto: ${produto.descricao},
-                        Ingredientes: ${produto.ingredientes}
+                        Ingredientes: ${produto.ingredientes}<br/>
                         Valor: ${produto.preco}
                     </option>
                     <input type="hidden" name="produto" value="${produto.id}">

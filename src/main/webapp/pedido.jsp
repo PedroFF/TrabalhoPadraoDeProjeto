@@ -13,7 +13,7 @@
                         Valor: ${produto.preco}
                     </option>
                     <input type="hidden" name="produto" value="${produto.id}">
-                    <input type="hidden" name="restaurante" value="${restaurante.id}">
+                    <input type="hidden" name="restaurante" value="${restaurante.idUsuario}">
                 </c:forEach>
             </select>
         </div>

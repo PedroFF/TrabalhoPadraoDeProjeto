@@ -13,7 +13,6 @@ import model.DescontoChainNivelUm;
 
 public class DescontoDAO {
 
-/*
     private Connection conexao;
     private static final DescontoDAO INSTANCE = new DescontoDAO();
     private String SQL_SELECT_DESCONTO = "SELECT desconto_nivel_um, quantidade_nivel_um, desconto_nivel_dois, quantidade_nivel_dois, desconto_nivel_tres, quantidade_nivel_tres FROM restaurante_desconto rd where rd.id_usuario_restaurante = ?";
@@ -40,5 +39,5 @@ public class DescontoDAO {
        return chain;
     }
 
-*/
+
 }

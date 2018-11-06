@@ -117,7 +117,9 @@ public class ProdutoDAO {
             ResultSet resultado = consulta.executeQuery();
             if (resultado.next()) {
                 do {
-                    ingredientes.add((Ingrediente) this.getProdutoByID(resultado.getInt("id_item"), id_restaurante));
+                     Produto produto =  this.getProdutoByID(resultado.getInt("id_item"), id_restaurante);
+                     Ingrediente ingrediente = new Ingrediente().from(produto);
+                    ingredientes.add(ingrediente);
                 } while (resultado.next());
 
             }

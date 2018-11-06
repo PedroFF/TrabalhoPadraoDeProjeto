@@ -258,7 +258,7 @@ public class MailJava {
                 + "                    <tr>\n"
                 + "\n"
                 + "                        <td align=\"center\" class=\"section-img\">\n"
-                + "                            <a href=\"\" style=\" border-style: none !important; display: block; border: 0 !important;\"><img src=\"https://ibb.co/fLuwyV\" style=\"display: block; width: 590px;\" width=\"590\" border=\"0\" alt=\"\" /></a>\n"
+                + "                            <a href=\"\" style=\" border-style: none !important; display: block; border: 0 !important;\"><img src=\"https://preview.ibb.co/enJOdV/UAIFOOd.png\" style=\"display: block; width: 590px;\" width=\"590\" border=\"0\" alt=\"\" /></a>\n"
                 + "\n"
                 + "\n"
                 + "\n"

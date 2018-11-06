@@ -24,13 +24,16 @@ public class UsuarioCliente extends Usuario implements Observer {
     }
     
     
-
+    public void observarPedido(Pedido pedido){
+        this.pedido = pedido;
+        pedido.addObserver(this);
+    }
     
     @Override
     public void update(Observable pedidoSubject, Object arg) {
         try {
-            Pedido pedido = (Pedido) pedidoSubject;
-            new MailJavaSender().senderMail(new MailJava(super.nome,super.email,pedido.getStatus().getDescricao()));
+            Pedido pedidoObject = (Pedido) pedidoSubject;
+            new MailJavaSender().senderMail(new MailJava(super.nome,super.email,pedidoObject.getStatus().getDescricao()));
         } catch (UnsupportedEncodingException | MessagingException ex) {
             Logger.getLogger(UsuarioCliente.class.getName()).log(Level.SEVERE, null, ex);
         }

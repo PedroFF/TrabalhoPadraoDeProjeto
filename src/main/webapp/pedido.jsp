@@ -1,7 +1,7 @@
 <%@include file="jspf/header.jspf" %>
 <%@include file="jspf/nav.jspf" %>
 
-<form method="post" action="UaiFat=action?ItemPedidoPost">
+<form method="post" action="UaiFat?action=ItemPedidoPost">
     <div class="form-group">
         <label>Produto</label>
         <select id="produto" name="produto" class="form-control col-md-4">

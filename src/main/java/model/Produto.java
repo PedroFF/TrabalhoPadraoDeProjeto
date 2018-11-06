@@ -8,12 +8,12 @@ import java.util.List;
  * @author pedrofreitas
  */
 public class Produto {
-    private int id;
-    private UsuarioRestaurante Restaurante;
+    protected int id;
+    protected UsuarioRestaurante Restaurante;
     private List<Ingrediente> Ingredientes;
-    private String descricao;
-    private double preco;
-    private boolean ingrediente;
+    protected String descricao;
+    protected double preco;
+    protected boolean ingrediente;
     public Produto() {
     }
 

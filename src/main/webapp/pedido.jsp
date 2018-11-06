@@ -10,7 +10,7 @@
                 <c:forEach var="produto" items="${produtos}">
                     <option value="${produto.descricao}">
                         Produto: ${produto.descricao},
-                        Ingredientes: ${produto.ingredientes}<br/>
+                        Ingredientes: ${produto.ingredientes},<br/>
                         Valor: ${produto.preco}
                     </option>
                     <input type="hidden" name="produto" value="${produto.id}">
@@ -21,7 +21,7 @@
 
         <div class="form-group">
             <label for="quantidade">Quantidade</label>
-            <input type="number" min="0" name="quantidade" id="quantidade" class="form-control col-md-4"/>
+            <input type="number" min="0" name="quantidade" id="quantidade" placeholder="0" required="" class="form-control col-md-4"/>
         </div>
         <button type="submit" class="btn btn-success">Adicionar Item</button>
     </form>

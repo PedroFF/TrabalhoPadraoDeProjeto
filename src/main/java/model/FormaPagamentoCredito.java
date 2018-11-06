@@ -11,6 +11,11 @@ public class FormaPagamentoCredito extends FormaPagamento {
         super(id, descricao);
     }
 
+    public FormaPagamentoCredito() {
+    }
+    
+    
+
     @Override
     public String getDescricaoCompleta() {
         return " da máquina de Cartão. Compras acima de R$ 200,00 poderão ser parceladas";

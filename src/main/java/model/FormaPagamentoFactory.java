@@ -8,7 +8,7 @@ package model;
 public class FormaPagamentoFactory {
     public static FormaPagamento create(String forma, Integer id) {
         FormaPagamento actionObject = null;
-        String nomeClasse = "FormaPagamento" + forma;
+        String nomeClasse = "model.FormaPagamento" + forma;
         Class classe = null;
         Object objeto = null;
         try {

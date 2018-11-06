@@ -20,8 +20,8 @@ public class Pedido extends Observable {
     private int idPedido;
     private String descricao;
     private PedidoState status;
-    private UsuarioRestaurante restaurante;
-    private UsuarioCliente usuario;
+    private Usuario restaurante;
+    private Usuario usuario;
     private PedidoMemento memento;
     private FormaPagamento formapgto;
     private List<ItemPedido> itensPedido = new ArrayList<>();
@@ -30,7 +30,7 @@ public class Pedido extends Observable {
     private Double valorLiquido;
 
     public Pedido() {
-        this.status = new AguardandoPedidoState();
+        this.status = new AguardandoState();
     }
 
     public Double getValorTotal() {
@@ -100,6 +100,9 @@ public class Pedido extends Observable {
     }
 
     public String getDescricao() {
+        if (descricao == null) {
+            descricao = this.getDescricaoItens();
+        }
         return descricao;
     }
 
@@ -117,20 +120,20 @@ public class Pedido extends Observable {
         return this;
     }
 
-    public UsuarioRestaurante getRestaurante() {
+    public Usuario getRestaurante() {
         return restaurante;
     }
 
-    public Pedido setRestaurante(UsuarioRestaurante restaurante) {
+    public Pedido setRestaurante(Usuario restaurante) {
         this.restaurante = restaurante;
         return this;
     }
 
-    public UsuarioCliente getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public Pedido setUsuario(UsuarioCliente usuario) {
+    public Pedido setUsuario(Usuario usuario) {
         this.usuario = usuario;
         return this;
     }
@@ -178,6 +181,21 @@ public class Pedido extends Observable {
         this.status.concluirPedido(this);
         this.setChanged();
         this.notifyObservers();
+    }
+
+    public String getDescricaoItens() {
+        StringBuilder str = new StringBuilder();
+
+        Iterator it = itensPedido.iterator();
+        while (it.hasNext()) {
+            str.append(((ItemPedido) it.next()).getProduto().getDescricao());
+            if (it.hasNext()) {
+                str.append(", ");
+            } else {
+                str.append(".");
+            }
+        }
+        return str.toString();
     }
 
 }

@@ -15,6 +15,11 @@ public class FormaPagamentoDebito extends FormaPagamento {
         super(id, descricao);
     }
 
+    public FormaPagamentoDebito() {
+    }
+    
+    
+
     @Override
     public String getDescricaoCompleta() {
     return " da máquina de Cartão. Pagamento apenas a Vista ";  

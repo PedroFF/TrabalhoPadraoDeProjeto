@@ -44,4 +44,9 @@ public class ConcluidoState implements PedidoState {
         this.state = state;
         return this;
     }
+
+    @Override
+    public String getStatus() {
+        return this.state.getStatus();
+    }
 }

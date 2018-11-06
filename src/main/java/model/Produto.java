@@ -1,6 +1,6 @@
-
 package model;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -8,12 +8,14 @@ import java.util.List;
  * @author pedrofreitas
  */
 public class Produto {
+
     protected int id;
     protected UsuarioRestaurante Restaurante;
     protected List<Ingrediente> Ingredientes;
     protected String descricao;
     protected double preco;
     protected boolean ingrediente;
+
     public Produto() {
     }
 
@@ -31,10 +33,7 @@ public class Produto {
         this.descricao = descricao;
         this.preco = preco;
     }
-    
-    
 
-  
     public int getId() {
         return id;
     }
@@ -48,7 +47,6 @@ public class Produto {
         return Restaurante;
     }
 
-    
     public Produto setRestaurante(UsuarioRestaurante Restaurante) {
         this.Restaurante = Restaurante;
         return this;
@@ -89,5 +87,20 @@ public class Produto {
         this.ingrediente = ingrediente;
         return this;
     }
-    
+
+    public String getDescricaoItens() {
+        StringBuilder str = new StringBuilder();
+
+        Iterator it = Ingredientes.iterator();
+        while (it.hasNext()) {
+            str.append(((Ingrediente) it.next()).getDescricao());
+            if (it.hasNext()) {
+                str.append(", ");
+            }else{
+                str.append(".");
+            }
+        }
+        return str.toString();
+    }
+
 }

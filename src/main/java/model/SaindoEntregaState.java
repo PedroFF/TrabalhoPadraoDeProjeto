@@ -2,11 +2,12 @@ package model;
 
 import model.Pedido;
 
-public class SaindoEntregaState implements PedidoState{
+public class SaindoEntregaState implements PedidoState {
+
     private StrategyInterface state;
-    
-    public SaindoEntregaState(){
-        this.state=EnumStatePedido.SAINDOENTREGA;
+
+    public SaindoEntregaState() {
+        this.state = EnumStatePedido.SAINDOENTREGA;
     }
 
     @Override
@@ -43,5 +44,10 @@ public class SaindoEntregaState implements PedidoState{
         this.state = state;
         return this;
     }
-    
+
+    @Override
+    public String getStatus() {
+        return this.state.getStatus();
+    }
+
 }

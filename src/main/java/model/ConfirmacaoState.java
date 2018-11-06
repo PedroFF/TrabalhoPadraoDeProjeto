@@ -2,17 +2,17 @@ package model;
 
 import model.Pedido;
 
-public class ConfirmacaoState implements PedidoState{
-    
+public class ConfirmacaoState implements PedidoState {
+
     private StrategyInterface state;
-    
-    public ConfirmacaoState(){
+
+    public ConfirmacaoState() {
         this.state = EnumStatePedido.CONFIRMACAO;
     }
 
     @Override
     public void aguardarConfirmacao(Pedido p) throws EstadoNaoPermitidoException {
-       p.setStatus(new AguardandoPedidoState());
+        p.setStatus(new AguardandoState());
     }
 
     @Override
@@ -39,9 +39,15 @@ public class ConfirmacaoState implements PedidoState{
     public String getDescricao() {
         return this.state.getDescricao();
     }
-    
-    public ConfirmacaoState setState(StrategyInterface state){
+
+    public ConfirmacaoState setState(StrategyInterface state) {
         this.state = state;
         return this;
+    }
+
+    @Override
+    public String getStatus() {
+
+        return this.state.getStatus();
     }
 }

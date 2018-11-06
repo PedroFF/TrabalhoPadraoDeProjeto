@@ -45,7 +45,7 @@ public class UsuarioDAO {
         return null;
     }
 
-    public UsuarioCliente getUsuarioClienteByEmailSenha(Usuario usuario) {
+    public Usuario getUsuarioClienteByEmailSenha(Usuario usuario) {
         UsuarioCliente cliente = null;
         try {
             try (PreparedStatement consulta = conexao.prepareStatement(SQL_GET_USUARIO_CLIENTE_BY_LOGIN)) {
@@ -72,7 +72,7 @@ public class UsuarioDAO {
         return cliente;
     }
 
-    public UsuarioRestaurante getUsuarioRestauranteByEmailSenha(Usuario usuario) {
+    public Usuario getUsuarioRestauranteByEmailSenha(Usuario usuario) {
         UsuarioRestaurante restaurante = null;
         try {
             try (PreparedStatement consulta = conexao.prepareStatement(SQL_GET_USUARIO_RESTAURANTE_BY_LOGIN)) {
@@ -99,7 +99,7 @@ public class UsuarioDAO {
         return restaurante;
     }
 
-    public UsuarioRestaurante getUsuarioRestauranteByID(Usuario usuario) {
+    public Usuario getUsuarioRestauranteByID(Usuario usuario) {
         UsuarioRestaurante restaurante = null;
         try {
             try (PreparedStatement consulta = conexao.prepareStatement(SQL_GET_USUARIO_RESTAURANTE_BY_ID)) {
@@ -125,7 +125,7 @@ public class UsuarioDAO {
         return restaurante;
     }
 
-    public UsuarioCliente getUsuarioClienteByID(Usuario usuario) {
+    public Usuario getUsuarioClienteByID(Usuario usuario) {
         UsuarioCliente cliente = null;
         try {
             try (PreparedStatement consulta = conexao.prepareStatement(SQL_GET_USUARIO_CLIENTE_BY_ID)) {
@@ -150,8 +150,8 @@ public class UsuarioDAO {
         }
         return cliente;
     }
-    public UsuarioCliente getUsuarioClienteByID(Integer id) {
-        UsuarioCliente cliente = null;
+    public Usuario getUsuarioClienteByID(Integer id) {
+        Usuario cliente = null;
         try {
             try (PreparedStatement consulta = conexao.prepareStatement(SQL_GET_USUARIO_CLIENTE_BY_ID)) {
                 consulta.setInt(1, id);

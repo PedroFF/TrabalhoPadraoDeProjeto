@@ -34,7 +34,11 @@ public class FormaPagamentoDAO {
         try (PreparedStatement consulta = conexao.prepareStatement(SQL_GET_FORMA_PAGAMENTO_BY_DESCRICAO)) {
             consulta.setString(1, descricao);
             ResultSet resultado = consulta.executeQuery();
-            formaPag = FormaPagamentoFactory.create(resultado.getString("descricao"), resultado.getInt("id"));
+            if (resultado.next()) {
+                do {
+                    formaPag = FormaPagamentoFactory.create(resultado.getString("descricao"), resultado.getInt("id_forma_pagamento"));
+                } while (resultado.next());
+            }
         }
         return formaPag;
     }
@@ -43,7 +47,11 @@ public class FormaPagamentoDAO {
         List<FormaPagamento> formas = new ArrayList<>();
         try (PreparedStatement consulta = conexao.prepareStatement(SQL_GET_ALL_FORMA_PAGAMENTO)) {
             ResultSet resultado = consulta.executeQuery();
-            formas.add(this.getFormaPagamento(resultado.getString("DESCRICAO")));
+            if (resultado.next()) {
+                do {
+                    formas.add(this.getFormaPagamento(resultado.getString("DESCRICAO")));
+                } while (resultado.next());
+            }
         }
         return formas;
     }

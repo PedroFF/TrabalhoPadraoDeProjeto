@@ -11,24 +11,26 @@
     <c:if test="${not empty pedidos}">
         <table class="table table-stripped">
             <thead>
-            <th>Pedidos</th>
-            <th>Estados</th>
+            <th class="text-center">Pedidos</th>
+            <th class="text-center">Status</th>
             </thead>
-            <c:forEach var="pedido" items="pedidos">
+            <c:forEach var="pedido" items="${pedidos}">
                 <tr>
-                    <td rowspan="5">
-                        ${pedido.usuario}
-                        ${pedido.descricao}
-                        ${pedido.status}
-                        ${pedido.valorLiquido}
-                        ${pedido.usuario.endereco}
+                    <td>
+                        Cliente: ${pedido.getUsuario().getNome()}<br/>
+                        Descrição: ${pedido.descricao}<br/>
+                        Status: ${pedido.status.getDescricao()}<br/>
+                        Valor: ${pedido.valorLiquido}<br/>
+                        Endereço: ${pedido.usuario.endereco}
                     </td>
-                    <td rowspan="5">
-                        <a href="UaiFat=action?StateAguardandoPedido" class="btn-primary">Aguardando Confirmação</a>
-                        <a href="UaiFat=action?StateConfirmaPedido" class="btn-primary">Confirmar Pedido</a>
-                        <a href="UaiFat=action?StatePreparandoPedido" class="btn-primary">Preparar Pedido</a>
-                        <a href="UaiFat=action?StateSaindoEntrega" class="btn-primary">Entregar Peddo</a>
-                        <a href="UaiFat=action?StateConcluido" class="btn-primary">Pedido Concluído</a>
+                    <td class="text-center">
+                        <a href="UaiFat?action=StateAguardandoPedido&id=${pedido.id}" class="btn btn-primary">Aguardando Confirmação</a>
+                        <a href="UaiFat?action=StateConfirmaPedido&id=${pedido.id}" class="btn btn-primary">Confirmar Pedido</a>
+                        <a href="UaiFat?action=StatePreparandoPedido&id=${pedido.id}" class="btn btn-primary">Preparar Pedido</a>
+                        <a href="UaiFat?action=StateSaindoEntrega&id=${pedido.id}" class="btn btn-primary">Entregar Peddo</a>
+                        <a href="UaiFat?action=StateConcluido&id=${pedido.id}" class="btn btn-primary">Pedido Concluído</a>
+                        <a href="UaiFat?action=RestaurarAnterior&id=${pedido.id}" class="btn btn-primary">Restaurar Status Anterior</a>
+                        <a href="UaiFat?action=RestaurarPosterior&id=${pedido.id}" class="btn btn-primary">Restaurar Status Posterior</a>
                     </td>
                 </tr>
             </c:forEach>  

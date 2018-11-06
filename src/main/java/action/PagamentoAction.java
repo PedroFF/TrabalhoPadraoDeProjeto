@@ -8,36 +8,36 @@ package action;
 import controller.Action;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.DescontoChain;
 import model.FormaPagamento;
 import model.Pedido;
+import persistence.DescontoDAO;
 import persistence.FormaPagamentoDAO;
-import persistence.PedidoDAO;
-import persistence.RestauranteDAO;
-import persistence.UsuarioDAO;
 
 /**
  *
  * @author pedrofreitas
  */
-public class PedidoPostAction implements Action{
+public class PagamentoAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
-            FormaPagamento formapg = FormaPagamentoDAO.getInstance().getFormaPagamento(request.getParameter("pagamento"));
+            
+            List<FormaPagamento> pagamentos = FormaPagamentoDAO.getInstance().getAllFormaPagamento();
+            request.setAttribute("formaPagamentos", pagamentos);
             Pedido pedido = (Pedido) request.getSession().getAttribute("pedido");
-            pedido.setFormapgto(formapg);
-            PedidoDAO dao = PedidoDAO.getInstance();
-            dao.adicionar(pedido);
-            request.setAttribute("pedido", request.getSession().getAttribute("pedido"));
-            request.getRequestDispatcher("statusPedido.jsp").forward(request, response);
+            DescontoChain chain = DescontoDAO.getInstance().getDescontoChain(pedido.getRestaurante().getIdUsuario());
+            pedido.setValorDesconto(chain.calculaDesconto(pedido));
+            request.getRequestDispatcher("pagamento.jsp").forward(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(PedidoPostAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PagamentoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

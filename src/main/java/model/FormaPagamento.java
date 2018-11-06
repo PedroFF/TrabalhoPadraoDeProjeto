@@ -21,7 +21,10 @@ public abstract class FormaPagamento {
         this.descricao = descricao;
     }
 
-   
+    public FormaPagamento() {
+    }
+
+    
     public int getId() {
         return id;
     }

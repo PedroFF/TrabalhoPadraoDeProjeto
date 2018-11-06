@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Pedido;
 import model.Produto;
+import model.Usuario;
 import model.UsuarioCliente;
 import model.UsuarioRestaurante;
 import persistence.ProdutoDAO;
@@ -30,7 +31,7 @@ public class PedidoAction implements Action {
             UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
             List<Produto> produtos = ProdutoDAO.getINSTANCE().getAllProdutos(idRestaurante);
             Pedido pedido = new Pedido();
-            UsuarioCliente cliente = UsuarioDAO.getInstance().getUsuarioClienteByID((int)request.getSession().getAttribute("usuarioID"));
+            Usuario cliente = UsuarioDAO.getInstance().getUsuarioClienteByID((int)request.getSession().getAttribute("usuarioID"));
             pedido.setUsuario(cliente).setRestaurante(restaurante);
             request.getSession().setAttribute("pedido", pedido);
             request.setAttribute("produtos", produtos);

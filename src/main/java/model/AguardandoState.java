@@ -1,10 +1,10 @@
 package model;
 import model.Pedido;
 
-public class AguardandoPedidoState implements PedidoState{
+public class AguardandoState implements PedidoState{
     private StrategyInterface state;
     
-    public AguardandoPedidoState(){
+    public AguardandoState(){
         this.state = EnumStatePedido.AGUARDANDO;
     }
     
@@ -38,9 +38,14 @@ public class AguardandoPedidoState implements PedidoState{
         throw new EstadoNaoPermitidoException();
     }
 
-    public AguardandoPedidoState setState(StrategyInterface state) {
+    public AguardandoState setState(StrategyInterface state) {
         this.state = state;
         return this;
+    }
+
+    @Override
+    public String getStatus() {
+        return this.state.getStatus();
     }
 
     

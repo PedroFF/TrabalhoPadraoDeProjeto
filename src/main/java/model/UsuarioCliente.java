@@ -48,6 +48,79 @@ public class UsuarioCliente extends Usuario implements Observer {
         return this;
     }
 
+    public Observable getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Observable pedido) {
+        this.pedido = pedido;
+    }
+
+    @Override
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    @Override
+    public UsuarioCliente setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+        return this;
+    }
+
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public UsuarioCliente setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    @Override
+    public String getSenha() {
+        return senha;
+    }
+
+    @Override
+    public UsuarioCliente setSenha(String senha) {
+        this.senha = senha;
+        return this;
+    }
+
+    @Override
+    public String getNome() {
+        return nome;
+    }
+
+    @Override
+    public UsuarioCliente setNome(String nome) {
+        this.nome = nome;
+        return this;
+    }
+
+    @Override
+    public String getTipo() {
+        return tipo;
+    }
+
+    @Override
+    public UsuarioCliente setTipo(String tipo) {
+        this.tipo = tipo;
+        return this;
+    }
+
+    @Override
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public UsuarioCliente setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+        return this;
+    }
+
     
     
     

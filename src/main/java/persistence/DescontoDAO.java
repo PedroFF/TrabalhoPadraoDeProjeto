@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import model.DescontoChain;
 import model.DescontoChainNivelDois;
 import model.DescontoChainNivelTres;
@@ -31,10 +29,12 @@ public class DescontoDAO {
         try (PreparedStatement consulta = conexao.prepareStatement(SQL_SELECT_DESCONTO)) {
             consulta.setInt(1, idRestaurante);
             ResultSet resultado = consulta.executeQuery();
+            if(resultado.next()){
             DescontoChainNivelTres chainTres = new DescontoChainNivelTres(resultado.getInt("quantidade_nivel_tres"),resultado.getDouble("desconto_nivel_tres"));
             DescontoChainNivelDois chainDois = new DescontoChainNivelDois(resultado.getInt("quantidade_nivel_dois"),resultado.getDouble("desconto_nivel_dois"));
             chain = new DescontoChainNivelUm(resultado.getInt("quantidade_nivel_um"),resultado.getDouble("desconto_nivel_um"));
             chain.setNext(chainDois).setNext(chainTres);
+            }
         }
        return chain;
     }

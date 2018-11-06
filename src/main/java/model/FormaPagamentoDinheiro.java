@@ -7,9 +7,12 @@ package model;
  */
 public class FormaPagamentoDinheiro extends FormaPagamento {
 
+    
     public FormaPagamentoDinheiro(int id, String descricao) {
         super(id, descricao);
     }
+    
+    public FormaPagamentoDinheiro(){};
 
     @Override
     public String getDescricaoCompleta() {

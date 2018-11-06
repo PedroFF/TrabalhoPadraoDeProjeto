@@ -15,5 +15,7 @@ public interface PedidoState {
     public void concluirPedido(Pedido p) throws EstadoNaoPermitidoException;
 
     public String getDescricao();
+    
+    public String getStatus();
 
 }

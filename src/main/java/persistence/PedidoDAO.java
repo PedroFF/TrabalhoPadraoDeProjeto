@@ -18,6 +18,7 @@ import model.Pedido;
 import model.PedidoState;
 import model.Produto;
 import model.StateFactory;
+import model.Usuario;
 import model.UsuarioCliente;
 import model.UsuarioRestaurante;
 
@@ -25,17 +26,17 @@ public class PedidoDAO {
 
     private Connection conexao;
     private static final PedidoDAO INSTANCE = new PedidoDAO();
-    private String SQL_INSERT_PEDIDO = "INSERT INTO pedido(descricao,status,valorpedido,valordesconto,valorliquido,fk_forma_pagamento,fk_pedido_cliente,fk_pedido_restaurante) VALUES (?,?,?,?,?,?,?,?)";
+    private String SQL_INSERT_PEDIDO = "INSERT INTO pedido(descricao,status,valorpedido,valordesconto,valorliquido,fk_forma_pagamento,fk_usuario_cliente,fk_usuario_restaurante) VALUES (?,?,?,?,?,?,?,?)";
     private String SQL_INSERT_PEDIDO_HISTORICO = "INSERT INTO historico_pedido(fk_pedido,estado,data_alteracao,atual) VALUES (?,?,?,?)";
     private String SQL_INSERT_ITEM_PEDIDO = "INSERT INTO item_pedido(  fk_pedido,fk_item,quantidade,valortotal) VALUES (?,?,?,?)";
     private String SQL_UPDATE_STATE_PEDIDO = "UPDATE PEDIDO SET STATUS = ? WHERE ID_PEDIDO = ? ";
     private String SQL_SELECT_ALL_PEDIDOS_POR_RESTAURANTE = "SELECT id_pedido FROM PEDIDO WHERE FK_USUARIO_RESTAURANTE = ?";
-    private String SQL_SELECT_PEDIDO_POR_ID = "SELECT p.*,fp.descricao as descricaopgto, fp.id_forma_pagamento as id_pgto FROM PEDIDO p inner join forma_pagamento fp on p.fk_forma_pagamento = fp.id_forma_pagamento WHERE id_pedido = ? and fk_restaurante = ?";
+    private String SQL_SELECT_PEDIDO_POR_ID = "SELECT p.*,fp.descricao as descricaopgto, fp.id_forma_pagamento as id_pgto FROM PEDIDO p inner join forma_pagamento fp on p.fk_forma_pagamento = fp.id_forma_pagamento WHERE id_pedido = ? and fk_usuario_restaurante = ?";
     private String SQL_SELECT_ITEMPEDIDO = "SELECT * FROM ITEM_PEDIDO WHERE FK_PEDIDO = ?";
-    private String SQL_SELECT_ESTADO_POSTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_ALUNO = ? AND ID < (SELECT ID FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO= ?) ORDER BY ID DESC";
-    private String SQL_SELECT_ESTADO_ANTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_ALUNO = ? AND ID > (SELECT ID FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?) ORDER BY ID ASC";
-    private String SQL_UPDATE_ATUAL = "UPDATE HISTORICO_PEDIDO SET ATUAL = ? WHERE ID = ? AND FK_PEDIDO = ?";
-    private String SQL_SELECT_ATUAL = "SELECT ID FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?";
+    private String SQL_SELECT_ESTADO_POSTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO < (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO= ?) ORDER BY ID_HISTORICO_PEDIDO DESC";
+    private String SQL_SELECT_ESTADO_ANTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO > (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?) ORDER BY ID_HISTORICO_PEDIDO ASC";
+    private String SQL_UPDATE_ATUAL = "UPDATE HISTORICO_PEDIDO SET ATUAL = ? WHERE ID_HISTORICO_PEDIDO = ? AND FK_PEDIDO = ?";
+    private String SQL_SELECT_ATUAL = "SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?";
 
     public static PedidoDAO getInstance() {
         return INSTANCE;
@@ -47,8 +48,7 @@ public class PedidoDAO {
 
     public void adicionar(Pedido pedido) throws SQLException {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_PEDIDO, Statement.RETURN_GENERATED_KEYS)) {
-            DescontoChain chain = DescontoDAO.getInstance().getDescontoChain(pedido.getRestaurante().getIdUsuario());
-            pedido.setValorDesconto(chain.calculaDesconto(pedido));
+            
             comando.setString(1, pedido.getDescricao());
             comando.setString(2, pedido.getStatus().getDescricao());
             comando.setDouble(3, pedido.getValorTotal());
@@ -67,7 +67,7 @@ public class PedidoDAO {
                 while (iter.hasNext()) {
                     this.adicionarItemPedido(pedido, (ItemPedido) iter.next());
                 }
-                adicionarHistorico(pedido, pedido.getStatus().getDescricao(), true);
+                adicionarHistorico(pedido, pedido.getStatus().getStatus(), true);
             }
             comando.close();
         }
@@ -140,9 +140,9 @@ public class PedidoDAO {
             if (rs.next()) {
                 do {
                     List<ItemPedido> itens = this.getItensPedido(idPedido, idRestaurante);
-                    PedidoState state = StateFactory.create(rs.getString("estado"));
-                    UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
-                    UsuarioCliente cliente = UsuarioDAO.getInstance().getUsuarioClienteByID(rs.getInt("fk_usuario_cliente "));
+                    PedidoState state = StateFactory.create(rs.getString("status"));
+                    Usuario restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
+                    Usuario cliente = UsuarioDAO.getInstance().getUsuarioClienteByID(rs.getInt("fk_usuario_cliente"));
                     FormaPagamento formapgto = FormaPagamentoFactory.create(rs.getString("descricaopgto"),rs.getInt("id_pgto"));
                     pedido = new Pedido().setValorTotal(rs.getDouble("valorPedido"))
                             .setValorDesconto(rs.getDouble("valorDesconto"))
@@ -188,9 +188,9 @@ public class PedidoDAO {
         stmt.setMaxRows(1);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            pedido.setStatus(StateFactory.create(rs.getString("estado")));
+            pedido.setStatus(StateFactory.create(rs.getString("status")));
             Integer antigo = this.getAtual(pedido.getIdPedido());
-            this.setAtual(rs.getInt("id"), true, pedido.getIdPedido());
+            this.setAtual(rs.getInt("ID_HISTORICO_PEDIDO"), true, pedido.getIdPedido());
             this.setAtual(antigo, false, pedido.getIdPedido());
             this.updateEstado(pedido);
         }
@@ -206,9 +206,9 @@ public class PedidoDAO {
         stmt.setInt(2, pedido.getIdPedido());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            pedido.setStatus(StateFactory.create(rs.getString("estado")));
+            pedido.setStatus(StateFactory.create(rs.getString("status")));
             Integer antigo = this.getAtual(pedido.getIdPedido());
-            this.setAtual(rs.getInt("id"), true, pedido.getIdPedido());
+            this.setAtual(rs.getInt("ID_HISTORICO_PEDIDO"), true, pedido.getIdPedido());
             this.setAtual(antigo, false, pedido.getIdPedido());
             this.updateEstado(pedido);
         }
@@ -228,8 +228,7 @@ public class PedidoDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         conn = DatabaseLocator.getInstance().getConnection();
-        String sql = "SELECT ID FROM ALUNO_HISTORICO_ESTADO WHERE ATUAL = TRUE AND FK_ALUNO = ?";
-        stmt = conn.prepareStatement(sql);
+        stmt = conn.prepareStatement(SQL_SELECT_ATUAL);
         stmt.setInt(1, id_pedido);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {

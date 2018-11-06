@@ -17,21 +17,22 @@ import persistence.UsuarioDAO;
  *
  * @author pedrofreitas
  */
-public class HomeAction implements Action{
+public class HomeAction implements Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         String tipo = (String) request.getSession().getAttribute("usuarioTipo");
-        Usuario restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID((int)request.getSession().getAttribute("usuarioID"));
-        if(tipo == null){
+        Usuario restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID((int) request.getSession().getAttribute("usuarioID"));
+        if (tipo == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else if(tipo.equals("CLIENTE")){
-            request.getRequestDispatcher("ClienteInicio.jsp").forward(request, response);
-        } else if(tipo.equals("RESTAURANTE")){
+        } else if (tipo.equals("CLIENTE")) {
+            ListarRestauranteAction comando = new ListarRestauranteAction();
+            comando.execute(request, response);
+        } else if (tipo.equals("RESTAURANTE")) {
             request.setAttribute("restaurante", restaurante);
             request.getRequestDispatcher("indexRestaurante.jsp").forward(request, response);
         }
     }
-    
+
 }

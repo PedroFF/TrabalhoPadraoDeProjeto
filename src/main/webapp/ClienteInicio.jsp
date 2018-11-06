@@ -19,10 +19,10 @@
                 </thead>
                 <tbody>
                     <c:forEach var="restaurante" items="${restaurantes}">
-                        <tr>
-                            <td><center><a href="UaiFat=action?Pedido">${restaurante.nome}</center></td> 
-                <input type="hidden" name="idRestaurante" value="${restaurante.id}">
-                <td><center><img src="${restaurante.imagem}" id="imagemborda" alt="imagem " width="42" height="42"></center></td> 
+                    <tr>
+                        <td><center><a href="UaiFat=action?Pedido">${restaurante.nome}</center></td> 
+                        <input type="hidden" name="idRestaurante" value="${restaurante.idUsuario}">
+                        <td><center><img src="" id="imagemborda" alt="imagem_restaurante" width="42" height="42"></center></td> 
                     </tr>
                 </c:forEach>
                 </tbody>

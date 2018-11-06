@@ -81,7 +81,7 @@
                     <div class="col"></div>
                     <div class="col">
                         <div class="container-fluid">
-                        <button type="submit" id="btnsalvar" name="btnsalvar" class="btn btn-success for" onclick="selectAll('destino')">Salvar</button>              
+                        <button type="submit" id="btnsalvar" name="btnsalvar" class="btn btn-success for" onclick="">Salvar</button>              
                         <a href="UaiFat?action=Login" name="btncancelar" class="btn btn-danger">Cancelar</a>
                         </div>
                     </div>

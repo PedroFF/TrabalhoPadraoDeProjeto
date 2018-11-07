@@ -9,6 +9,9 @@
                 <a class="nav-link" href="UaiFat?action=GravarProduto">Adicionar Produto</a>
             </li>
             <li class="nav-item active">
+                <a class="nav-link" href="UaiFat?action=ListarProduto">Cardápio</a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="UaiFat?action=Sobre">Sobre</a>
             </li>
             <li class="nav-item active">

@@ -27,7 +27,7 @@ function selectAll(listBox) {
 $("#tipo").change(function(){          
     var value = $("#tipo option:selected").val();
     var theDiv = $("#combo");
-    var btn = $('#btnsalvar');
+    
     if(value === "PFINAL"){
         theDiv.slideDown().addClass("hidden");
         btn.click(selectAll('destino'));
@@ -40,3 +40,13 @@ $("#tipo").change(function(){
 $('#cancela-pedido').click(function (){
      window.location.href = "UaiFat?action=Index";
 });
+
+$('#btnsalvar').click(function(){
+    
+    var value = $("#tipo option:selected").val();
+    if(value === "PFINAL"){
+        $('#btnsalvar').click(selectAll('destino'));
+    }else if(value === "INGREDIENTE"){
+        $('#btnsalvar').click();
+    } 
+})

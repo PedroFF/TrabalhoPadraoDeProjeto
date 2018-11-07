@@ -1,7 +1,7 @@
 <%@include file="jspf/header.jspf" %>
 <%@include file="jspf/nav.jspf" %>
     
-<table>
+<table class="table table-stripped">
     <thead>
         <th>Pedidos</th>
         <th>Detalhes</th>
@@ -10,7 +10,7 @@
         <c:forEach var="pedido" items="${pedidos}">
             <tr>
                 <td>${pedido.descricao}</td>
-                <td><a href="UaiFat?action=PedidoPost&id=${pedido.idPedido}"></a>Ver mais</td>
+                <td><a href="UaiFat?action=PedidoPost&id=${pedido.idPedido}">Ver mais</a></td>
             </tr>
         </c:forEach>
     </tbody>

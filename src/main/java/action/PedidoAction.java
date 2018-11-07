@@ -31,8 +31,9 @@ public class PedidoAction implements Action {
             UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
             List<Produto> produtos = ProdutoDAO.getINSTANCE().getAllProdutos(idRestaurante);
             Pedido pedido = new Pedido();
-            Usuario cliente = UsuarioDAO.getInstance().getUsuarioClienteByID((int)request.getSession().getAttribute("usuarioID"));
+            UsuarioCliente cliente = (UsuarioCliente) UsuarioDAO.getInstance().getUsuarioClienteByID((int)request.getSession().getAttribute("usuarioID"));
             pedido.setUsuario(cliente).setRestaurante(restaurante);
+            cliente.observarPedido(pedido);
             request.getSession().setAttribute("pedido", pedido);
             request.setAttribute("produtos", produtos);
             request.setAttribute("restaurante", restaurante);

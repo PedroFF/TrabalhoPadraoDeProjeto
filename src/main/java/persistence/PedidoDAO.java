@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import model.DescontoChain;
+import model.EnumStatePedido;
 import model.FormaPagamento;
 import model.FormaPagamentoFactory;
 import model.ItemPedido;
@@ -34,7 +35,7 @@ public class PedidoDAO {
     private String SQL_SELECT_PEDIDO_POR_ID = "SELECT p.*,fp.descricao as descricaopgto, fp.id_forma_pagamento as id_pgto FROM PEDIDO p inner join forma_pagamento fp on p.fk_forma_pagamento = fp.id_forma_pagamento WHERE id_pedido = ? and fk_usuario_restaurante = ? ORDER BY ID_PEDIDO";
     private String SQL_SELECT_ITEMPEDIDO = "SELECT * FROM ITEM_PEDIDO WHERE FK_PEDIDO = ?";
     private String SQL_SELECT_ESTADO_POSTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO < (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO= ?) ORDER BY ID_HISTORICO_PEDIDO DESC";
-    private String SQL_SELECT_ESTADO_ANTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO > (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?) ORDER BY ID_HISTORICO_PEDIDO ASC";
+    private String SQL_SELECT_ESTADO_ANTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO < (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?) AND ESTADO <> ? ORDER BY ID_HISTORICO_PEDIDO DESC";
     private String SQL_UPDATE_ATUAL = "UPDATE HISTORICO_PEDIDO SET ATUAL = ? WHERE ID_HISTORICO_PEDIDO = ? AND FK_PEDIDO = ?";
     private String SQL_SELECT_ATUAL = "SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?";
 
@@ -142,7 +143,7 @@ public class PedidoDAO {
                     List<ItemPedido> itens = this.getItensPedido(idPedido, idRestaurante);
                     PedidoState state = StateFactory.create(rs.getString("status"));
                     Usuario restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
-                    Usuario cliente = UsuarioDAO.getInstance().getUsuarioClienteByID(rs.getInt("fk_usuario_cliente"));
+                    UsuarioCliente cliente = (UsuarioCliente) UsuarioDAO.getInstance().getUsuarioClienteByID(rs.getInt("fk_usuario_cliente"));
                     FormaPagamento formapgto = FormaPagamentoFactory.create(rs.getString("descricaopgto"),rs.getInt("id_pgto"));
                     pedido = new Pedido().setValorTotal(rs.getDouble("valorPedido"))
                             .setValorDesconto(rs.getDouble("valorDesconto"))
@@ -154,6 +155,7 @@ public class PedidoDAO {
                             .setRestaurante(restaurante)
                             .setUsuario(cliente)
                             .setFormapgto(formapgto);
+                    cliente.observarPedido(pedido);
                 } while (rs.next());
 
             }
@@ -185,10 +187,11 @@ public class PedidoDAO {
         stmt = conn.prepareStatement(SQL_SELECT_ESTADO_ANTERIOR);
         stmt.setInt(1, pedido.getIdPedido());
         stmt.setInt(2, pedido.getIdPedido());
+        stmt.setString(3, EnumStatePedido.AGUARDANDO.getStatus());
         stmt.setMaxRows(1);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            pedido.setStatus(StateFactory.create(rs.getString("status")));
+            pedido.setStatus(StateFactory.create(rs.getString("estado")));
             Integer antigo = this.getAtual(pedido.getIdPedido());
             this.setAtual(rs.getInt("ID_HISTORICO_PEDIDO"), true, pedido.getIdPedido());
             this.setAtual(antigo, false, pedido.getIdPedido());

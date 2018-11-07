@@ -17,6 +17,7 @@
             <c:forEach var="pedido" items="${pedidos}">
                 <tr>
                     <td>
+                        ID: ${pedido.idPedido}<br/>
                         Cliente: ${pedido.getUsuario().getNome()}<br/>
                         Descrição: ${pedido.descricao}<br/>
                         Status: ${pedido.status.getDescricao()}<br/>

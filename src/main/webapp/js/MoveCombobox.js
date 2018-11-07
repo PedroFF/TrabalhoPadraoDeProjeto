@@ -30,7 +30,7 @@ $("#tipo").change(function(){
     var btn = $('#btnsalvar');
     if(value === "PFINAL"){
         theDiv.slideDown().addClass("hidden");
-        btn.click(selectAll($('#destino')));
+        btn.click(selectAll('destino'));
     }else if(value === "INGREDIENTE"){
         theDiv.slideUp().removeClass("hidden");
         btn.click();

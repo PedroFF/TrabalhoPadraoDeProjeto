@@ -1,5 +1,5 @@
 <%@include file="jspf/header.jspf" %>
-<%@include file="jspf/navEmpresa.jspf.jspf" %>
+<%@include file="jspf/navEmpresa.jspf" %>
     
 <table class="table table-stripped">
     <thead>

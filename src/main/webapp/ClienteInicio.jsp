@@ -21,7 +21,7 @@
                     <c:forEach var="restaurante" items="${restaurantes}">
                     <tr>
                         <td><center><a href="UaiFat?action=Pedido&idRestaurante=${restaurante.idUsuario}">${restaurante.nome}</center></td> 
-                        <td><center><img src="" id="imagemborda" alt="imagem_restaurante" width="42" height="42"></center></td> 
+                        <td><center><img src="icone/image_food.png" id="imagemborda" alt="imagem_restaurante" width="48" height="48"></center></td> 
                     </tr>
                 </c:forEach>
                 </tbody>

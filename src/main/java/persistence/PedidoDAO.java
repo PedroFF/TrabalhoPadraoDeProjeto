@@ -32,7 +32,7 @@ public class PedidoDAO {
     private String SQL_INSERT_ITEM_PEDIDO = "INSERT INTO item_pedido(  fk_pedido,fk_item,quantidade,valortotal) VALUES (?,?,?,?)";
     private String SQL_UPDATE_STATE_PEDIDO = "UPDATE PEDIDO SET STATUS = ? WHERE ID_PEDIDO = ? ";
     private String SQL_SELECT_ALL_PEDIDOS_POR_RESTAURANTE = "SELECT id_pedido FROM PEDIDO WHERE FK_USUARIO_RESTAURANTE = ?";
-    private String SQL_SELECT_ALL_PEDIDOS_POR_USUARIO= "SELECT id_pedido FROM PEDIDO WHERE FK_USUARIO_CLIENTE = ?";
+    private String SQL_SELECT_ALL_PEDIDOS_POR_USUARIO= "SELECT id_pedido,fk_usuario_restaurante FROM PEDIDO WHERE FK_USUARIO_CLIENTE = ?";
     private String SQL_SELECT_PEDIDO_POR_ID = "SELECT p.*,fp.descricao as descricaopgto, fp.id_forma_pagamento as id_pgto FROM PEDIDO p inner join forma_pagamento fp on p.fk_forma_pagamento = fp.id_forma_pagamento WHERE id_pedido = ? and fk_usuario_restaurante = ? ORDER BY ID_PEDIDO";
     private String SQL_SELECT_ITEMPEDIDO = "SELECT * FROM ITEM_PEDIDO WHERE FK_PEDIDO = ?";
     private String SQL_SELECT_ESTADO_POSTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO < (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO= ?) ORDER BY ID_HISTORICO_PEDIDO DESC";
@@ -139,7 +139,7 @@ public class PedidoDAO {
             ResultSet rs = comando.executeQuery();
             if(rs.next()){
                 do{
-                    pedidos.add(this.getPedidoByIdByRestaurante(rs.getInt("id_pedido"), idUsuario));
+                    pedidos.add(this.getPedidoByIdByRestaurante(rs.getInt("id_pedido"), rs.getInt("fk_usuario_restaurante")));
                 }while(rs.next());
             }
         }
@@ -184,7 +184,7 @@ public class PedidoDAO {
             ResultSet rs = comando.executeQuery();
             if (rs.next()) {
                 do {
-                    Produto produto = ProdutoDAO.getINSTANCE().getProdutoByID(rs.getInt("fk_pedido"), idRestaurante);
+                    Produto produto = ProdutoDAO.getINSTANCE().getProdutoByID(rs.getInt("fk_item"), idRestaurante);
                     ItemPedido itempedido = new ItemPedido().setProduto(produto).setQuantidade(rs.getInt("quantidade")).setValorItem(rs.getDouble("valorTotal"));
                     itensPedidos.add(itempedido);
                 } while (rs.next());

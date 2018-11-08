@@ -18,35 +18,31 @@ function selectAll(listBox) {
         //alert($(this).val());
     }
     );
-    
-    $("#"+listBox).prop('required', true);
+
+    $("#" + listBox).prop('required', true);
 
 
 }
 
-$("#tipo").change(function(){          
+$("#tipo").change(function () {
     var value = $("#tipo option:selected").val();
     var theDiv = $("#combo");
-    
-    if(value === "PFINAL"){
+
+    if (value === "PFINAL") {
         theDiv.slideDown().addClass("hidden");
-        btn.click(selectAll('destino'));
-    }else if(value === "INGREDIENTE"){
+    } else if (value === "INGREDIENTE") {
         theDiv.slideUp().removeClass("hidden");
-        btn.click();
-    } 
+    }
 });
 
-$('#cancela-pedido').click(function (){
-     window.location.href = "UaiFat?action=Index";
+$('#cancela-pedido').click(function () {
+    window.location.href = "UaiFat?action=Index";
 });
 
-$('#btnsalvar').click(function(){
-    
+$('#btnsalvar').click(function () {
+
     var value = $("#tipo option:selected").val();
-    if(value === "PFINAL"){
-        $('#btnsalvar').click(selectAll('destino'));
-    }else if(value === "INGREDIENTE"){
-        $('#btnsalvar').click();
-    } 
+    if (value === "PFINAL") {
+        selectAll('destino');
+    }
 })

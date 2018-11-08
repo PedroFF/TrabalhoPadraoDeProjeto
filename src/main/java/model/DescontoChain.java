@@ -1,5 +1,7 @@
 package model;
 
+import java.math.BigDecimal;
+
 public class DescontoChain {
    
     protected DescontoChain next;
@@ -30,7 +32,9 @@ public class DescontoChain {
 
     public Double calculaDesconto(Pedido p) {
         if (p.getItensPedido().size() <= qtdItensDesconto) {
-            return (p.getValorTotal() * percDesconto);
+            BigDecimal bd = new BigDecimal(p.getValorTotal() * percDesconto);
+            bd.setScale(2,BigDecimal.ROUND_DOWN);
+            return bd.doubleValue();
         } else {
             if (next != null) {
                 next.calculaDesconto(p);

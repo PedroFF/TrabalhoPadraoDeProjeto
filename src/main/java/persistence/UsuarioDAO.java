@@ -21,7 +21,7 @@ public class UsuarioDAO {
     private static final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final String SQL_GET_USUARIO_CLIENTE_BY_LOGIN = "SELECT * FROM usuario inner join usuariocliente on usuario.id_usuario = usuariocliente.id_usuario_cliente WHERE email = ? AND senha = ?";
     private final String SQL_GET_USUARIO_CLIENTE_BY_ID = "SELECT * FROM usuario inner join usuariocliente on usuario.id_usuario = usuariocliente.id_usuario_cliente WHERE id_usuario = ?";
-    private final String SQL_GET_USUARIO_RESTAURANTE_BY_LOGIN = "SELECT * FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante WHERE email = ? AND senha = ?";
+    private final String SQL_GET_USUARIO_RESTAURANTE_BY_LOGIN = "SELECT * FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante WHERE LOWER(email) = LOWER(?) AND senha = ?";
     private final String SQL_GET_USUARIO_RESTAURANTE_BY_ID = "SELECT * FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante WHERE id_usuario = ?";
     private final String SQL_GET_ALL_USUARIOS_RESTAURANTES = "SELECT id_usuario FROM usuario inner join usuariorestaurante on usuario.id_usuario = usuariorestaurante.id_usuario_restaurante ";
     private final String SQL_INSERT_USUARIO = "INSERT INTO usuario(nome,senha,email,tipo)VALUES (?,?,?,?);";

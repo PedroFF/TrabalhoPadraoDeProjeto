@@ -9,6 +9,11 @@
 </div>
 <div class="container-fluid">
     <c:if test="${not empty pedidos}">
+        <c:if test="${not empty ErroPedido}">
+            <div class="alert alert-danger" role="alert">
+                ${ErroPedido}
+            </div>
+        </c:if>
         <table class="table table-stripped">
             <thead>
             <th class="text-center">Pedidos</th>
@@ -27,10 +32,10 @@
                     <td class="text-center">
                         <a href="UaiFat?action=StateConfirmaPedido&id=${pedido.idPedido}" class="btn btn-primary">Confirmar Pedido</a>
                         <a href="UaiFat?action=StatePreparandoPedido&id=${pedido.idPedido}" class="btn btn-primary">Preparar Pedido</a>
-                        <a href="UaiFat?action=StateSaindoEntrega&id=${pedido.idPedido}" class="btn btn-primary">Entregar Peddo</a>
+                        <a href="UaiFat?action=StateSaindoEntrega&id=${pedido.idPedido}" class="btn btn-primary">Entregar Pedido</a>
                         <a href="UaiFat?action=StateConcluido&id=${pedido.idPedido}" class="btn btn-primary">Pedido Concluído</a>
                         <a href="UaiFat?action=RestaurarAnterior&id=${pedido.idPedido}" class="btn btn-primary">Restaurar Status Anterior</a>
-                   </td>
+                    </td>
                 </tr>
             </c:forEach>  
         </table>

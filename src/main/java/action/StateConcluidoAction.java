@@ -34,8 +34,12 @@ public class StateConcluidoAction implements Action {
             PedidoDAO.getInstance().updateEstado(pedido);
             IndexRestauranteAction comando = new IndexRestauranteAction();
             comando.execute(request, response);
-        } catch (SQLException | EstadoNaoPermitidoException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(StateConcluidoAction.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (EstadoNaoPermitidoException ex) {
+            request.setAttribute("ErroPedido", ex.getMessage());
+            IndexRestauranteAction comando = new IndexRestauranteAction();
+            comando.execute(request, response);
         }
       
     }

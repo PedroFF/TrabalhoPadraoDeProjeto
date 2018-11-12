@@ -1,4 +1,3 @@
-
 package action;
 
 import controller.Action;
@@ -25,17 +24,22 @@ public class StateConfirmaPedidoAction implements Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            Integer idRestaurante =  (int)request.getSession().getAttribute("usuarioID");
+            Integer idRestaurante = (int) request.getSession().getAttribute("usuarioID");
             UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
-            Pedido pedido = PedidoDAO.getInstance().getPedidoByIdByRestaurante(id,restaurante.getIdUsuario());
+            Pedido pedido = PedidoDAO.getInstance().getPedidoByIdByRestaurante(id, restaurante.getIdUsuario());
             pedido.saveToMemento();
             pedido.confirmarPedido();
             PedidoDAO.getInstance().adicionarHistorico(pedido, pedido.getStatus().getStatus(), true); //Confirmar
             PedidoDAO.getInstance().updateEstado(pedido);
-IndexRestauranteAction comando = new IndexRestauranteAction();
-            comando.execute(request, response);        } catch (SQLException | EstadoNaoPermitidoException ex) {
+            IndexRestauranteAction comando = new IndexRestauranteAction();
+            comando.execute(request, response);
+        } catch (SQLException ex) {
             Logger.getLogger(StateConfirmaPedidoAction.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (EstadoNaoPermitidoException ex) {
+            request.setAttribute("ErroPedido", ex.getMessage());
+            IndexRestauranteAction comando = new IndexRestauranteAction();
+            comando.execute(request, response);
         }
     }
-    
+
 }

@@ -13,17 +13,19 @@
             <thead>
             <th>Pedidos</th>
             <th>Status</th>
+            <th>Restaurante</th>
             <th>Detalhes</th>
         </thead>
         <c:forEach var="pedido" items="${pedidos}">
             <tr>
                 <td>${pedido.getDescricao()}</td>
                 <td>${pedido.status.getDescricao()}</td>
+                <td>${pedido.restaurante.nome}</td>
                 <td><a href="UaiFat?action=StatusPedido&id=${pedido.idPedido}&idRestaurante=${pedido.restaurante.idUsuario}">Ver mais</a></td>
             </tr>
-        </tbody>
-    </table>
-</c:forEach>
+        </c:forEach>
+    </tbody>
+</table>
 </c:otherwise>
 </c:choose>
 

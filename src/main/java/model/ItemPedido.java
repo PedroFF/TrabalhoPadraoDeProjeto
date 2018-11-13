@@ -10,7 +10,7 @@ package model;
  * @author jpdia
  */
 public class ItemPedido {
-    private Produto produto;
+    private ProdutoFinal produto;
     private Integer quantidade;
     private Double valorTotal;
 
@@ -23,11 +23,11 @@ public class ItemPedido {
         return this;
     }
 
-    public Produto getProduto() {
+    public ProdutoFinal getProduto() {
         return produto;
     }
 
-    public ItemPedido setProduto(Produto produto) {
+    public ItemPedido setProduto(ProdutoFinal produto) {
         this.produto = produto;
         return this;
     }

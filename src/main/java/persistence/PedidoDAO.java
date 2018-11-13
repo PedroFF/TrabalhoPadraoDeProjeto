@@ -17,7 +17,7 @@ import model.FormaPagamentoFactory;
 import model.ItemPedido;
 import model.Pedido;
 import model.PedidoState;
-import model.Produto;
+import model.ProdutoFinal;
 import model.StateFactory;
 import model.Usuario;
 import model.UsuarioCliente;

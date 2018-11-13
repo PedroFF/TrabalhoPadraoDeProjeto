@@ -45,4 +45,29 @@ $('#btnsalvar').click(function () {
     if (value === "PFINAL") {
         selectAll('destino');
     }
-})
+});
+
+$("#item").change(function () {
+    getDados();
+});
+
+$("#item").ready(function () {
+    getDados();
+});
+
+function getDados(){
+var value = $("#item option:selected").val();
+
+    $.get("UaiFat?action=ListarIngredientesProduto&produto=" + value, function (dados) {
+        let option;
+        if (dados.length > 0) {
+            $.each(dados, function (i, obj) {
+                option += '<option value="' + obj.id + '">' + obj.descricao + '</option>';
+            });
+            $('#origem').html(option).show();
+        } else {
+            Reset();
+            $('#mensagem').html('<span class="mensagem">Não foram encontrados paises!</span>');
+        }
+    });
+}

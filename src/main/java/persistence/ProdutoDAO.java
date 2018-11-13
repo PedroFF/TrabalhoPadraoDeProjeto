@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Ingrediente;
-import model.Produto;
+import model.ProdutoFinal;
 import model.UsuarioRestaurante;
 
 /**
@@ -34,7 +34,7 @@ public class ProdutoDAO {
         this.conexao = DatabaseLocator.getInstance().getConnection();
     }
 
-    public Integer adicionar(Produto produto, Integer id_restaurante) throws SQLException, ClassNotFoundException {
+    public Integer adicionar(ProdutoFinal produto, Integer id_restaurante) throws SQLException, ClassNotFoundException {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_ITEM, Statement.RETURN_GENERATED_KEYS)) {
             comando.setString(1, produto.getDescricao());
             comando.setDouble(2, produto.getPreco());
@@ -52,8 +52,8 @@ public class ProdutoDAO {
         return produto.getId();
     }
 
-    public Produto getProdutoByID(Integer id_item, Integer id_restaurante) throws ClassNotFoundException, SQLException {
-        Produto item = null;
+    public ProdutoFinal getProdutoByID(Integer id_item, Integer id_restaurante) throws ClassNotFoundException, SQLException {
+        ProdutoFinal item = null;
         try (PreparedStatement consulta = conexao.prepareStatement(SQL_SELECT_ITEM_BY_ID_AND_RESTAURANTE)) {
             consulta.setInt(1, id_item);
             consulta.setInt(2, id_restaurante);
@@ -61,7 +61,7 @@ public class ProdutoDAO {
             ResultSet resultado = consulta.executeQuery();
             while (resultado.next()) {
                 UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(id_restaurante);
-                item = new Produto().setId(resultado.getInt("id_item"))
+                item = new ProdutoFinal().setId(resultado.getInt("id_item"))
                         .setDescricao(resultado.getString("nome"))
                         .setPreco(resultado.getDouble("preco")).
                         setRestaurante(restaurante)
@@ -83,7 +83,7 @@ public class ProdutoDAO {
             ResultSet resultado = consulta.executeQuery();
             if (resultado.next()) {
                 do {
-                    Produto produto = this.getProdutoByID(resultado.getInt("id_item"), resultado.getInt("fk_restaurante"));
+                    ProdutoFinal produto = this.getProdutoByID(resultado.getInt("id_item"), resultado.getInt("fk_restaurante"));
                     Ingrediente ingrediente = new Ingrediente().from(produto);
                     ingredientes.add(ingrediente);
                 } while (resultado.next());
@@ -93,8 +93,8 @@ public class ProdutoDAO {
         return ingredientes;
     }
 
-    public List<Produto> getAllProdutos(Integer id_restaurante) throws SQLException, ClassNotFoundException {
-        List<Produto> produtos = new ArrayList<>();
+    public List<ProdutoFinal> getAllProdutos(Integer id_restaurante) throws SQLException, ClassNotFoundException {
+        List<ProdutoFinal> produtos = new ArrayList<>();
         try (PreparedStatement consulta = conexao.prepareStatement(SQL_SELECT_ALL_ITEMS_COMPOSTOS)) {
             consulta.setInt(1, id_restaurante);
             consulta.execute();
@@ -117,7 +117,7 @@ public class ProdutoDAO {
             ResultSet resultado = consulta.executeQuery();
             if (resultado.next()) {
                 do {
-                     Produto produto =  this.getProdutoByID(resultado.getInt("id_item"), id_restaurante);
+                     ProdutoFinal produto =  this.getProdutoByID(resultado.getInt("id_item"), id_restaurante);
                      Ingrediente ingrediente = new Ingrediente().from(produto);
                     ingredientes.add(ingrediente);
                 } while (resultado.next());

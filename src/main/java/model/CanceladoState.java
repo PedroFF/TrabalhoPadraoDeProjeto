@@ -1,10 +1,12 @@
+
 package model;
 
-public class AguardandoState implements PedidoState{
-    private StrategyInterface state;
+
+public class CanceladoState implements PedidoState {
+     private StrategyInterface state;
     
-    public AguardandoState(){
-        this.state = EnumStatePedido.AGUARDANDO;
+    public CanceladoState(){
+        this.state = EnumStatePedido.CANCELADO;
     }
     
     @Override
@@ -19,7 +21,7 @@ public class AguardandoState implements PedidoState{
 
     @Override
     public void confirmarPedido(Pedido p) throws EstadoNaoPermitidoException {
-        p.setStatus(new ConfirmacaoState());
+        throw new EstadoNaoPermitidoException();
     }
 
     @Override
@@ -37,7 +39,7 @@ public class AguardandoState implements PedidoState{
         throw new EstadoNaoPermitidoException();
     }
 
-    public AguardandoState setState(StrategyInterface state) {
+    public CanceladoState setState(StrategyInterface state) {
         this.state = state;
         return this;
     }
@@ -46,6 +48,4 @@ public class AguardandoState implements PedidoState{
     public String getStatus() {
         return this.state.getStatus();
     }
-
-    
 }

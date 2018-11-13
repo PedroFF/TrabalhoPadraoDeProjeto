@@ -8,26 +8,32 @@ import java.util.List;
  */
 public class Ingrediente extends Produto{
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public UsuarioRestaurante getRestaurante() {
         return Restaurante;
     }
 
+    @Override
     public List<Ingrediente> getIngredientes() {
         return Ingredientes;
     }
 
+    @Override
     public String getDescricao() {
         return descricao;
     }
 
+    @Override
     public double getPreco() {
         return preco;
     }
 
+    @Override
     public boolean isIngrediente() {
         return ingrediente;
     }
@@ -68,7 +74,7 @@ public class Ingrediente extends Produto{
         return this;
     }
 
-    public Ingrediente from(Produto produto) {
+    public Ingrediente from(ProdutoFinal produto) {
         return new Ingrediente().setId(produto.getId()).setDescricao(produto.getDescricao()).setIngrediente(produto.isIngrediente()).setPreco(produto.getPreco()).setRestaurante(produto.getRestaurante());
     }
     

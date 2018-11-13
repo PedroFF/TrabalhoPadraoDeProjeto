@@ -37,6 +37,7 @@ public class UsuarioDAO {
     }
 
     public Usuario getUsuario(Usuario usuario) {
+       
         if ("CLIENTE".equals(usuario.getTipo().toUpperCase())) {
             return getUsuarioClienteByEmailSenha(usuario);
         } else if ("RESTAURANTE".equals(usuario.getTipo().toUpperCase())) {

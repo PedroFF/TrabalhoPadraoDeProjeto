@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ItemPedido;
 import model.Pedido;
-import model.Produto;
+import model.ProdutoFinal;
 
 /**
  *
@@ -52,7 +52,7 @@ public class ItemPedidoDAO {
             ResultSet rs = comando.executeQuery();
             if (rs.next()) {
                 do {
-                    Produto produto = ProdutoDAO.getINSTANCE().getProdutoByID(rs.getInt("fk_item"), idRestaurante);
+                    ProdutoFinal produto = ProdutoDAO.getINSTANCE().getProdutoByID(rs.getInt("fk_item"), idRestaurante);
                     ItemPedido itempedido = new ItemPedido().setProduto(produto).setQuantidade(rs.getInt("quantidade")).setValorItem(rs.getDouble("valorTotal"));
                     itensPedidos.add(itempedido);
                 } while (rs.next());

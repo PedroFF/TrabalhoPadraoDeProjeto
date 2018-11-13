@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Pedido;
-import model.Produto;
+import model.ProdutoFinal;
 import model.Usuario;
 import model.UsuarioCliente;
 import model.UsuarioRestaurante;
@@ -29,7 +29,7 @@ public class PedidoAction implements Action {
         try {
             Integer idRestaurante = Integer.parseInt(request.getParameter("idRestaurante"));
             UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
-            List<Produto> produtos = ProdutoDAO.getINSTANCE().getAllProdutos(idRestaurante);
+            List<ProdutoFinal> produtos = ProdutoDAO.getINSTANCE().getAllProdutos(idRestaurante);
             Pedido pedido = new Pedido();
             UsuarioCliente cliente = (UsuarioCliente) UsuarioDAO.getInstance().getUsuarioClienteByID((int)request.getSession().getAttribute("usuarioID"));
             pedido.setUsuario(cliente).setRestaurante(restaurante);

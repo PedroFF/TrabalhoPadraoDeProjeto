@@ -10,11 +10,40 @@
                 <c:forEach var="produto" items="${produtos}"> 
                     <option value="${produto.id}">Produto: ${produto.descricao}, Ingredientes: ${produto.getDescricaoItens()}, Valor: ${produto.preco}</option>
                 </c:forEach>
-                <input type="hidden" name="restaurante" value="${restaurante.idUsuario}">
 
             </select>
+            <input type="hidden" name="restaurante" value="${restaurante.idUsuario}">
+        </div>
+        <br/><br/><br/>
+        <div class="row" id="combo">
+
+            <div class="col">  
+                <label for="origem" class="text-center font-weight-bold">Escolha os produtos que deseja em seu lanche: </label>
+                <select class="custom-select" size="15" id="origem">
+                    <c:forEach var="ingrediente" items="${ingredientes}">
+                        <option value="${ingrediente.id}">${ingrediente.descricao}</option>
+                    </c:forEach>
+                </select>
+
+            </div>
+            <div class="col btn-group-vertical">
+                <br/><br/><br/><br/>
+                <button type="button" id="add" class="btn btn-primary" onclick="MoveListBoxItem('origem', 'destino', false)">Adicionar</button>
+                <button type="button" id="addAll" class="btn btn-primary" onclick="MoveListBoxItem('origem', 'destino', true)">Adicionar Todos</button>
+                <button type="button" id="remove" class="btn btn-danger" onclick="MoveListBoxItem('destino', 'origem', false)">Remover</button>
+                <button type="button" id="removeAll" class="btn btn-danger" onclick="MoveListBoxItem('destino', 'origem', true)">Remover Todos</button>
+            </div>
+            <div class="col">  
+                <label for="destino" class="text-center font-weight-bold">Ingredientes Selecionados para o lanche: </label>
+                <select multiple="multiple" class="custom-select" name="selecionados" size="15" id="destino">
+                </select> 
+                <br/>
+                <br/>
+                <br/>
+            </div>
         </div>
 
+        <br/> <br/>
         <div class="form-group">
             <label for="quantidade">Quantidade</label>
             <input type="number" min="0" name="quantidade" id="quantidade" placeholder="0" required="" class="form-control col-md-4"/>

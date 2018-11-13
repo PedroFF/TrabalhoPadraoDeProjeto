@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Produto;
+import model.ProdutoFinal;
 import model.Usuario;
 import persistence.ProdutoDAO;
 import persistence.UsuarioDAO;
@@ -20,7 +20,7 @@ public class ListarProdutoAction implements Action{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
             int idRestaurante = (int)request.getSession().getAttribute("usuarioID");
-            List<Produto> produtos = ProdutoDAO.getINSTANCE().getAllProdutos(idRestaurante);
+            List<ProdutoFinal> produtos = ProdutoDAO.getINSTANCE().getAllProdutos(idRestaurante);
             request.setAttribute("produtos", produtos);
             request.getRequestDispatcher("listaProdutos.jsp").forward(request, response);
         } catch (SQLException ex) {

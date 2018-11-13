@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Ingrediente;
-import model.Produto;
+import model.ProdutoFinal;
 import model.UsuarioRestaurante;
 import persistence.ProdutoDAO;
 import persistence.RestauranteDAO;
@@ -30,7 +30,7 @@ public class GravarProdutoPostAction implements Action {
             String tipo = request.getParameter("tipo");
             Double preco = Double.parseDouble(request.getParameter("preco").replace(",", "."));
             UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID((int) request.getSession().getAttribute("usuarioID"));
-            Produto produto = new Produto();
+            ProdutoFinal produto = new ProdutoFinal();
             produto.setPreco(preco).setDescricao(nome).setRestaurante(restaurante);
             if (tipo.equals("PFINAL")) {
                 produto.setIngrediente(false);

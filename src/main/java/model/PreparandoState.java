@@ -30,6 +30,11 @@ public class PreparandoState implements PedidoState {
     public void concluirPedido(Pedido p) throws EstadoNaoPermitidoException {
         throw new EstadoNaoPermitidoException();
     }
+    
+     @Override
+    public void cancelarPedido(Pedido p) throws EstadoNaoPermitidoException {
+        p.setStatus(new CanceladoState());
+    }
 
     @Override
     public String getDescricao() {

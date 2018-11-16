@@ -176,6 +176,12 @@ public class Pedido extends Observable {
         this.notifyObservers();
     }
 
+    public void cancelar() throws EstadoNaoPermitidoException {
+        this.status.cancelarPedido(this);
+        this.setChanged();
+        this.notifyObservers();
+    }
+
     public void concluirPedido() throws EstadoNaoPermitidoException {
         this.status.concluirPedido(this);
         this.setChanged();

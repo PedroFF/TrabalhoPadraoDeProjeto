@@ -36,6 +36,11 @@ public class SaindoEntregaState implements PedidoState {
     }
 
     @Override
+    public void cancelarPedido(Pedido p) throws EstadoNaoPermitidoException {
+        p.setStatus(new CanceladoState());
+    }
+
+    @Override
     public String getDescricao() {
         return this.state.getDescricao();
     }

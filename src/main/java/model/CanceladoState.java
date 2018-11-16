@@ -1,14 +1,13 @@
-
 package model;
 
-
 public class CanceladoState implements PedidoState {
-     private StrategyInterface state;
-    
-    public CanceladoState(){
+
+    private StrategyInterface state;
+
+    public CanceladoState() {
         this.state = EnumStatePedido.CANCELADO;
     }
-    
+
     @Override
     public String getDescricao() {
         return this.state.getDescricao();
@@ -36,6 +35,11 @@ public class CanceladoState implements PedidoState {
 
     @Override
     public void concluirPedido(Pedido p) throws EstadoNaoPermitidoException {
+        throw new EstadoNaoPermitidoException();
+    }
+
+    @Override
+    public void cancelarPedido(Pedido p) throws EstadoNaoPermitidoException {
         throw new EstadoNaoPermitidoException();
     }
 

@@ -29,16 +29,17 @@ public class PedidoDAO {
     private static final PedidoDAO INSTANCE = new PedidoDAO();
     private String SQL_INSERT_PEDIDO = "INSERT INTO pedido(descricao,status,valorpedido,valordesconto,valorliquido,fk_forma_pagamento,fk_usuario_cliente,fk_usuario_restaurante) VALUES (?,?,?,?,?,?,?,?)";
     private String SQL_INSERT_PEDIDO_HISTORICO = "INSERT INTO historico_pedido(fk_pedido,estado,data_alteracao,atual) VALUES (?,?,?,?)";
-   // private String SQL_INSERT_ITEM_PEDIDO = "INSERT INTO item_pedido(  fk_pedido,fk_item,quantidade,valortotal) VALUES (?,?,?,?)";
+    // private String SQL_INSERT_ITEM_PEDIDO = "INSERT INTO item_pedido(  fk_pedido,fk_item,quantidade,valortotal) VALUES (?,?,?,?)";
     private String SQL_UPDATE_STATE_PEDIDO = "UPDATE PEDIDO SET STATUS = ? WHERE ID_PEDIDO = ? ";
     private String SQL_SELECT_ALL_PEDIDOS_POR_RESTAURANTE = "SELECT id_pedido FROM PEDIDO WHERE FK_USUARIO_RESTAURANTE = ?";
-    private String SQL_SELECT_ALL_PEDIDOS_POR_USUARIO= "SELECT id_pedido,fk_usuario_restaurante FROM PEDIDO WHERE FK_USUARIO_CLIENTE = ?";
+    private String SQL_SELECT_ALL_PEDIDOS_POR_USUARIO = "SELECT id_pedido,fk_usuario_restaurante FROM PEDIDO WHERE FK_USUARIO_CLIENTE = ?";
     private String SQL_SELECT_PEDIDO_POR_ID = "SELECT p.*,fp.descricao as descricaopgto, fp.id_forma_pagamento as id_pgto FROM PEDIDO p inner join forma_pagamento fp on p.fk_forma_pagamento = fp.id_forma_pagamento WHERE id_pedido = ? and fk_usuario_restaurante = ? ORDER BY ID_PEDIDO";
     //private String SQL_SELECT_ITEMPEDIDO = "SELECT * FROM ITEM_PEDIDO WHERE FK_PEDIDO = ?";
-    private String SQL_SELECT_ESTADO_POSTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO < (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO= ?) ORDER BY ID_HISTORICO_PEDIDO DESC";
+    private String SQL_SELECT_ESTADO_POSTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO > (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO= ?) ORDER BY ID_HISTORICO_PEDIDO ASC";
     private String SQL_SELECT_ESTADO_ANTERIOR = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO < (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?) AND ESTADO <> ? ORDER BY ID_HISTORICO_PEDIDO DESC";
     private String SQL_UPDATE_ATUAL = "UPDATE HISTORICO_PEDIDO SET ATUAL = ? WHERE ID_HISTORICO_PEDIDO = ? AND FK_PEDIDO = ?";
     private String SQL_SELECT_ATUAL = "SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?";
+    private String SQL_DELETE_POSTERIORES = "DELETE FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO> ?";
 
     public static PedidoDAO getInstance() {
         return INSTANCE;
@@ -50,7 +51,7 @@ public class PedidoDAO {
 
     public void adicionar(Pedido pedido) throws SQLException {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_PEDIDO, Statement.RETURN_GENERATED_KEYS)) {
-            
+
             comando.setString(1, pedido.getDescricao());
             comando.setString(2, pedido.getStatus().getStatus());
             comando.setDouble(3, pedido.getValorTotal());
@@ -94,7 +95,7 @@ public class PedidoDAO {
 
     }
 
-   /* public void adicionarItemPedido(Pedido pedido, ItemPedido item) throws SQLException {
+    /* public void adicionarItemPedido(Pedido pedido, ItemPedido item) throws SQLException {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_ITEM_PEDIDO)) {
             comando.setInt(1, pedido.getIdPedido());
             comando.setInt(2, item.getProduto().getId());
@@ -105,7 +106,6 @@ public class PedidoDAO {
         }
 
     }*/
-
     public void updateEstado(Pedido pedido) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -123,28 +123,30 @@ public class PedidoDAO {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_SELECT_ALL_PEDIDOS_POR_RESTAURANTE)) {
             comando.setInt(1, idRestaurante);
             ResultSet rs = comando.executeQuery();
-            if(rs.next()){
-                do{
+            if (rs.next()) {
+                do {
                     pedidos.add(this.getPedidoByIdByRestaurante(rs.getInt("id_pedido"), idRestaurante));
-                }while(rs.next());
+                } while (rs.next());
             }
         }
         return pedidos;
     }
-     public List<Pedido> getAllPedidosByUsuario(int idUsuario) throws SQLException, ClassNotFoundException {
+
+    public List<Pedido> getAllPedidosByUsuario(int idUsuario) throws SQLException, ClassNotFoundException {
         List<Pedido> pedidos = new ArrayList<>();
 
         try (PreparedStatement comando = conexao.prepareStatement(SQL_SELECT_ALL_PEDIDOS_POR_USUARIO)) {
             comando.setInt(1, idUsuario);
             ResultSet rs = comando.executeQuery();
-            if(rs.next()){
-                do{
+            if (rs.next()) {
+                do {
                     pedidos.add(this.getPedidoByIdByRestaurante(rs.getInt("id_pedido"), rs.getInt("fk_usuario_restaurante")));
-                }while(rs.next());
+                } while (rs.next());
             }
         }
         return pedidos;
     }
+
     public Pedido getPedidoByIdByRestaurante(int idPedido, int idRestaurante) throws SQLException, ClassNotFoundException {
         Pedido pedido = null;
         try (PreparedStatement comando = conexao.prepareStatement(SQL_SELECT_PEDIDO_POR_ID)) {
@@ -158,7 +160,7 @@ public class PedidoDAO {
                     PedidoState state = StateFactory.create(rs.getString("status"));
                     Usuario restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
                     UsuarioCliente cliente = (UsuarioCliente) UsuarioDAO.getInstance().getUsuarioClienteByID(rs.getInt("fk_usuario_cliente"));
-                    FormaPagamento formapgto = FormaPagamentoFactory.create(rs.getString("descricaopgto"),rs.getInt("id_pgto"));
+                    FormaPagamento formapgto = FormaPagamentoFactory.create(rs.getString("descricaopgto"), rs.getInt("id_pgto"));
                     pedido = new Pedido().setValorTotal(rs.getDouble("valorPedido"))
                             .setValorDesconto(rs.getDouble("valorDesconto"))
                             .setValorLiquido(rs.getDouble("valorLiquido"))
@@ -177,7 +179,7 @@ public class PedidoDAO {
         return pedido;
     }
 
- /*   public List<ItemPedido> getItensPedido(int idPedido, int idRestaurante) throws SQLException, ClassNotFoundException {
+    /*   public List<ItemPedido> getItensPedido(int idPedido, int idRestaurante) throws SQLException, ClassNotFoundException {
         try (PreparedStatement comando = conexao.prepareStatement(SQL_SELECT_ITEMPEDIDO)) {
             List<ItemPedido> itensPedidos = new ArrayList<>();
             comando.setInt(1, idPedido);
@@ -193,7 +195,7 @@ public class PedidoDAO {
         }
 
     }
-*/
+     */
     public void restaurarEstadoPedido(Pedido pedido) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -223,7 +225,7 @@ public class PedidoDAO {
         stmt.setInt(2, pedido.getIdPedido());
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            pedido.setStatus(StateFactory.create(rs.getString("status")));
+            pedido.setStatus(StateFactory.create(rs.getString("estado")));
             Integer antigo = this.getAtual(pedido.getIdPedido());
             this.setAtual(rs.getInt("ID_HISTORICO_PEDIDO"), true, pedido.getIdPedido());
             this.setAtual(antigo, false, pedido.getIdPedido());
@@ -253,6 +255,43 @@ public class PedidoDAO {
             return rs.getInt("id_historico_pedido");
         }
         return 0;
+    }
+
+    public void removeEstadosPosteriores(Integer id_pedido) throws SQLException, ClassNotFoundException {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = DatabaseLocator.getInstance().getConnection();
+            stmt = conn.prepareStatement(SQL_DELETE_POSTERIORES);
+            stmt.setInt(1, id_pedido);
+            stmt.setInt(2, this.getAtual(id_pedido));
+            stmt.execute();
+        } catch (SQLException ex) {
+            throw ex;
+        }
+    }
+
+    public String estadoPedidoPosterior(Integer id_pedido) throws SQLException, ClassNotFoundException, ClassNotFoundException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+
+            conn = DatabaseLocator.getInstance().getConnection();
+            String sql = "SELECT * FROM HISTORICO_PEDIDO WHERE FK_PEDIDO = ? AND ID_HISTORICO_PEDIDO > (SELECT ID_HISTORICO_PEDIDO FROM HISTORICO_PEDIDO WHERE ATUAL = TRUE AND FK_PEDIDO = ?)"
+                    + "ORDER BY ID_HISTORICO_PEDIDO ASC LIMIT 1";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id_pedido);
+            stmt.setInt(2, id_pedido);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("estado");
+            }
+
+        } catch (SQLException ex) {
+            throw ex;
+        }
+        return "";
     }
 
 }

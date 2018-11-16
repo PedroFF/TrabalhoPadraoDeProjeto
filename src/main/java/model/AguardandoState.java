@@ -36,6 +36,11 @@ public class AguardandoState implements PedidoState{
     public void concluirPedido(Pedido p) throws EstadoNaoPermitidoException {
         throw new EstadoNaoPermitidoException();
     }
+    
+    @Override
+    public void cancelarPedido(Pedido p) throws EstadoNaoPermitidoException {
+        p.setStatus(new CanceladoState());
+    }
 
     public AguardandoState setState(StrategyInterface state) {
         this.state = state;

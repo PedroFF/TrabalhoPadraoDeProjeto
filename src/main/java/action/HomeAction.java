@@ -30,9 +30,8 @@ public class HomeAction implements Action {
             ListarRestauranteAction comando = new ListarRestauranteAction();
             comando.execute(request, response);
         } else if (tipo.equals("RESTAURANTE")) {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setAttribute("restaurante", restaurante);
-            request.getRequestDispatcher("indexRestaurante.jsp").forward(request, response);
+            IndexRestauranteAction comando = new IndexRestauranteAction();
+            comando.execute(request, response);
         }
     }
 

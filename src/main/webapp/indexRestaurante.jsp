@@ -14,7 +14,7 @@
                 ${ErroPedido}
             </div>
         </c:if>
-        <table class="table table-stripped">
+        <table class="table table-stripped table-responsive">
             <thead>
             <th class="text-center">Pedidos</th>
             <th class="text-center">Status</th>
@@ -30,11 +30,13 @@
                         Endereço: ${pedido.usuario.endereco}
                     </td>
                     <td class="text-center">
-                        <a href="UaiFat?action=StateConfirmaPedido&id=${pedido.idPedido}" class="btn btn-primary">Confirmar Pedido</a>
-                        <a href="UaiFat?action=StatePreparandoPedido&id=${pedido.idPedido}" class="btn btn-primary">Preparar Pedido</a>
-                        <a href="UaiFat?action=StateSaindoEntrega&id=${pedido.idPedido}" class="btn btn-primary">Entregar Pedido</a>
-                        <a href="UaiFat?action=StateConcluido&id=${pedido.idPedido}" class="btn btn-primary">Pedido Concluído</a>
+                        <a href="UaiFat?action=StateConfirmaPedido&id=${pedido.idPedido}" class="btn btn-primary">Confirmar</a>
+                        <a href="UaiFat?action=StatePreparandoPedido&id=${pedido.idPedido}" class="btn btn-primary">Preparar</a>
+                        <a href="UaiFat?action=StateSaindoEntrega&id=${pedido.idPedido}" class="btn btn-primary">Entregar</a>
+                        <a href="UaiFat?action=StateConcluido&id=${pedido.idPedido}" class="btn btn-primary">Concluir</a>
+                        <a href="UaiFat?action=StateCancelado&id=${pedido.idPedido}" class="btn btn-primary">Cancelar</a>
                         <a href="UaiFat?action=RestaurarAnterior&id=${pedido.idPedido}" class="btn btn-primary">Restaurar Status Anterior</a>
+                        <a href="UaiFat?action=RestaurarPosterior&id=${pedido.idPedido}" class="btn btn-primary">Restaurar Status Posterior</a>
                     </td>
                 </tr>
             </c:forEach>  

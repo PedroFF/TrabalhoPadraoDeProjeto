@@ -50,4 +50,9 @@ public class ConfirmacaoState implements PedidoState {
 
         return this.state.getStatus();
     }
+
+    @Override
+    public void cancelarPedido(Pedido p) throws EstadoNaoPermitidoException {
+        p.setStatus(new CanceladoState());
+    }
 }

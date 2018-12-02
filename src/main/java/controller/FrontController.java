@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class FrontController extends HttpServlet {
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
         request.setCharacterEncoding("UTF-8");
@@ -83,6 +82,6 @@ public class FrontController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

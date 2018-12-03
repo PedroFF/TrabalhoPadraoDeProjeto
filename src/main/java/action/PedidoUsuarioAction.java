@@ -24,8 +24,7 @@ public class PedidoUsuarioAction implements Action{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
             Usuario usuario = UsuarioDAO.getInstance().getUsuarioClienteByID((int)request.getSession().getAttribute("usuarioID"));
-            List <Pedido> pedidos = PedidoDAO.getInstance().getAllPedidosByUsuario(usuario.getIdUsuario());
-            request.setAttribute("pedidos", pedidos);
+            request.setAttribute("pedidos", PedidoDAO.getInstance().getAllPedidosByUsuario(usuario.getIdUsuario()));
             request.getRequestDispatcher("listaPedidos.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(PedidoUsuarioAction.class.getName()).log(Level.SEVERE, null, ex);

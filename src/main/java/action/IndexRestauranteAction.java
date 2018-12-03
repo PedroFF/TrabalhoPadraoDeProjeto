@@ -19,19 +19,19 @@ import model.Pedido;
 import model.UsuarioRestaurante;
 import persistence.PedidoDAO;
 import persistence.UsuarioDAO;
+import persistence.UsuarioRestauranteDAO;
 
 /**
  *
  * @author pedrofreitas
  */
-class IndexRestauranteAction implements Action{
+public class IndexRestauranteAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
             response.setContentType("text/html;charset=UTF-8");
-            UsuarioDAO dao = UsuarioDAO.getInstance();
-            UsuarioRestaurante restaurante = dao.getUsuarioRestauranteByID((int)request.getSession().getAttribute("usuarioID"));
+            UsuarioRestaurante restaurante = UsuarioRestauranteDAO.getInstance().getUsuarioByID((int)request.getSession().getAttribute("usuarioID"));
             List<Pedido> pedidos = PedidoDAO.getInstance().getAllPedidosByRestaurante(restaurante.getIdUsuario());
             request.setAttribute("restaurante", restaurante);
             Collections.reverse(pedidos);

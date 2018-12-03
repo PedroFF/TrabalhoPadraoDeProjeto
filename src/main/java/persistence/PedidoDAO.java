@@ -95,17 +95,6 @@ public class PedidoDAO {
 
     }
 
-    /* public void adicionarItemPedido(Pedido pedido, ItemPedido item) throws SQLException {
-        try (PreparedStatement comando = conexao.prepareStatement(SQL_INSERT_ITEM_PEDIDO)) {
-            comando.setInt(1, pedido.getIdPedido());
-            comando.setInt(2, item.getProduto().getId());
-            comando.setInt(3, item.getQuantidade());
-            comando.setDouble(4, item.getValorTotal());
-            comando.execute();
-            comando.close();
-        }
-
-    }*/
     public void updateEstado(Pedido pedido) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -179,23 +168,6 @@ public class PedidoDAO {
         return pedido;
     }
 
-    /*   public List<ItemPedido> getItensPedido(int idPedido, int idRestaurante) throws SQLException, ClassNotFoundException {
-        try (PreparedStatement comando = conexao.prepareStatement(SQL_SELECT_ITEMPEDIDO)) {
-            List<ItemPedido> itensPedidos = new ArrayList<>();
-            comando.setInt(1, idPedido);
-            ResultSet rs = comando.executeQuery();
-            if (rs.next()) {
-                do {
-                    Produto produto = ProdutoDAO.getINSTANCE().getProdutoByID(rs.getInt("fk_item"), idRestaurante);
-                    ItemPedido itempedido = new ItemPedido().setProduto(produto).setQuantidade(rs.getInt("quantidade")).setValorItem(rs.getDouble("valorTotal"));
-                    itensPedidos.add(itempedido);
-                } while (rs.next());
-            }
-            return itensPedidos;
-        }
-
-    }
-     */
     public void restaurarEstadoPedido(Pedido pedido) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

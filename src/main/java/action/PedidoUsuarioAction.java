@@ -23,7 +23,7 @@ public class PedidoUsuarioAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
-            Usuario usuario = UsuarioDAO.getInstance().getUsuarioClienteByID((int)request.getSession().getAttribute("usuarioID"));
+            Usuario usuario = UsuarioDAO.getInstance().getUsuarioByID((int)request.getSession().getAttribute("usuarioID"));
             request.setAttribute("pedidos", PedidoDAO.getInstance().getAllPedidosByUsuario(usuario.getIdUsuario()));
             request.getRequestDispatcher("listaPedidos.jsp").forward(request, response);
         } catch (SQLException ex) {

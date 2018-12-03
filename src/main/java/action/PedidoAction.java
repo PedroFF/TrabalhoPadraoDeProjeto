@@ -13,6 +13,7 @@ import model.UsuarioCliente;
 import model.UsuarioRestaurante;
 import persistence.ProdutoDAO;
 import persistence.UsuarioDAO;
+import persistence.UsuarioRestauranteDAO;
 
 /**
  *
@@ -24,8 +25,8 @@ public class PedidoAction implements Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
             Integer idRestaurante = Integer.parseInt(request.getParameter("idRestaurante"));
-            UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
-            UsuarioCliente cliente = (UsuarioCliente) UsuarioDAO.getInstance().getUsuarioClienteByID((int)request.getSession().getAttribute("usuarioID"));
+            UsuarioRestaurante restaurante = UsuarioRestauranteDAO.getInstance().getUsuarioByID(idRestaurante);
+            UsuarioCliente cliente = (UsuarioCliente) UsuarioDAO.getInstance().getUsuarioByID((int)request.getSession().getAttribute("usuarioID"));
             Pedido pedido = new Pedido().setUsuario(cliente).setRestaurante(restaurante);;
             cliente.observarPedido(pedido);
             request.getSession().setAttribute("pedido", pedido);

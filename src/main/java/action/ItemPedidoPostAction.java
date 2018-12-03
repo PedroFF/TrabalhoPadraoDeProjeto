@@ -20,6 +20,7 @@ import model.ProdutoFinal;
 import model.UsuarioRestaurante;
 import persistence.ProdutoDAO;
 import persistence.UsuarioDAO;
+import persistence.UsuarioRestauranteDAO;
 
 /**
  *
@@ -33,7 +34,7 @@ public class ItemPedidoPostAction implements Action{
             Pedido pedido = (Pedido) request.getSession().getAttribute("pedido");
             int idProduto = Integer.parseInt(request.getParameter("item"));
             int idRestaurante = Integer.parseInt(request.getParameter("restaurante"));
-            UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
+            UsuarioRestaurante restaurante = UsuarioRestauranteDAO.getInstance().getUsuarioByID(idRestaurante);
             List<ProdutoFinal> produtos = ProdutoDAO.getINSTANCE().getAllProdutos(idRestaurante);
             ProdutoFinal produto = ProdutoDAO.getINSTANCE().getProdutoByID(idProduto,restaurante.getIdUsuario());
             Double preco = produto.getPreco();

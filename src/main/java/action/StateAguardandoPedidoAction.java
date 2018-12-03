@@ -17,6 +17,7 @@ import model.Pedido;
 import model.UsuarioRestaurante;
 import persistence.PedidoDAO;
 import persistence.UsuarioDAO;
+import persistence.UsuarioRestauranteDAO;
 
 /**
  *
@@ -29,7 +30,7 @@ public class StateAguardandoPedidoAction implements Action {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
             Integer idRestaurante = Integer.parseInt((String)request.getSession().getAttribute("usuarioID"));
-            UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
+            UsuarioRestaurante restaurante = UsuarioRestauranteDAO.getInstance().getUsuarioByID(idRestaurante);
             Pedido pedido = PedidoDAO.getInstance().getPedidoByIdByRestaurante(id,restaurante.getIdUsuario());//Confirmar
             PedidoDAO.getInstance().adicionarHistorico(pedido, pedido.getStatus().getDescricao(), true); //Confirmar
             PedidoDAO.getInstance().updateEstado(pedido);

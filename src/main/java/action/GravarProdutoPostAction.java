@@ -14,6 +14,7 @@ import model.ProdutoFinal;
 import model.UsuarioRestaurante;
 import persistence.ProdutoDAO;
 import persistence.UsuarioDAO;
+import persistence.UsuarioRestauranteDAO;
 
 /**
  *
@@ -28,7 +29,7 @@ public class GravarProdutoPostAction implements Action {
             String nome = request.getParameter("nome");
             String tipo = request.getParameter("tipo");
             Double preco = Double.parseDouble(request.getParameter("preco").replace(",", "."));
-            UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID((int) request.getSession().getAttribute("usuarioID"));
+            UsuarioRestaurante restaurante = UsuarioRestauranteDAO.getInstance().getUsuarioByID((int) request.getSession().getAttribute("usuarioID"));
             ProdutoFinal produto = new ProdutoFinal();
             produto.setPreco(preco).setDescricao(nome).setRestaurante(restaurante);
             if (tipo.equals("PFINAL")) {

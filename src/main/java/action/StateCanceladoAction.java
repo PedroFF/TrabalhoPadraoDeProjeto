@@ -19,6 +19,7 @@ import model.Pedido;
 import model.UsuarioRestaurante;
 import persistence.PedidoDAO;
 import persistence.UsuarioDAO;
+import persistence.UsuarioRestauranteDAO;
 
 /**
  *
@@ -32,7 +33,7 @@ public class StateCanceladoAction implements Action {
             Integer id = Integer.parseInt(request.getParameter("id"));
             Integer idRestaurante = (int)request.getSession().getAttribute("usuarioID");
             String proximoEstado = PedidoDAO.getInstance().estadoPedidoPosterior(id);
-            UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
+            UsuarioRestaurante restaurante = UsuarioRestauranteDAO.getInstance().getUsuarioByID(idRestaurante);
             Pedido pedido = PedidoDAO.getInstance().getPedidoByIdByRestaurante(id,restaurante.getIdUsuario());//Confirmar
             if (!"".equals(proximoEstado) && !proximoEstado.equals(EnumStatePedido.CANCELADO.getStatus()) && !proximoEstado.equals(EnumStatePedido.CONCLUIDO.getStatus())) {
                 PedidoDAO.getInstance().removeEstadosPosteriores(pedido.getIdPedido());

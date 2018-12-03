@@ -23,7 +23,7 @@ public class HomeAction implements Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         String tipo = (String) request.getSession().getAttribute("usuarioTipo");
-        Usuario restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID((int) request.getSession().getAttribute("usuarioID"));
+        Usuario restaurante = UsuarioDAO.getInstance().getUsuarioByID((int) request.getSession().getAttribute("usuarioID"));
         if (tipo == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else if (tipo.equals("CLIENTE")) {

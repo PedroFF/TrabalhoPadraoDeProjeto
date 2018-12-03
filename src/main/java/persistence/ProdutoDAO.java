@@ -60,7 +60,7 @@ public class ProdutoDAO {
             consulta.execute();
             ResultSet resultado = consulta.executeQuery();
             while (resultado.next()) {
-                UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(id_restaurante);
+                UsuarioRestaurante restaurante = UsuarioRestauranteDAO.getInstance().getUsuarioByID(id_restaurante);
                 item = new ProdutoFinal().setId(resultado.getInt("id_item"))
                         .setDescricao(resultado.getString("nome"))
                         .setPreco(resultado.getDouble("preco")).

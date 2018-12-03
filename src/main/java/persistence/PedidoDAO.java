@@ -147,8 +147,8 @@ public class PedidoDAO {
                 do {
                     List<ItemPedido> itens = ItemPedidoDAO.getInstance().getItensPedido(idPedido, idRestaurante);
                     PedidoState state = StateFactory.create(rs.getString("status"));
-                    Usuario restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
-                    UsuarioCliente cliente = (UsuarioCliente) UsuarioDAO.getInstance().getUsuarioClienteByID(rs.getInt("fk_usuario_cliente"));
+                    Usuario restaurante = UsuarioRestauranteDAO.getInstance().getUsuarioByID(idRestaurante);
+                    UsuarioCliente cliente = (UsuarioCliente) UsuarioClienteDAO.getInstance().getUsuarioByID(rs.getInt("fk_usuario_cliente"));
                     FormaPagamento formapgto = FormaPagamentoFactory.create(rs.getString("descricaopgto"), rs.getInt("id_pgto"));
                     pedido = new Pedido().setValorTotal(rs.getDouble("valorPedido"))
                             .setValorDesconto(rs.getDouble("valorDesconto"))

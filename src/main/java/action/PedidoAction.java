@@ -3,19 +3,15 @@ package action;
 import controller.Action;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Pedido;
-import model.ProdutoFinal;
-import model.Usuario;
 import model.UsuarioCliente;
 import model.UsuarioRestaurante;
 import persistence.ProdutoDAO;
-import persistence.RestauranteDAO;
 import persistence.UsuarioDAO;
 
 /**

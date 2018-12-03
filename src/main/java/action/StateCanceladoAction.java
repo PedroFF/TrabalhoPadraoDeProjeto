@@ -18,7 +18,6 @@ import model.EstadoNaoPermitidoException;
 import model.Pedido;
 import model.UsuarioRestaurante;
 import persistence.PedidoDAO;
-import persistence.RestauranteDAO;
 import persistence.UsuarioDAO;
 
 /**

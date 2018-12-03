@@ -13,7 +13,6 @@ import model.Ingrediente;
 import model.ProdutoFinal;
 import model.UsuarioRestaurante;
 import persistence.ProdutoDAO;
-import persistence.RestauranteDAO;
 import persistence.UsuarioDAO;
 
 /**

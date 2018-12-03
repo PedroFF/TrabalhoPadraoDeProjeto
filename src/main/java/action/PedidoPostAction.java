@@ -18,8 +18,6 @@ import model.FormaPagamento;
 import model.Pedido;
 import persistence.FormaPagamentoDAO;
 import persistence.PedidoDAO;
-import persistence.RestauranteDAO;
-import persistence.UsuarioDAO;
 
 /**
  *

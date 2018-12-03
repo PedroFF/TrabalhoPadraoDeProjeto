@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.UsuarioRestaurante;
 import persistence.UsuarioDAO;
+import persistence.UsuarioRestauranteDAO;
 
 /**
  *
@@ -24,8 +25,7 @@ public class ListarRestauranteAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
-            List<UsuarioRestaurante> restaurantes = new ArrayList<>();
-            restaurantes =  UsuarioDAO.getInstance().getAllUsuariosRestaurante();
+            List<UsuarioRestaurante> restaurantes =  UsuarioRestauranteDAO.getInstance().getAllUsuariosRestaurante();
             request.setAttribute("restaurantes",restaurantes);
             RequestDispatcher despachante = request.getRequestDispatcher("/ClienteInicio.jsp");
             despachante.forward(request, response);

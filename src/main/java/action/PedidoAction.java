@@ -29,13 +29,11 @@ public class PedidoAction implements Action {
         try {
             Integer idRestaurante = Integer.parseInt(request.getParameter("idRestaurante"));
             UsuarioRestaurante restaurante = UsuarioDAO.getInstance().getUsuarioRestauranteByID(idRestaurante);
-            List<ProdutoFinal> produtos = ProdutoDAO.getINSTANCE().getAllProdutos(idRestaurante);
-            Pedido pedido = new Pedido();
             UsuarioCliente cliente = (UsuarioCliente) UsuarioDAO.getInstance().getUsuarioClienteByID((int)request.getSession().getAttribute("usuarioID"));
-            pedido.setUsuario(cliente).setRestaurante(restaurante);
+            Pedido pedido = new Pedido().setUsuario(cliente).setRestaurante(restaurante);;
             cliente.observarPedido(pedido);
             request.getSession().setAttribute("pedido", pedido);
-            request.setAttribute("produtos", produtos);
+            request.setAttribute("produtos", ProdutoDAO.getINSTANCE().getAllProdutos(idRestaurante));
             request.setAttribute("restaurante", restaurante);
             request.getRequestDispatcher("pedido.jsp").forward(request, response);
         } catch (SQLException ex) {

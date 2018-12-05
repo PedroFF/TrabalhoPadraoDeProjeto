@@ -25,8 +25,7 @@ public class ListarRestauranteAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         try {
-            List<UsuarioRestaurante> restaurantes =  UsuarioRestauranteDAO.getInstance().getAllUsuariosRestaurante();
-            request.setAttribute("restaurantes",restaurantes);
+            request.setAttribute("restaurantes", UsuarioRestauranteDAO.getInstance().getAllUsuariosRestaurante());
             RequestDispatcher despachante = request.getRequestDispatcher("/ClienteInicio.jsp");
             despachante.forward(request, response);
         } catch (SQLException ex) {
